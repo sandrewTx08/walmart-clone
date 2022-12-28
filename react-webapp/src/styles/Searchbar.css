@@ -1,0 +1,22 @@
+.searchbar input {
+  border: 0;
+  border: 1em;
+  background-color: white;
+  border-radius: 1em;
+  padding: 0.5em 25px 0.5em 0.5em;
+}
+
+.searchbar button {
+  border: 0;
+  background-color: var(--WALMART-YALLOW);
+  padding: 0.5em;
+  border-radius: 1em;
+  display: inline;
+  position: relative;
+  float: right;
+  right: 25px;
+}
+
+.searchbar button svg {
+  color: black;
+}

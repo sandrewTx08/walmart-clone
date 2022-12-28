@@ -1,0 +1,102 @@
+.header {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  background-color: var(--WALMART-BLUE);
+  color: white;
+  height: 4em;
+}
+
+.header-brand-medium {
+  display: none;
+}
+
+.header-brand {
+  max-width: 100%;
+  height: 3em;
+}
+
+.header div {
+  flex-shrink: 0;
+}
+
+.header-item-1:hover {
+  background-color: #00509b;
+}
+
+.header-item-1 {
+  border-radius: 1em;
+  padding: 0.5em;
+}
+
+.header-item-1 svg {
+  padding: 0 0.5em;
+}
+
+.navbar-horizontal ul {
+  display: flex;
+  justify-content: space-between;
+  list-style: none;
+}
+
+.navbar-horizontal li {
+  align-items: center;
+  display: flex;
+}
+
+.navbar-horizontal li svg {
+  justify-content: center;
+}
+
+.navbar-vertical li a {
+  display: flex;
+  align-items: center;
+}
+
+.navbar-vertical li svg {
+  margin: 1em;
+}
+
+.navbar-vertical ul {
+  background-color: white;
+  color: black;
+}
+
+.navbar-vertical button {
+  padding: 5px;
+  border: 0;
+  border-radius: 1em;
+  background-color: #00509b;
+}
+
+.navbar-vertical button svg {
+  color: white;
+}
+
+@media screen and (max-width: 768px) {
+  .navbar-horizontal ul {
+    display: none;
+    justify-content: space-between;
+    list-style: none;
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  .navbar-vertical-buttom {
+    display: none;
+  }
+
+  .navbar-vertical {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  .header-brand-small {
+    display: none;
+  }
+
+  .header-brand-medium {
+    display: block;
+  }
+}

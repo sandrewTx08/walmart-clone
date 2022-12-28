@@ -1,0 +1,29 @@
+.carousel {
+  display: flex;
+  height: 10em;
+  width: 100%;
+  justify-content: space-around;
+  align-items: center;
+  box-shadow: var(--SOFT-SHADOW);
+  background-color: black;
+}
+
+.carousel img {
+  max-width: 100%;
+  position: relative;
+}
+
+.carousel-button {
+  position: relative;
+  background-color: #0071dc;
+  border: 1px solid #ffffff00;
+  border-radius: 3em;
+  width: 5em;
+  height: 5em;
+  display: block;
+}
+
+.carousel-button svg {
+  color: white;
+  font-size: xx-large;
+}

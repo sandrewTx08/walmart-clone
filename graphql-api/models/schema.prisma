@@ -1,0 +1,105 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Countries {
+  id     Int      @id @default(autoincrement())
+  name   String
+  Cities Cities[]
+}
+
+model Cities {
+  id         Int        @id @default(autoincrement())
+  name       String
+  country_id Int
+  Countries  Countries? @relation(fields: [country_id], references: [id])
+  Stores     Stores[]
+  Users      Users[]
+}
+
+model ProductTypes {
+  id       Int        @id @default(autoincrement())
+  name     String
+  Products Products[]
+}
+
+model ProductRates {
+  id         Int      @id @default(autoincrement())
+  Products   Products @relation(fields: [product_id], references: [id])
+  product_id Int
+  Users      Users    @relation(fields: [user_id], references: [id])
+  user_id    String   @db.Uuid
+  rate       Int      @db.SmallInt
+}
+
+model Products {
+  id              Int            @id @default(autoincrement())
+  name            String
+  Brands          Brands         @relation(fields: [brand_id], references: [id])
+  brand_id        Int
+  ProductTypes    ProductTypes   @relation(fields: [product_type_id], references: [id])
+  product_type_id Int
+  image           String
+  image_priority  Int            @default(0) @db.SmallInt
+  ProductRates    ProductRates[]
+  Catalogs        Catalogs[]
+}
+
+model Catalogs {
+  id         Int      @id @default(autoincrement())
+  Products   Products @relation(fields: [product_id], references: [id])
+  product_id Int
+  price      Decimal  @db.Money
+  quantity   Int
+  Stores     Stores   @relation(fields: [store_id], references: [id])
+  store_id   Int
+  Orders     Orders[]
+}
+
+model Users {
+  id           String         @id @default(uuid()) @db.Uuid
+  first_name   String
+  last_name    String
+  phone        Int
+  street       String
+  Cities       Cities         @relation(fields: [city_id], references: [id])
+  city_id      Int
+  sex          Int            @db.SmallInt
+  age          Int            @db.SmallInt
+  join_at      DateTime       @default(now())
+  email        String
+  ProductRates ProductRates[]
+  Orders       Orders[]
+}
+
+model Orders {
+  id         Int      @id @default(autoincrement())
+  Users      Users    @relation(fields: [user_id], references: [id])
+  user_id    String   @db.Uuid
+  Catalogs   Catalogs @relation(fields: [catalog_id], references: [id])
+  catalog_id Int
+  quantity   Int
+  timestamp  DateTime @default(now())
+}
+
+model Stores {
+  id       Int        @id @default(autoincrement())
+  name     String
+  Cities   Cities     @relation(fields: [city_id], references: [id])
+  city_id  Int
+  Catalogs Catalogs[]
+}
+
+model Brands {
+  id       Int        @id @default(autoincrement())
+  name     String
+  Products Products[]
+}
