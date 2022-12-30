@@ -10,6 +10,7 @@ import "./styles/Navbar.css";
 import "./styles/Header.css";
 import "./styles/Carousel.css";
 import "./styles/Searchbar.css";
+import "./styles/DropdownList.css";
 import "./styles/Departments.css";
 import "./App.css";
 

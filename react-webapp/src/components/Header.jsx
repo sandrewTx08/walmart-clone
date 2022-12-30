@@ -15,7 +15,7 @@ import { FiUser, FiMessageSquare } from "react-icons/fi";
 export default function () {
   const [departmentsMenu, departmentsMenuSet] = React.useState(false),
     [headerMenuList, headerMenuListSet] = React.useState(false),
-    [departmentsList, departmentsListSet] = React.useState(() => {
+    [fetch, fetchSet] = React.useState(() => {
       /**
        * @type {import('../fetch/departments').Data=}
        */
@@ -33,7 +33,7 @@ export default function () {
           }
         }
       `
-    ).then(departmentsListSet);
+    ).then(fetchSet);
   }, []);
 
   return (
@@ -85,8 +85,8 @@ export default function () {
           </div>
           {departmentsMenu && (
             <ul className="departments-menu">
-              {departmentsList ? (
-                departmentsList.departments.map((dapartmentListItem) => (
+              {fetch ? (
+                fetch.departments.map((dapartmentListItem) => (
                   <li>
                     <a>{dapartmentListItem.name}</a>
                   </li>
@@ -98,7 +98,16 @@ export default function () {
           )}
         </div>
 
-        <Searchbar />
+        <Searchbar
+          list={
+            fetch
+              ? fetch.departments.map(({ name }) => ({
+                  link: "",
+                  text: name,
+                }))
+              : []
+          }
+        />
 
         <Navbar />
       </header>
