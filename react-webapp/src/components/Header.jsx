@@ -87,7 +87,7 @@ export default function () {
             <ul className="departments-menu">
               {fetch ? (
                 fetch.departments.map((dapartmentListItem) => (
-                  <li>
+                  <li key={dapartmentListItem.name}>
                     <a>{dapartmentListItem.name}</a>
                   </li>
                 ))
