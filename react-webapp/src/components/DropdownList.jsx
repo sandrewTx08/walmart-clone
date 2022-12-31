@@ -15,7 +15,10 @@ export default function (props) {
               if (props.clickOnListItem) props.clickOnListItem(item);
             }}
           >
-            {item.text}
+            <div>{item.text}</div>
+            <div className="dropdown-list-subtext">
+              {item.subtext || "Search"}
+            </div>
           </a>
         </li>
       ))}

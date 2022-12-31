@@ -12,6 +12,15 @@
   display: block;
 }
 
+.dropdown-list li a div {
+  display: inline;
+  margin: 1em;
+}
+
+.dropdown-list li a div.dropdown-list-subtext {
+  color: gray;
+}
+
 .dropdown-list li a:hover {
   border-bottom: 1px solid var(--WALMART-BLUE);
 }

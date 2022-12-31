@@ -104,6 +104,7 @@ export default function () {
               ? fetch.departments.map(({ name }) => ({
                   link: "",
                   text: name,
+                  subtext: "Department",
                 }))
               : []
           }
