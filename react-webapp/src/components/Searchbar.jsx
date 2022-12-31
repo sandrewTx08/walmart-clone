@@ -24,26 +24,24 @@ export default function (props) {
         <FiSearch />
       </button>
 
-      {
-        <DropdownList
-          clickOnListItem={(item) => {
-            inputSet(item.text);
-          }}
-          list={
-            /** @returns {import("./DropdownList.types").DropdownList} */
-            props.list.filter((item) => {
-              const searchTerm = input.toLocaleLowerCase();
-              item.text = item.text.toLocaleLowerCase();
+      <DropdownList
+        clickOnListItem={(item) => {
+          inputSet(item.text);
+        }}
+        list={
+          /** @returns {import("./DropdownList.types").DropdownList} */
+          props.list.filter((item) => {
+            const searchTerm = input.toLocaleLowerCase();
+            item.text = item.text.toLocaleLowerCase();
 
-              return (
-                searchTerm &&
-                item.text.startsWith(searchTerm) &&
-                item.text !== searchTerm
-              );
-            })
-          }
-        />
-      }
+            return (
+              searchTerm &&
+              item.text.startsWith(searchTerm) &&
+              item.text !== searchTerm
+            );
+          })
+        }
+      />
     </div>
   );
 }
