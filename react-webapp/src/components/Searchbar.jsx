@@ -29,8 +29,9 @@ export default function (props) {
           clickOnListItem={(item) => {
             inputSet(item.text);
           }}
-          list={props.list
-            .filter((item) => {
+          list={
+            /** @returns {import("./DropdownList.types").DropdownList} */
+            props.list.filter((item) => {
               const searchTerm = input.toLocaleLowerCase();
               item.text = item.text.toLocaleLowerCase();
 
@@ -40,11 +41,7 @@ export default function (props) {
                 item.text !== searchTerm
               );
             })
-            .map(({ text, link }) => {
-              /** @type {import("./DropdownList.types").DropdownList} */
-              const value = { link, text };
-              return value;
-            })}
+          }
         />
       }
     </div>
