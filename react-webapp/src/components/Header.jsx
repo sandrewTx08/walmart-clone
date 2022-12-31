@@ -7,9 +7,9 @@ import { gql, request } from "graphql-request";
 import Navbar from "./Navbar";
 import Searchbar from "./Searchbar";
 // @ts-ignore
-import walmartLogo1 from "../asserts/walmartLogo.svg";
+import walmartLogo1 from "/walmartLogoMedium.svg";
 // @ts-ignore
-import walmartLogo2 from "../asserts/walmart-logo.png";
+import walmartLogo2 from "/walmartLogoSmall.png";
 import { FiUser, FiMessageSquare } from "react-icons/fi";
 
 export default function () {

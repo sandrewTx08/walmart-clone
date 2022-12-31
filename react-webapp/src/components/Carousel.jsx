@@ -3,7 +3,7 @@
 import React from "react";
 import { MdOutlineNavigateBefore, MdOutlineNavigateNext } from "react-icons/md";
 // @ts-ignore
-import walmartLogo from "../asserts/walmartLogo.svg";
+import walmartLogo from "/walmartLogoMedium.svg";
 
 export default function () {
   return (
