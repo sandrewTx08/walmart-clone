@@ -1,5 +1,6 @@
 export interface Department {
   name: string;
+  id: number;
 }
 
 export interface Data {

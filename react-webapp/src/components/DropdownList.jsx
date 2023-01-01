@@ -1,6 +1,7 @@
 // @ts-check
 
 import React from "react";
+import { Link } from "react-router-dom";
 
 /**
  * @param {import("./DropdownList.types").DropdownListProps} props
@@ -10,7 +11,8 @@ export default function (props) {
     <ul className="dropdown-list">
       {props.list.map((item) => (
         <li key={item.text}>
-          <a
+          <Link
+            to={item.link}
             onClick={() => {
               if (props.clickOnListItem) props.clickOnListItem(item);
             }}
@@ -19,7 +21,7 @@ export default function (props) {
             <div className="dropdown-list-subtext">
               {item.subtext || "Search"}
             </div>
-          </a>
+          </Link>
         </li>
       ))}
     </ul>

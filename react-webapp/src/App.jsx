@@ -13,15 +13,22 @@ import "./styles/Searchbar.css";
 import "./styles/DropdownList.css";
 import "./styles/Departments.css";
 import "./App.css";
+import { Route, Routes } from "react-router-dom";
 
 function App() {
   return (
     <React.Fragment>
       <Header />
-
-      <div className="main">
-        <Carousel />
-      </div>
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <div className="main">
+              <Carousel />
+            </div>
+          }
+        />
+      </Routes>
     </React.Fragment>
   );
 }

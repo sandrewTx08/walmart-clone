@@ -4,6 +4,7 @@ import React from "react";
 import { HiOutlineSquares2X2 } from "react-icons/hi2";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { gql, request } from "graphql-request";
+import { Link, Route } from "react-router-dom";
 import Navbar from "./Navbar";
 import Searchbar from "./Searchbar";
 // @ts-ignore
@@ -30,6 +31,7 @@ export default function () {
         {
           departments {
             name
+            id
           }
         }
       `
@@ -42,16 +44,16 @@ export default function () {
         <div className="navbar-vertical">
           <ul>
             <li>
-              <a>
+              <Link to={"login"}>
                 <FiUser />
                 <div>Login</div>
-              </a>
+              </Link>
             </li>
             <li>
-              <a>
+              <Link to={"help"}>
                 <FiMessageSquare />
                 <div>Help</div>
-              </a>
+              </Link>
             </li>
           </ul>
         </div>
@@ -70,8 +72,13 @@ export default function () {
           </button>
         </div>
 
-        <img className="header-brand header-brand-small" src={walmartLogo1} />
-        <img className="header-brand header-brand-medium" src={walmartLogo2} />
+        <Link to={"/"}>
+          <img className="header-brand header-brand-small" src={walmartLogo1} />
+          <img
+            className="header-brand header-brand-medium"
+            src={walmartLogo2}
+          />
+        </Link>
 
         <div>
           <div
@@ -87,8 +94,10 @@ export default function () {
             <ul className="departments-menu">
               {fetch ? (
                 fetch.departments.map((dapartmentListItem) => (
-                  <li key={dapartmentListItem.name}>
-                    <a>{dapartmentListItem.name}</a>
+                  <li key={dapartmentListItem.id}>
+                    <Link to={"department/" + dapartmentListItem.id}>
+                      {dapartmentListItem.name}
+                    </Link>
                   </li>
                 ))
               ) : (
@@ -101,8 +110,8 @@ export default function () {
         <Searchbar
           list={
             fetch
-              ? fetch.departments.map(({ name }) => ({
-                  link: "",
+              ? fetch.departments.map(({ name, id }) => ({
+                  link: "department/" + id,
                   text: name,
                   subtext: "Department",
                 }))

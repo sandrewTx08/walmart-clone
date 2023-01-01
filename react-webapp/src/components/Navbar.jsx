@@ -2,37 +2,44 @@
 
 import { FiUser, FiMessageSquare, FiShoppingCart } from "react-icons/fi";
 import React from "react";
+import { Link } from "react-router-dom";
 
 export default function () {
   return (
     <nav className="navbar-horizontal">
       <ul>
         <li className="header-item-1">
-          <FiUser />
-          <div>
-            <div>Sign in</div>
+          <Link to={"login"}>
+            <FiUser />
             <div>
-              <b>Account</b>
+              <div>Sign in</div>
+              <div>
+                <b>Account</b>
+              </div>
             </div>
-          </div>
+          </Link>
         </li>
 
         <li className="header-item-1">
-          <FiMessageSquare />
-          <div>
-            <div>Chat assistent</div>
+          <Link to={"help"}>
+            <FiMessageSquare />
             <div>
-              <b>Support</b>
+              <div>Chat assistent</div>
+              <div>
+                <b>Support</b>
+              </div>
             </div>
-          </div>
+          </Link>
         </li>
 
         <li className="header-item-1">
-          <FiShoppingCart />
-          <div>
-            <div>Cart</div>
-            <div>$0.00</div>
-          </div>
+          <Link to={"cart"}>
+            <FiShoppingCart />
+            <div>
+              <div>Cart</div>
+              <div>$0.00</div>
+            </div>
+          </Link>
         </li>
       </ul>
     </nav>
