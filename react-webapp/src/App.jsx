@@ -4,6 +4,7 @@ import React from "react";
 
 import Header from "./components/Header";
 import Carousel from "./components/Carousel";
+import DepartmentCatalog from "./components/DepartmentCatalog";
 
 import "./styles/var.css";
 import "./styles/Navbar.css";
@@ -28,6 +29,7 @@ function App() {
             </div>
           }
         />
+        <Route path="department/:id" element={<DepartmentCatalog />} />
       </Routes>
     </React.Fragment>
   );

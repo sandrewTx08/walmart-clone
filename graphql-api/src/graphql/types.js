@@ -1,4 +1,4 @@
-//@ts-check
+// @ts-check
 
 const nexus = require("nexus");
 const { argsToPrisma } = require("../helpers/resolver.js");

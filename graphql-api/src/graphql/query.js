@@ -10,12 +10,16 @@ const Query = nexus.queryType({
       args: {
         limit: nexus.nonNull(nexus.arg({ type: "Int" })),
         store_id: nexus.nonNull(nexus.arg({ type: "Int" })),
+        department_id: nexus.nonNull(nexus.arg({ type: "Int" })),
       },
       resolve(s, a) {
         return prisma.catalogs.findMany({
           orderBy: { id: "desc" },
           take: a.limit,
-          where: { store_id: a.store_id },
+          where: {
+            store_id: a.store_id,
+            Products: { product_type_id: a.department_id },
+          },
         });
       },
     });
