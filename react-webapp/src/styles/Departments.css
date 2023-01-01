@@ -3,7 +3,7 @@
   padding: 1em;
 }
 
-.departments-menu {
+.departments-menu ul {
   position: absolute;
   background-color: white;
   color: black;

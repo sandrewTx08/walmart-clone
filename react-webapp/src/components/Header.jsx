@@ -80,7 +80,7 @@ export default function () {
           />
         </Link>
 
-        <div>
+        <div className="departments-menu">
           <div
             className="departments header-item-1"
             onClick={() => {
@@ -91,7 +91,7 @@ export default function () {
             Departments
           </div>
           {departmentsMenu && (
-            <ul className="departments-menu">
+            <ul>
               {fetch ? (
                 fetch.departments.map((dapartmentListItem) => (
                   <li key={dapartmentListItem.id}>
