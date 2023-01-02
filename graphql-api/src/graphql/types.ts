@@ -1,10 +1,8 @@
-// @ts-check
+import { objectType } from "nexus";
+import { argsToPrisma } from "../helpers/resolver";
+import prisma from "../../utils/prisma";
 
-const nexus = require("nexus");
-const { argsToPrisma } = require("../helpers/resolver.js");
-const prisma = require("../../utils/prisma.js");
-
-module.exports.Catalogs = nexus.objectType({
+export const Catalogs = objectType({
   name: "Catalogs",
   definition(t) {
     t.nonNull.id("id");
@@ -22,7 +20,7 @@ module.exports.Catalogs = nexus.objectType({
   },
 });
 
-module.exports.ProductTypes = nexus.objectType({
+export const ProductTypes = objectType({
   name: "ProductTypes",
   definition(t) {
     t.nonNull.string("name");
@@ -30,7 +28,7 @@ module.exports.ProductTypes = nexus.objectType({
   },
 });
 
-module.exports.Products = nexus.objectType({
+export const Products = objectType({
   name: "Products",
   definition(t) {
     t.nonNull.string("name");
@@ -56,7 +54,7 @@ module.exports.Products = nexus.objectType({
   },
 });
 
-module.exports.ProductRates = nexus.objectType({
+export const ProductRates = objectType({
   name: "ProductRates",
   definition(t) {
     t.nonNull.string("rate");

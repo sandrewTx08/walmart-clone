@@ -1,20 +1,13 @@
-// @ts-check
-
 import { useParams } from "react-router-dom";
 import { request, gql } from "graphql-request";
-import React from "react";
+import { Data as StoreCatalog } from "../fetch/storeCatalog";
+import { Fragment, useEffect, useState } from "react";
 
 export default function () {
   const { id } = useParams(),
-    [fetch, fetchSet] = React.useState(() => {
-      /**
-       * @type {import('../fetch/storeCatalog').Data=}
-       */
-      let initialState;
-      return initialState;
-    });
+    [fetch, fetchSet] = useState<StoreCatalog>();
 
-  React.useEffect(() => {
+  useEffect(() => {
     request(
       "http://localhost:3000/graphql",
       gql`
@@ -35,7 +28,7 @@ export default function () {
   }, [id]);
 
   return (
-    <React.Fragment>
+    <Fragment>
       <div className="department-catalog">
         {fetch &&
           fetch.storeCatalog.map((catalog) => (
@@ -60,6 +53,6 @@ export default function () {
             </div>
           ))}
       </div>
-    </React.Fragment>
+    </Fragment>
   );
 }

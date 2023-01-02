@@ -1,6 +1,3 @@
-// @ts-check
-
-import React from "react";
 import { HiOutlineSquares2X2 } from "react-icons/hi2";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { gql, request } from "graphql-request";
@@ -8,19 +5,15 @@ import { Link } from "react-router-dom";
 import Navbar from "./Navbar";
 import Searchbar from "./Searchbar";
 import { FiUser, FiMessageSquare } from "react-icons/fi";
+import { Data as Department } from "../fetch/departments";
+import { Fragment, useEffect, useState } from "react";
 
 export default function () {
-  const [departmentsMenu, departmentsMenuSet] = React.useState(false),
-    [headerMenuList, headerMenuListSet] = React.useState(false),
-    [fetch, fetchSet] = React.useState(() => {
-      /**
-       * @type {import('../fetch/departments').Data=}
-       */
-      let initialState;
-      return initialState;
-    });
+  const [departmentsMenu, departmentsMenuSet] = useState(false),
+    [headerMenuList, headerMenuListSet] = useState(false),
+    [fetch, fetchSet] = useState<Department>();
 
-  React.useEffect(() => {
+  useEffect(() => {
     request(
       "http://localhost:3000/graphql",
       gql`
@@ -35,7 +28,7 @@ export default function () {
   }, []);
 
   return (
-    <React.Fragment>
+    <Fragment>
       {headerMenuList ? (
         <div className="navbar-vertical">
           <ul>
@@ -54,7 +47,7 @@ export default function () {
           </ul>
         </div>
       ) : (
-        <React.Fragment />
+        <Fragment />
       )}
 
       <header className="header">
@@ -100,7 +93,7 @@ export default function () {
                   </li>
                 ))
               ) : (
-                <React.Fragment />
+                <Fragment />
               )}
             </ul>
           )}
@@ -120,6 +113,6 @@ export default function () {
 
         <Navbar />
       </header>
-    </React.Fragment>
+    </Fragment>
   );
 }

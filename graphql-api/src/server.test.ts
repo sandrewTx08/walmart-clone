@@ -1,32 +1,21 @@
-// @ts-check
+import server from "./server";
+import { CallbackFunc } from "light-my-request";
 
-const server = require("./server");
-const { describe, it, expect } = require("@jest/globals");
-const inject = require("light-my-request");
-
-/**
- *
- * @param {string} query
- * @param {(res: inject.Response) => void} callback
- */
-function testGraphqlServer(query, callback) {
+function testGraphqlServer(query: string, callback: CallbackFunc) {
   return server
     .inject()
     .headers({ "content-type": "application/json" })
     .post("/graphql")
     .body({ query })
-    .then(callback);
+    .end(callback);
 }
 
 describe("graphql", () => {
-  /**
-   * @type {string}
-   */
-  let query;
+  let query: string;
 
   it("storeCatalog", (done) => {
     query = `{
-      storeCatalog(limit: 1, store_id: 1) {
+      storeCatalog(limit: 1, store_id: 1, department_id: 1) {
         price
         Products {
           name
@@ -39,7 +28,7 @@ describe("graphql", () => {
       }
     }`;
 
-    testGraphqlServer(query, (res) => {
+    testGraphqlServer(query, (err, res) => {
       expect(JSON.parse(res.body)).toHaveProperty("data.storeCatalog");
       done();
     });
@@ -52,7 +41,7 @@ describe("graphql", () => {
       }
     }`;
 
-    testGraphqlServer(query, (res) => {
+    testGraphqlServer(query, (err, res) => {
       expect(JSON.parse(res.body)).toHaveProperty("data.departments");
       done();
     });

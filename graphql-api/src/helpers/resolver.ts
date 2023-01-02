@@ -1,10 +1,6 @@
-//@ts-check
-
-/**
- * @param {Object.<string, any>} args
- * @returns {Object.<string, boolean> | undefined}
- */
-function argsToPrisma(args) {
+export function argsToPrisma<T extends { [x: string]: any }>(
+  args: T
+): { [x: string]: boolean } | undefined {
   const ok = Object.keys(args);
   if (ok.length > 0) {
     const no = Object();
@@ -18,5 +14,3 @@ function argsToPrisma(args) {
     return no;
   }
 }
-
-module.exports = { argsToPrisma };

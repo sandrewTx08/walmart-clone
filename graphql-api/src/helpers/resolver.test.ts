@@ -1,13 +1,7 @@
-//@ts-check
-
-const { argsToPrisma } = require("./resolver.js");
-const { describe, it, expect } = require("@jest/globals");
+import { argsToPrisma } from "./resolver";
 
 describe("argsToPrisma", () => {
-  /**
-   * @type {Object.<string, any>}
-   */
-  let result;
+  let result
 
   it("return true", () => {
     result = { field: true };

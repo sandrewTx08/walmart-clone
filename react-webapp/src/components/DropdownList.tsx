@@ -1,12 +1,17 @@
-// @ts-check
-
-import React from "react";
 import { Link } from "react-router-dom";
 
-/**
- * @param {import("./DropdownList.types").DropdownListProps} props
- */
-export default function (props) {
+export interface DropdownList {
+  link: string;
+  text: string;
+  subtext?: string;
+}
+
+export type DropdownListProps = React.PropsWithChildren<{
+  list: DropdownList[];
+  clickOnListItem?(item: DropdownList): void;
+}>;
+
+export default function (props: DropdownListProps) {
   return (
     <ul className="dropdown-list">
       {props.list.map((item) => (

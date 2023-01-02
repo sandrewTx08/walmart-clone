@@ -1,16 +1,14 @@
-// @ts-check
+import { queryType, nonNull, arg } from "nexus";
+import prisma from "../../utils/prisma";
 
-const nexus = require("nexus");
-const prisma = require("../../utils/prisma.js");
-
-const Query = nexus.queryType({
+const Query = queryType({
   definition(t) {
     t.list.nonNull.field("storeCatalog", {
       type: "Catalogs",
       args: {
-        limit: nexus.nonNull(nexus.arg({ type: "Int" })),
-        store_id: nexus.nonNull(nexus.arg({ type: "Int" })),
-        department_id: nexus.nonNull(nexus.arg({ type: "Int" })),
+        limit: nonNull(arg({ type: "Int" })),
+        store_id: nonNull(arg({ type: "Int" })),
+        department_id: nonNull(arg({ type: "Int" })),
       },
       resolve(s, a) {
         return prisma.catalogs.findMany({
@@ -33,4 +31,4 @@ const Query = nexus.queryType({
   },
 });
 
-module.exports = Query;
+export default Query;

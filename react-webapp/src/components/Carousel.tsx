@@ -1,6 +1,3 @@
-// @ts-check
-
-import React from "react";
 import { MdOutlineNavigateBefore, MdOutlineNavigateNext } from "react-icons/md";
 
 export default function () {
