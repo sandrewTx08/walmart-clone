@@ -2,8 +2,6 @@
 
 import React from "react";
 import { MdOutlineNavigateBefore, MdOutlineNavigateNext } from "react-icons/md";
-// @ts-ignore
-import walmartLogo from "/walmartLogoMedium.svg";
 
 export default function () {
   return (
@@ -11,7 +9,7 @@ export default function () {
       <button className="carousel-button">
         <MdOutlineNavigateBefore />
       </button>
-      <img src={walmartLogo} />
+      <img src="/walmartLogoMedium.svg" />
       <button className="carousel-button">
         <MdOutlineNavigateNext />
       </button>

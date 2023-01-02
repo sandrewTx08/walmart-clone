@@ -4,13 +4,9 @@ import React from "react";
 import { HiOutlineSquares2X2 } from "react-icons/hi2";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { gql, request } from "graphql-request";
-import { Link, Route } from "react-router-dom";
+import { Link } from "react-router-dom";
 import Navbar from "./Navbar";
 import Searchbar from "./Searchbar";
-// @ts-ignore
-import walmartLogo1 from "/walmartLogoMedium.svg";
-// @ts-ignore
-import walmartLogo2 from "/walmartLogoSmall.png";
 import { FiUser, FiMessageSquare } from "react-icons/fi";
 
 export default function () {
@@ -73,10 +69,13 @@ export default function () {
         </div>
 
         <Link to={"/"}>
-          <img className="header-brand header-brand-small" src={walmartLogo1} />
+          <img
+            className="header-brand header-brand-small"
+            src="/walmartLogoMedium.svg"
+          />
           <img
             className="header-brand header-brand-medium"
-            src={walmartLogo2}
+            src="/walmartLogoSmall.png"
           />
         </Link>
 

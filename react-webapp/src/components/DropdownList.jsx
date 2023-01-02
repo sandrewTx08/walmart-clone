@@ -14,7 +14,9 @@ export default function (props) {
           <Link
             to={item.link}
             onClick={() => {
-              if (props.clickOnListItem) props.clickOnListItem(item);
+              if (props.clickOnListItem) {
+                props.clickOnListItem(item);
+              }
             }}
           >
             <div>{item.text}</div>
