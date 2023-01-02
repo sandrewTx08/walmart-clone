@@ -2,6 +2,7 @@ import { useParams } from "react-router-dom";
 import { request, gql } from "graphql-request";
 import { Data as StoreCatalog } from "../fetch/storeCatalog";
 import { Fragment, useEffect, useState } from "react";
+import DepartmentCatalogItem from "./DeparmentCatalogItem";
 
 export default function () {
   const { id } = useParams(),
@@ -30,28 +31,7 @@ export default function () {
   return (
     <Fragment>
       <div className="department-catalog">
-        {fetch &&
-          fetch.storeCatalog.map((catalog) => (
-            <div className="department-catalog-item">
-              <img src="/walmartLogoSmall.png" />
-              <ul>
-                <li>
-                  <div className="department-catalog-price">
-                    <b>${catalog.price}</b>
-                  </div>
-                  <div className="department-catalog-title">
-                    {catalog.Products.name}
-                  </div>
-                  <div className="department-catalog-rate">
-                    {catalog.Products.ProductRates.reduce(
-                      (pv, ac) => pv + ac.rate,
-                      0
-                    ) / catalog.Products.ProductRates.length}
-                  </div>
-                </li>
-              </ul>
-            </div>
-          ))}
+        {fetch && <DepartmentCatalogItem storeCatalog={fetch.storeCatalog} />}
       </div>
     </Fragment>
   );
