@@ -13,7 +13,7 @@ import "./styles/Departments.css";
 import "./styles/DepartmentCatalog.css";
 import "./styles/index.css";
 
-function App() {
+export default function () {
   return (
     <React.Fragment>
       <Header />
@@ -31,5 +31,3 @@ function App() {
     </React.Fragment>
   );
 }
-
-export default App;
