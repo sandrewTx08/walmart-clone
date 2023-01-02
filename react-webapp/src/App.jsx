@@ -13,6 +13,7 @@ import "./styles/Carousel.css";
 import "./styles/Searchbar.css";
 import "./styles/DropdownList.css";
 import "./styles/Departments.css";
+import "./styles/DepartmentCatalog.css";
 import "./App.css";
 import { Route, Routes } from "react-router-dom";
 

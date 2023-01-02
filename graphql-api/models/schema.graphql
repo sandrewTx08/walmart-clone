@@ -6,6 +6,12 @@ type Catalogs {
   Products: Products!
   id: ID!
   price: Int!
+  product_id: Int!
+}
+
+type ProductRates {
+  id: ID!
+  rate: String!
 }
 
 type ProductTypes {
@@ -14,6 +20,7 @@ type ProductTypes {
 }
 
 type Products {
+  ProductRates: [ProductRates]!
   ProductTypes: ProductTypes!
   id: ID!
   name: String!

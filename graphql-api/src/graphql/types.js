@@ -9,6 +9,7 @@ module.exports.Catalogs = nexus.objectType({
   definition(t) {
     t.nonNull.id("id");
     t.nonNull.int("price");
+    t.nonNull.int("product_id");
     t.nonNull.field("Products", {
       type: "Products",
       resolve(s, a) {
@@ -43,5 +44,22 @@ module.exports.Products = nexus.objectType({
         });
       },
     });
+    t.nonNull.list.field("ProductRates", {
+      type: "ProductRates",
+      resolve(s, a) {
+        return prisma.productRates.findMany({
+          select: argsToPrisma(a),
+          where: { id: s.product_id },
+        });
+      },
+    });
+  },
+});
+
+module.exports.ProductRates = nexus.objectType({
+  name: "ProductRates",
+  definition(t) {
+    t.nonNull.string("rate");
+    t.nonNull.id("id");
   },
 });

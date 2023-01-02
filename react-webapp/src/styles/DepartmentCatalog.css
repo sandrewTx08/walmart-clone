@@ -1,0 +1,27 @@
+.department-catalog {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.department-catalog-item {
+  padding: 2%;
+  margin: auto;
+}
+
+.department-catalog-item img {
+  width: 100%;
+  max-width: 100px;
+  display: block;
+}
+
+.department-catalog-title {
+  font-size: small;
+}
+
+.department-catalog-price {
+  font-size: large;
+}
+
+.department-catalog-rate {
+  font-size: x-small;
+}
