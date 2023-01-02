@@ -1,19 +1,23 @@
 import { useParams } from "react-router-dom";
 import { request, gql } from "graphql-request";
 import { Data as StoreCatalog } from "../fetch/storeCatalog";
-import { Fragment, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import DepartmentCatalogItem from "./DeparmentCatalogItem";
+import { Department } from "../fetch/departments";
 
 export default function () {
   const { id } = useParams(),
-    [fetch, fetchSet] = useState<StoreCatalog>();
+    [fetch, fetchSet] = useState<StoreCatalog & { departments: Department }>();
 
   useEffect(() => {
     request(
       "http://localhost:3000/graphql",
       gql`
         {
-          storeCatalog(limit: 50, department_id: ${id}, store_id: 1) {
+          departments(id: ${id}) {
+            name
+          }
+          storeCatalog(limit: 30, department_id: ${id}, store_id: 1) {
             id
             price
             Products {
@@ -29,10 +33,10 @@ export default function () {
   }, [id]);
 
   return (
-    <Fragment>
-      <div className="department-catalog">
-        {fetch && <DepartmentCatalogItem storeCatalog={fetch.storeCatalog} />}
-      </div>
-    </Fragment>
+    <div className="department-catalog">
+      <h1>{JSON.stringify(fetch?.departments)}</h1>
+
+      {fetch && <DepartmentCatalogItem storeCatalog={fetch.storeCatalog} />}
+    </div>
   );
 }

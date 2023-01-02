@@ -24,8 +24,9 @@ const Query = queryType({
 
     t.list.nonNull.field("departments", {
       type: "ProductTypes",
+      args: { id: arg({ type: "Int" }) },
       resolve(s, a) {
-        return prisma.productTypes.findMany();
+        return prisma.productTypes.findMany(a.id && { where: { id: a.id } });
       },
     });
   },

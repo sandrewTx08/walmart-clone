@@ -27,6 +27,6 @@ type Products {
 }
 
 type Query {
-  departments: [ProductTypes!]
+  departments(id: Int): [ProductTypes!]
   storeCatalog(department_id: Int!, limit: Int!, store_id: Int!): [Catalogs!]
 }

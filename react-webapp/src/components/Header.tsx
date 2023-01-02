@@ -84,17 +84,14 @@ export default function () {
           </div>
           {departmentsMenu && (
             <ul>
-              {fetch ? (
+              {fetch &&
                 fetch.departments.map((dapartmentListItem) => (
                   <li key={dapartmentListItem.id}>
                     <Link to={"department/" + dapartmentListItem.id}>
                       {dapartmentListItem.name}
                     </Link>
                   </li>
-                ))
-              ) : (
-                <Fragment />
-              )}
+                ))}
             </ul>
           )}
         </div>
