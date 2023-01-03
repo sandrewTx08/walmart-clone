@@ -1,4 +1,15 @@
-.department-catalog {
+.department-catalog h1 {
+  font-size: x-large;
+  padding-bottom: 6px;
+}
+
+.department-catalog span {
+  color: grey;
+  font-size: large;
+  margin: 0 3px;
+}
+
+.department-catalog-items {
   display: flex;
   flex-wrap: wrap;
 }

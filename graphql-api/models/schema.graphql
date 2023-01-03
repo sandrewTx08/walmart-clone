@@ -15,6 +15,7 @@ type ProductRates {
 }
 
 type ProductTypes {
+  _count: Int!
   id: ID!
   name: String!
 }

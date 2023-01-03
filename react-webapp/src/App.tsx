@@ -17,17 +17,12 @@ export default function () {
   return (
     <React.Fragment>
       <Header />
-      <Routes>
-        <Route
-          path="/"
-          element={
-            <div className="main">
-              <Carousel />
-            </div>
-          }
-        />
-        <Route path="department/:id" element={<DepartmentCatalog />} />
-      </Routes>
+      <div className="main">
+        <Routes>
+          <Route path="/" element={<Carousel />} />
+          <Route path="department/:id" element={<DepartmentCatalog />} />
+        </Routes>
+      </div>
     </React.Fragment>
   );
 }

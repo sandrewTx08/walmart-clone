@@ -1,5 +1,6 @@
 import { queryType, nonNull, arg } from "nexus";
 import prisma from "../../utils/prisma";
+import { argsToPrisma } from "../helpers/resolver";
 
 const Query = queryType({
   definition(t) {
@@ -26,7 +27,10 @@ const Query = queryType({
       type: "ProductTypes",
       args: { id: arg({ type: "Int" }) },
       resolve(s, a) {
-        return prisma.productTypes.findMany(a.id && { where: { id: a.id } });
+        return prisma.productTypes.findMany({
+          select: argsToPrisma(s),
+          ...(a.id && { where: { id: a.id } }),
+        });
       },
     });
   },

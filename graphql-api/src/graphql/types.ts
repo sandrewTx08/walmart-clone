@@ -25,6 +25,13 @@ export const ProductTypes = objectType({
   definition(t) {
     t.nonNull.string("name");
     t.nonNull.id("id");
+    t.nonNull.int("_count", {
+      resolve(s, a) {
+        return prisma.products.count({
+          where: { product_type_id: s.product_type_id },
+        });
+      },
+    });
   },
 });
 
