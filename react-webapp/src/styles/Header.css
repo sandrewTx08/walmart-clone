@@ -22,6 +22,7 @@
 
 .header-item-1 a {
   display: flex;
+  align-items: center;
 }
 
 .header-item-1:hover {
