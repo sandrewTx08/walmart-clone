@@ -61,20 +61,16 @@ export default function () {
           </button>
         </div>
 
-        <Link to={"/"}>
-          <img
-            className="header-brand header-brand-small"
-            src="/walmartLogoMedium.svg"
-          />
-          <img
-            className="header-brand header-brand-medium"
-            src="/walmartLogoSmall.png"
-          />
-        </Link>
+        <div className="header-brand">
+          <Link to={"/"}>
+            <img className="header-brand-small" src="/walmartLogoMedium.svg" />
+            <img className="header-brand-medium" src="/walmartLogoSmall.png" />
+          </Link>
+        </div>
 
         <div className="departments-menu">
           <div
-            className="departments header-item-1"
+            className="header-item-1"
             onClick={() => {
               departmentsMenuSet(!departmentsMenu);
             }}
