@@ -1,6 +1,6 @@
 export function argsToPrisma<T extends { [x: string]: any }>(
   args: T
-): { [x: string]: boolean } | undefined {
+): { [K in keyof T]: boolean } | undefined {
   const ok = Object.keys(args);
   if (ok.length > 0) {
     const no = Object();
