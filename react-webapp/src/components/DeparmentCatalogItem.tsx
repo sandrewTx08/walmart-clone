@@ -1,9 +1,7 @@
 import { Fragment, PropsWithChildren } from "react";
-import { StoreCatalog } from "../fetch/storeCatalog";
+import { Query } from "../graphql";
 
-export default function (
-  props: PropsWithChildren<{ storeCatalog: StoreCatalog[] }>
-) {
+export default function (props: PropsWithChildren<Query>) {
   return (
     <Fragment>
       {props.storeCatalog.map((catalog) => (
@@ -19,7 +17,7 @@ export default function (
               </div>
               <div className="department-catalog-rate">
                 {catalog.Products.ProductRates.reduce(
-                  (pv, ac) => pv + ac.rate,
+                  (pv, ac) => pv + Number(ac.rate),
                   0
                 ) / catalog.Products.ProductRates.length}
               </div>

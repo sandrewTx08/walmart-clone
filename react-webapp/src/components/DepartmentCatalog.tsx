@@ -1,15 +1,12 @@
 import { useParams } from "react-router-dom";
 import { request, gql } from "graphql-request";
-import { Data as StoreCatalog } from "../fetch/storeCatalog";
 import { Fragment, useEffect, useState } from "react";
 import DepartmentCatalogItem from "./DeparmentCatalogItem";
-import { Department } from "../fetch/departments";
+import { Query } from "../graphql";
 
 export default function () {
   const { id } = useParams(),
-    [fetch, fetchSet] = useState<
-      StoreCatalog & { departments: Department[] }
-    >();
+    [fetch, fetchSet] = useState<Query>();
 
   useEffect(() => {
     request(
