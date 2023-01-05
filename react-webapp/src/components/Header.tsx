@@ -5,13 +5,13 @@ import { Link } from "react-router-dom";
 import Navbar from "./Navbar";
 import Searchbar from "./Searchbar";
 import { FiUser, FiMessageSquare } from "react-icons/fi";
-import { Data as Department } from "../fetch/departments";
 import { Fragment, useEffect, useState } from "react";
+import { Query } from "../graphql";
 
 export default function () {
   const [departmentsMenu, departmentsMenuSet] = useState(false),
     [headerMenuList, headerMenuListSet] = useState(false),
-    [fetch, fetchSet] = useState<Department>();
+    [fetch, fetchSet] = useState<Query>();
 
   useEffect(() => {
     request(
