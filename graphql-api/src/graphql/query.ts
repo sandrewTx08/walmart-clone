@@ -1,39 +1,32 @@
-import { queryType, nonNull, arg } from "nexus";
+import { nonNull, arg, extendType } from "nexus";
 import prisma from "../../utils/prisma";
 import { argsToPrisma } from "../helpers/resolver";
 
-const Query = queryType({
+export const department = extendType({
+  type: "Query",
   definition(t) {
-    t.list.nonNull.field("storeCatalog", {
-      type: "Catalogs",
-      args: {
-        limit: nonNull(arg({ type: "Int" })),
-        store_id: nonNull(arg({ type: "Int" })),
-        department_id: nonNull(arg({ type: "Int" })),
-      },
-      resolve(s, a) {
-        return prisma.catalogs.findMany({
-          orderBy: { id: "desc" },
-          take: a.limit,
-          where: {
-            store_id: a.store_id,
-            Products: { product_type_id: a.department_id },
-          },
-        });
-      },
-    });
-
-    t.list.nonNull.field("departments", {
+    t.nonNull.field("department", {
       type: "ProductTypes",
-      args: { id: arg({ type: "Int" }) },
+      args: { department_id: nonNull(arg({ type: "Int" })) },
       resolve(s, a) {
-        return prisma.productTypes.findMany({
-          select: argsToPrisma(s),
-          ...(a.id && { where: { id: a.id } }),
+        return prisma.productTypes.findFirst({
+          where: { id: a.department_id },
         });
       },
     });
   },
 });
 
-export default Query;
+export const departments = extendType({
+  type: "Query",
+  definition(t) {
+    t.list.nonNull.field("departments", {
+      type: "ProductTypes",
+      resolve(s, a) {
+        return prisma.productTypes.findMany({
+          select: argsToPrisma(s),
+        });
+      },
+    });
+  },
+});

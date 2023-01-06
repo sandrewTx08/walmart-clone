@@ -16,6 +16,7 @@ type ProductRates {
 
 type ProductTypes {
   _count: Int!
+  catalog(limit: Int!, store_id: Int): [Catalogs!]
   id: ID!
   name: String!
 }
@@ -28,6 +29,6 @@ type Products {
 }
 
 type Query {
-  departments(id: Int): [ProductTypes!]
-  storeCatalog(department_id: Int!, limit: Int!, store_id: Int!): [Catalogs!]
+  department(department_id: Int!): ProductTypes!
+  departments: [ProductTypes!]
 }

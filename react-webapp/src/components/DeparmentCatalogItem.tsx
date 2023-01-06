@@ -1,10 +1,10 @@
 import { Fragment, PropsWithChildren } from "react";
 import { Query } from "../graphql";
 
-export default function (props: PropsWithChildren<Query>) {
+export default function (props: PropsWithChildren<{ query: Query }>) {
   return (
     <Fragment>
-      {props.storeCatalog.map((catalog) => (
+      {props.query.department.catalog.map((catalog) => (
         <div className="department-catalog-item">
           <img src="/walmartLogoSmall.png" />
           <ul>
@@ -17,7 +17,7 @@ export default function (props: PropsWithChildren<Query>) {
               </div>
               <div className="department-catalog-rate">
                 {catalog.Products.ProductRates.reduce(
-                  (pv, ac) => pv + Number(ac.rate),
+                  (p, a) => p + Number(a.rate),
                   0
                 ) / catalog.Products.ProductRates.length}
               </div>

@@ -11,7 +11,7 @@ import { Query } from "../graphql";
 export default function () {
   const [departmentsMenu, departmentsMenuSet] = useState(false),
     [headerMenuList, headerMenuListSet] = useState(false),
-    [fetch, fetchSet] = useState<Query>();
+    [query, querySet] = useState<Query>();
 
   useEffect(() => {
     request(
@@ -24,7 +24,7 @@ export default function () {
           }
         }
       `
-    ).then(fetchSet);
+    ).then(querySet);
   }, []);
 
   return (
@@ -80,8 +80,8 @@ export default function () {
           </div>
           {departmentsMenu && (
             <ul>
-              {fetch &&
-                fetch.departments.map((dapartmentListItem) => (
+              {query &&
+                query.departments.map((dapartmentListItem) => (
                   <li key={dapartmentListItem.id}>
                     <Link to={"department/" + dapartmentListItem.id}>
                       {dapartmentListItem.name}
@@ -94,8 +94,8 @@ export default function () {
 
         <Searchbar
           list={
-            fetch
-              ? fetch.departments.map(({ name, id }) => ({
+            query
+              ? query.departments.map(({ name, id }) => ({
                   link: "department/" + id,
                   text: name,
                   subtext: "Department",

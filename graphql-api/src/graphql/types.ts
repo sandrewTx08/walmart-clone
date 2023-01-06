@@ -1,4 +1,4 @@
-import { objectType } from "nexus";
+import { arg, nonNull, objectType } from "nexus";
 import { argsToPrisma } from "../helpers/resolver";
 import prisma from "../../utils/prisma";
 
@@ -28,7 +28,24 @@ export const ProductTypes = objectType({
     t.nonNull.int("_count", {
       resolve(s, a) {
         return prisma.products.count({
-          where: { product_type_id: s.product_type_id },
+          where: { product_type_id: s.id },
+        });
+      },
+    });
+    t.list.nonNull.field("catalog", {
+      type: "Catalogs",
+      args: {
+        limit: nonNull(arg({ type: "Int" })),
+        store_id: arg({ type: "Int" }),
+      },
+      resolve(s, a) {
+        return prisma.catalogs.findMany({
+          orderBy: { id: "desc" },
+          take: a.limit,
+          where: {
+            store_id: a.store_id,
+            Products: { product_type_id: s.id },
+          },
         });
       },
     });

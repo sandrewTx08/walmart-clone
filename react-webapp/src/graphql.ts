@@ -29,8 +29,15 @@ export type ProductRates = {
 export type ProductTypes = {
   __typename?: 'ProductTypes';
   _count: Scalars['Int'];
+  catalog?: Maybe<Array<Catalogs>>;
   id: Scalars['ID'];
   name: Scalars['String'];
+};
+
+
+export type ProductTypesCatalogArgs = {
+  limit: Scalars['Int'];
+  store_id?: InputMaybe<Scalars['Int']>;
 };
 
 export type Products = {
@@ -43,18 +50,11 @@ export type Products = {
 
 export type Query = {
   __typename?: 'Query';
+  department: ProductTypes;
   departments?: Maybe<Array<ProductTypes>>;
-  storeCatalog?: Maybe<Array<Catalogs>>;
 };
 
 
-export type QueryDepartmentsArgs = {
-  id?: InputMaybe<Scalars['Int']>;
-};
-
-
-export type QueryStoreCatalogArgs = {
+export type QueryDepartmentArgs = {
   department_id: Scalars['Int'];
-  limit: Scalars['Int'];
-  store_id: Scalars['Int'];
 };

@@ -6,47 +6,47 @@ import { Query } from "../graphql";
 
 export default function () {
   const { id } = useParams(),
-    [fetch, fetchSet] = useState<Query>();
+    [query, querySet] = useState<Query>();
 
   useEffect(() => {
     request(
       "http://localhost:3000/graphql",
       gql`
         {
-          departments(id: ${id}) {
+          department(department_id: ${id}) {
             name
             _count
-          }
-          storeCatalog(limit: 30, department_id: ${id}, store_id: 1) {
-            id
-            price
-            Products {
-              name
-              ProductRates {
-                rate
+            catalog(limit: 30) {
+              id
+              price
+              Products {
+                name
+                ProductRates {
+                  rate
+                }
               }
             }
           }
         }
       `
-    ).then(fetchSet);
+    ).then(querySet);
   }, [id]);
 
   return (
     <Fragment>
-      {fetch && (
+      {query && (
         <div className="department-catalog">
           <div>
             <h1>
-              {fetch.departments[0].name}
-              <span>({fetch.departments[0]._count})</span>
+              {query.department.name}
+              <span>({query.department._count})</span>
             </h1>
             <div>Buy online now</div>
           </div>
           <hr />
 
           <div className="department-catalog-items">
-            {<DepartmentCatalogItem storeCatalog={fetch.storeCatalog} />}
+            {<DepartmentCatalogItem query={query} />}
           </div>
         </div>
       )}
