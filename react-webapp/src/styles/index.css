@@ -16,6 +16,5 @@ a:active {
 }
 
 .main {
-  display: flex;
-  padding: 1em 1em;
+  padding: 1em;
 }
