@@ -7,6 +7,7 @@ import Searchbar from "./Searchbar";
 import { FiUser, FiMessageSquare } from "react-icons/fi";
 import { Fragment, useEffect, useState } from "react";
 import { Query } from "../graphql";
+import DropdownList from "./DropdownList";
 
 export default function () {
   const [departmentsMenu, departmentsMenuSet] = useState(false),
@@ -68,9 +69,9 @@ export default function () {
           </Link>
         </div>
 
-        <div className="departments-menu">
+        <div className="header-departments">
           <div
-            className="header-item-1"
+            className="header-item"
             onClick={() => {
               departmentsMenuSet(!departmentsMenu);
             }}
@@ -80,14 +81,16 @@ export default function () {
           </div>
           {departmentsMenu && (
             <ul>
-              {query &&
-                query.departments.map((dapartmentListItem) => (
-                  <li key={dapartmentListItem.id}>
-                    <Link to={"department/" + dapartmentListItem.id}>
-                      {dapartmentListItem.name}
-                    </Link>
-                  </li>
-                ))}
+              <DropdownList
+                list={
+                  query
+                    ? query.departments.map(({ name, id }) => ({
+                        href: "department/" + id,
+                        text: name,
+                      }))
+                    : []
+                }
+              />
             </ul>
           )}
         </div>
@@ -96,9 +99,9 @@ export default function () {
           list={
             query
               ? query.departments.map(({ name, id }) => ({
-                  link: "department/" + id,
+                  href: "department/" + id,
                   text: name,
-                  subtext: "Department",
+                  sidetext: "Department",
                 }))
               : []
           }

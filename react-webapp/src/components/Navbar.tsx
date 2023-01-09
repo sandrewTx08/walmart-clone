@@ -5,7 +5,7 @@ export default function () {
   return (
     <nav className="navbar-horizontal">
       <ul>
-        <li className="header-item-1">
+        <li className="header-item">
           <Link to={"login"}>
             <FiUser />
             <div>
@@ -17,7 +17,7 @@ export default function () {
           </Link>
         </li>
 
-        <li className="header-item-1">
+        <li className="header-item">
           <Link to={"help"}>
             <FiMessageSquare />
             <div>
@@ -29,7 +29,7 @@ export default function () {
           </Link>
         </li>
 
-        <li className="header-item-1">
+        <li className="header-item">
           <Link to={"cart"}>
             <FiShoppingCart />
             <div>

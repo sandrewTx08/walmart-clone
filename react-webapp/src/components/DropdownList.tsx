@@ -1,14 +1,14 @@
 import { Link } from "react-router-dom";
 
 export interface DropdownList {
-  link: string;
+  href: string;
   text: string;
-  subtext?: string;
+  sidetext?: string;
 }
 
 export type DropdownListProps = React.PropsWithChildren<{
   list: DropdownList[];
-  clickOnListItem?(item: DropdownList): void;
+  onClick?(item: DropdownList): void;
 }>;
 
 export default function (props: DropdownListProps) {
@@ -17,17 +17,15 @@ export default function (props: DropdownListProps) {
       {props.list.map((item) => (
         <li key={item.text}>
           <Link
-            to={item.link}
+            to={item.href}
             onClick={() => {
-              if (props.clickOnListItem) {
-                props.clickOnListItem(item);
+              if (props.onClick) {
+                props.onClick(item);
               }
             }}
           >
             <div>{item.text}</div>
-            <div className="dropdown-list-subtext">
-              {item.subtext || "Search"}
-            </div>
+            <div className="dropdown-list-sidetext">{item.sidetext}</div>
           </Link>
         </li>
       ))}

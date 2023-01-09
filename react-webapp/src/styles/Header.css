@@ -20,21 +20,21 @@
   flex-shrink: 0;
 }
 
-.header-item-1 a {
+.header-item a {
   display: flex;
   align-items: center;
 }
 
-.header-item-1:hover {
+.header-item:hover {
   background-color: #00509b;
 }
 
-.header-item-1 {
+.header-item {
   border-radius: 1em;
   padding: 0.5em;
 }
 
-.header-item-1 svg {
+.header-item svg {
   padding: 0 0.5em;
 }
 
@@ -76,6 +76,16 @@
 
 .navbar-vertical button svg {
   color: white;
+}
+
+.header-departments div {
+  font-size: medium;
+}
+
+@media screen and (max-width: 480px) {
+  .header-departments {
+    display: none;
+  }
 }
 
 @media screen and (max-width: 768px) {

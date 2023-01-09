@@ -20,7 +20,7 @@ export default function (props: DropdownListProps) {
       </button>
 
       <DropdownList
-        clickOnListItem={(item) => {
+        onClick={(item) => {
           inputSet(item.text);
         }}
         list={props.list.filter((item) => {
