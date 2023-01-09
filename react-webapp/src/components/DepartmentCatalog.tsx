@@ -3,6 +3,9 @@ import { request, gql } from "graphql-request";
 import { Fragment, useEffect, useState } from "react";
 import DepartmentCatalogItem from "./DeparmentCatalogItem";
 import { Query } from "../graphql";
+import { MdOutlinePriceChange, MdOutlineStore } from "react-icons/md";
+import { AiOutlineFire } from "react-icons/ai";
+import { BsListStars } from "react-icons/bs";
 
 export default function () {
   const { id } = useParams(),
@@ -35,19 +38,40 @@ export default function () {
   return (
     <Fragment>
       {query && (
-        <div className="department-catalog">
-          <div>
-            <h1>
-              {query.department.name}
-              <span>({query.department._count})</span>
-            </h1>
-            <div>Buy online now</div>
-          </div>
-          <hr />
+        <div>
+          <div className="department-catalog-header">
+            <div>
+              <h1>
+                {query.department.name}
+                <span>({query.department._count})</span>
+              </h1>
+            </div>
 
-          <div className="department-catalog-items">
-            {<DepartmentCatalogItem query={query} />}
+            <div>Buy online now</div>
+
+            <div className="department-catalog-filter">
+              <button>
+                <MdOutlinePriceChange />
+                Prices
+              </button>
+              <button>
+                <BsListStars />
+                Brands
+              </button>
+              <button>
+                <MdOutlineStore />
+                Stores
+              </button>
+              <button>
+                <AiOutlineFire />
+                Most wanted
+              </button>
+            </div>
+
+            <hr />
           </div>
+
+          {<DepartmentCatalogItem query={query} />}
         </div>
       )}
     </Fragment>

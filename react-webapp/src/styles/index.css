@@ -16,7 +16,6 @@ a:active {
 }
 
 .main {
-  width: auto;
   display: flex;
-  margin: 1em 1em;
+  padding: 1em 1em;
 }
