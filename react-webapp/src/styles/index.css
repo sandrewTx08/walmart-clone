@@ -17,4 +17,6 @@ a:active {
 
 .main {
   padding: 1em;
+  max-width: 1024px;
+  margin: auto;
 }
