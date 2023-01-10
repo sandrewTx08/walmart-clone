@@ -11,7 +11,7 @@ import DropdownList from "./DropdownList";
 
 export default function () {
   const [departmentsMenu, departmentsMenuSet] = useState(false),
-    [headerMenuList, headerMenuListSet] = useState(false),
+    [navbarVertical, navbarVerticalSet] = useState(false),
     [query, querySet] = useState<Query>();
 
   useEffect(() => {
@@ -30,32 +30,31 @@ export default function () {
 
   return (
     <Fragment>
-      {headerMenuList ? (
-        <div className="navbar-vertical">
-          <ul>
-            <li>
-              <Link to={"login"}>
-                <FiUser />
-                <div>Login</div>
-              </Link>
-            </li>
-            <li>
-              <Link to={"help"}>
-                <FiMessageSquare />
-                <div>Help</div>
-              </Link>
-            </li>
-          </ul>
-        </div>
-      ) : (
-        <Fragment />
+      {navbarVertical && (
+        <ul className="navbar-vertical">
+          <li>
+            <Link to={"login"}>
+              <FiUser />
+              <div>Login</div>
+            </Link>
+          </li>
+          <li>
+            <Link to={"help"}>
+              <FiMessageSquare />
+              <div>Help</div>
+            </Link>
+          </li>
+        </ul>
       )}
 
-      <header className="header">
+      <header
+        className="header"
+        style={{ position: navbarVertical ? "static" : "fixed" }}
+      >
         <div className="navbar-vertical">
           <button
             onClick={() => {
-              headerMenuListSet(!headerMenuList);
+              navbarVerticalSet(!navbarVertical);
             }}
           >
             <GiHamburgerMenu />
@@ -79,6 +78,7 @@ export default function () {
             <HiOutlineSquares2X2 />
             Departments
           </div>
+
           {departmentsMenu && (
             <ul>
               <DropdownList

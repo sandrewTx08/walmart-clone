@@ -4,7 +4,7 @@
   color: black;
   border-radius: 1em;
   box-shadow: var(--SOFT-SHADOW);
-  z-index: 666;
+  z-index: 300;
 }
 
 .dropdown-list li a {

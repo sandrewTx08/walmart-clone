@@ -1,10 +1,12 @@
 .header {
   display: flex;
-  justify-content: space-around;
   align-items: center;
+  justify-content: space-around;
   background-color: var(--WALMART-BLUE);
   height: 4em;
   color: white;
+  width: 100%;
+  z-index: 200;
 }
 
 .header-brand-medium {
@@ -62,9 +64,10 @@
   margin: 1em;
 }
 
-.navbar-vertical ul {
+ul.navbar-vertical {
   background-color: white;
   color: black;
+  height: 100%;
 }
 
 .navbar-vertical button {
