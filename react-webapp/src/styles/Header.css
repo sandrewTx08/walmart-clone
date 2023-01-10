@@ -69,9 +69,7 @@
 
 .navbar-vertical button {
   padding: 5px;
-  border: 0;
-  border-radius: 1em;
-  background-color: #00509b;
+  background-color: inherit;
 }
 
 .navbar-vertical button svg {

@@ -1,5 +1,4 @@
 .searchbar input {
-  border: 0;
   border: 1em;
   background-color: white;
   border-radius: 1em;
@@ -8,7 +7,6 @@
 }
 
 .searchbar button {
-  border: 0;
   background-color: var(--WALMART-YALLOW);
   padding: 0.5em;
   border-radius: 1em;
