@@ -1,5 +1,4 @@
 import { arg, nonNull, objectType } from "nexus";
-import { argsToPrisma } from "../helpers/resolver";
 import prisma from "../../utils/prisma";
 
 export const Catalogs = objectType({
@@ -7,12 +6,11 @@ export const Catalogs = objectType({
   definition(t) {
     t.nonNull.id("id");
     t.nonNull.int("price");
-    t.nonNull.int("product_id");
+    t.nonNull.id("product_id");
     t.nonNull.field("Products", {
       type: "Products",
-      resolve(s, a) {
+      resolve(s) {
         return prisma.products.findUnique({
-          select: argsToPrisma(a),
           where: { id: s.product_id },
         });
       },
@@ -26,7 +24,7 @@ export const ProductTypes = objectType({
     t.nonNull.string("name");
     t.nonNull.id("id");
     t.nonNull.int("_count", {
-      resolve(s, a) {
+      resolve(s) {
         return prisma.products.count({
           where: { product_type_id: s.id },
         });
@@ -57,21 +55,28 @@ export const Products = objectType({
   definition(t) {
     t.nonNull.string("name");
     t.nonNull.id("id");
+    t.nonNull.int("brand_id");
     t.nonNull.field("ProductTypes", {
       type: "ProductTypes",
-      resolve(s, a) {
+      resolve(s) {
         return prisma.productTypes.findUnique({
-          select: argsToPrisma(a),
           where: { id: s.product_type_id },
         });
       },
     });
     t.nonNull.list.field("ProductRates", {
       type: "ProductRates",
-      resolve(s, a) {
+      resolve(s) {
         return prisma.productRates.findMany({
-          select: argsToPrisma(a),
           where: { id: s.product_id },
+        });
+      },
+    });
+    t.nonNull.field("Brands", {
+      type: "Brands",
+      resolve(s) {
+        return prisma.brands.findUnique({
+          where: { id: s.brand_id },
         });
       },
     });
@@ -81,7 +86,33 @@ export const Products = objectType({
 export const ProductRates = objectType({
   name: "ProductRates",
   definition(t) {
-    t.nonNull.string("rate");
+    t.nonNull.int("rate");
     t.nonNull.id("id");
+    t.nonNull.string("description");
+    t.nonNull.string("user_id");
+    t.nonNull.field("User", {
+      type: "User",
+      resolve(s) {
+        return prisma.users.findUnique({
+          where: { id: s.user_id },
+        });
+      },
+    });
+  },
+});
+
+export const User = objectType({
+  name: "User",
+  definition(t) {
+    t.nonNull.id("id");
+    t.nonNull.string("first_name");
+  },
+});
+
+export const Brands = objectType({
+  name: "Brands",
+  definition(t) {
+    t.nonNull.id("id");
+    t.nonNull.string("name");
   },
 });

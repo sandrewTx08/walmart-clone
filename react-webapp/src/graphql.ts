@@ -12,18 +12,27 @@ export type Scalars = {
   Float: number;
 };
 
+export type Brands = {
+  __typename?: 'Brands';
+  id: Scalars['ID'];
+  name: Scalars['String'];
+};
+
 export type Catalogs = {
   __typename?: 'Catalogs';
   Products: Products;
   id: Scalars['ID'];
   price: Scalars['Int'];
-  product_id: Scalars['Int'];
+  product_id: Scalars['ID'];
 };
 
 export type ProductRates = {
   __typename?: 'ProductRates';
+  User: User;
+  description: Scalars['String'];
   id: Scalars['ID'];
-  rate: Scalars['String'];
+  rate: Scalars['Int'];
+  user_id: Scalars['String'];
 };
 
 export type ProductTypes = {
@@ -42,19 +51,33 @@ export type ProductTypesCatalogArgs = {
 
 export type Products = {
   __typename?: 'Products';
+  Brands: Brands;
   ProductRates: Array<Maybe<ProductRates>>;
   ProductTypes: ProductTypes;
+  brand_id: Scalars['Int'];
   id: Scalars['ID'];
   name: Scalars['String'];
 };
 
 export type Query = {
   __typename?: 'Query';
+  catalog: Catalogs;
   department: ProductTypes;
   departments?: Maybe<Array<ProductTypes>>;
 };
 
 
+export type QueryCatalogArgs = {
+  catalog_id: Scalars['Int'];
+};
+
+
 export type QueryDepartmentArgs = {
   department_id: Scalars['Int'];
+};
+
+export type User = {
+  __typename?: 'User';
+  first_name: Scalars['String'];
+  id: Scalars['ID'];
 };

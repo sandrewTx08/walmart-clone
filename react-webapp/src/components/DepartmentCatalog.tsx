@@ -19,7 +19,7 @@ export default function () {
           department(department_id: ${id}) {
             name
             _count
-            catalog(limit: 30) {
+            catalog(limit: 40) {
               id
               price
               Products {

@@ -2,16 +2,24 @@
 ### Do not make changes to this file directly
 
 
+type Brands {
+  id: ID!
+  name: String!
+}
+
 type Catalogs {
   Products: Products!
   id: ID!
   price: Int!
-  product_id: Int!
+  product_id: ID!
 }
 
 type ProductRates {
+  User: User!
+  description: String!
   id: ID!
-  rate: String!
+  rate: Int!
+  user_id: String!
 }
 
 type ProductTypes {
@@ -22,13 +30,21 @@ type ProductTypes {
 }
 
 type Products {
+  Brands: Brands!
   ProductRates: [ProductRates]!
   ProductTypes: ProductTypes!
+  brand_id: Int!
   id: ID!
   name: String!
 }
 
 type Query {
+  catalog(catalog_id: Int!): Catalogs!
   department(department_id: Int!): ProductTypes!
   departments: [ProductTypes!]
+}
+
+type User {
+  first_name: String!
+  id: ID!
 }

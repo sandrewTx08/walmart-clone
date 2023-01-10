@@ -32,12 +32,13 @@ model ProductTypes {
 }
 
 model ProductRates {
-  id         Int      @id @default(autoincrement())
-  Products   Products @relation(fields: [product_id], references: [id])
-  product_id Int
-  Users      Users    @relation(fields: [user_id], references: [id])
-  user_id    String   @db.Uuid
-  rate       Int      @db.SmallInt
+  id          Int      @id @default(autoincrement())
+  Products    Products @relation(fields: [product_id], references: [id])
+  product_id  Int
+  Users       Users    @relation(fields: [user_id], references: [id])
+  user_id     String   @db.Uuid
+  rate        Int      @db.SmallInt
+  description String
 }
 
 model Products {
