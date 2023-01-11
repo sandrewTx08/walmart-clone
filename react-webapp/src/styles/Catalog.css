@@ -9,9 +9,16 @@
 
 .catalog-details {
   padding: 1em;
-  display: flex;
-  gap: 1em;
-  flex-direction: column;
+  width: 40%;
+  word-break: break-all;
+  max-height: 400px;
+  min-width: 300px;
+  z-index: 200;
+  background-color: white;
+}
+
+.catalog-details div {
+  padding: 5px;
 }
 
 .catalog-price {
@@ -26,14 +33,16 @@
   font-size: x-large;
 }
 
-.catalog-review-items {
-}
-
-.catalog-review-item div {
-}
-
 .catalog-review-item {
   margin: 1em;
   padding: 2em;
   display: inline-block;
+}
+
+@media screen and (max-width: 768px) {
+  .catalog-details {
+    position: fixed;
+    width: 50%;
+    float: right;
+  }
 }

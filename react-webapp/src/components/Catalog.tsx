@@ -62,8 +62,9 @@ export default function () {
             {query.catalog.Products.ProductRates.map((productRate) => (
               <div className="catalog-review-item soft-shadow soft-border">
                 <div>
-                  <div style={{ fontSize: "large" }}>
-                    <b>{productRate.rate}</b>
+                  <div>
+                    <b style={{ fontSize: "large" }}>{productRate.rate}</b>/
+                    {query.catalog.Products.ProductRates.length}
                   </div>
                   {productRate.User.first_name}
                 </div>
