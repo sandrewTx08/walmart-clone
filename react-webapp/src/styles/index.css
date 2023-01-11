@@ -25,4 +25,15 @@ main {
   margin: auto;
   position: relative;
   top: 5em;
+  flex-direction: column;
+  display: flex;
+  gap: 1em;
+}
+
+.soft-shadow {
+  box-shadow: var(--SOFT-SHADOW);
+}
+
+.soft-border {
+  border-radius: 1em;
 }

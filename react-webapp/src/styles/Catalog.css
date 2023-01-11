@@ -1,0 +1,39 @@
+.catalog {
+  display: flex;
+}
+
+.catalog img {
+  width: 100%;
+  max-width: 100%;
+}
+
+.catalog-details {
+  padding: 1em;
+  display: flex;
+  gap: 1em;
+  flex-direction: column;
+}
+
+.catalog-price {
+  font-size: x-large;
+}
+
+.catalog-title {
+  font-size: large;
+}
+
+.catalog-review h1 {
+  font-size: x-large;
+}
+
+.catalog-review-items {
+}
+
+.catalog-review-item div {
+}
+
+.catalog-review-item {
+  margin: 1em;
+  padding: 2em;
+  display: inline-block;
+}
