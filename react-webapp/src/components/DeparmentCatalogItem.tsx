@@ -19,7 +19,8 @@ export default function (props: PropsWithChildren<{ query: Query }>) {
               {catalog.Products.ProductRates.reduce(
                 (p, a) => p + Number(a.rate),
                 0
-              ) / catalog.Products.ProductRates.length}
+              ) / catalog.Products.ProductRates[0]._count}
+              /{catalog.Products.ProductRates[0]._count}
             </div>
           </div>
         </Link>

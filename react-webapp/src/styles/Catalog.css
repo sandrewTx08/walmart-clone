@@ -13,7 +13,7 @@
   word-break: break-all;
   max-height: 400px;
   min-width: 300px;
-  z-index: 200;
+  z-index: 100;
   background-color: white;
 }
 
@@ -43,6 +43,5 @@
   .catalog-details {
     position: fixed;
     width: 50%;
-    float: right;
   }
 }

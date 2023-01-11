@@ -29,6 +29,7 @@ export type Catalogs = {
 export type ProductRates = {
   __typename?: 'ProductRates';
   User: User;
+  _count: Scalars['Int'];
   description: Scalars['String'];
   id: Scalars['ID'];
   rate: Scalars['Int'];
@@ -57,6 +58,11 @@ export type Products = {
   brand_id: Scalars['Int'];
   id: Scalars['ID'];
   name: Scalars['String'];
+};
+
+
+export type ProductsProductRatesArgs = {
+  limit?: InputMaybe<Scalars['Int']>;
 };
 
 export type Query = {

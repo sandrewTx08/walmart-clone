@@ -25,6 +25,7 @@ export default function () {
               Products {
                 name
                 ProductRates {
+                  _count
                   rate
                 }
               }

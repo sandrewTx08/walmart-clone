@@ -16,6 +16,7 @@ type Catalogs {
 
 type ProductRates {
   User: User!
+  _count: Int!
   description: String!
   id: ID!
   rate: Int!
@@ -31,7 +32,7 @@ type ProductTypes {
 
 type Products {
   Brands: Brands!
-  ProductRates: [ProductRates]!
+  ProductRates(limit: Int): [ProductRates]!
   ProductTypes: ProductTypes!
   brand_id: Int!
   id: ID!

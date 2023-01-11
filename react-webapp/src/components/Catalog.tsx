@@ -17,9 +17,10 @@ export default function () {
           price
           Products {
             name
-            ProductRates {
+            ProductRates(limit: 6) {
               rate
               description
+              _count
               User {
                 first_name
               }
@@ -64,13 +65,16 @@ export default function () {
                 <div>
                   <div>
                     <b style={{ fontSize: "large" }}>{productRate.rate}</b>/
-                    {query.catalog.Products.ProductRates.length}
+                    {productRate._count}
                   </div>
-                  {productRate.User.first_name}
                 </div>
-                <div style={{ fontSize: "small" }}>
+                <div
+                  className="catalog-review-item-title"
+                  style={{ fontSize: "small" }}
+                >
                   {productRate.description}
                 </div>
+                {productRate.User.first_name}
               </div>
             ))}
           </div>
