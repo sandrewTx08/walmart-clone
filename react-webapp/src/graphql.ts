@@ -32,8 +32,9 @@ export type ProductRates = {
   _count: Scalars['Int'];
   description: Scalars['String'];
   id: Scalars['ID'];
+  product_id: Scalars['ID'];
   rate: Scalars['Int'];
-  user_id: Scalars['String'];
+  user_id: Scalars['ID'];
 };
 
 export type ProductTypes = {
@@ -55,7 +56,7 @@ export type Products = {
   Brands: Brands;
   ProductRates: Array<Maybe<ProductRates>>;
   ProductTypes: ProductTypes;
-  brand_id: Scalars['Int'];
+  brand_id: Scalars['ID'];
   id: Scalars['ID'];
   name: Scalars['String'];
 };

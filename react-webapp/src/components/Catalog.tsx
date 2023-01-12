@@ -2,6 +2,7 @@ import request, { gql } from "graphql-request";
 import { Fragment, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Query } from "../graphql";
+import StartRate from "./Starrate";
 
 export default function () {
   const { id } = useParams(),
@@ -64,8 +65,10 @@ export default function () {
               <div className="catalog-review-item soft-shadow soft-border">
                 <div>
                   <div>
-                    <b style={{ fontSize: "large" }}>{productRate.rate}</b>/
-                    {productRate._count}
+                    <b style={{ fontSize: "large" }}>
+                      <StartRate rate={productRate.rate} />
+                    </b>
+                    /{productRate._count}
                   </div>
                 </div>
                 <div

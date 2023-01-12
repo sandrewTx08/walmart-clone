@@ -19,8 +19,9 @@ type ProductRates {
   _count: Int!
   description: String!
   id: ID!
+  product_id: ID!
   rate: Int!
-  user_id: String!
+  user_id: ID!
 }
 
 type ProductTypes {
@@ -34,7 +35,7 @@ type Products {
   Brands: Brands!
   ProductRates(limit: Int): [ProductRates]!
   ProductTypes: ProductTypes!
-  brand_id: Int!
+  brand_id: ID!
   id: ID!
   name: String!
 }

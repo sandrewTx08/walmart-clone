@@ -55,7 +55,7 @@ export const Products = objectType({
   definition(t) {
     t.nonNull.string("name");
     t.nonNull.id("id");
-    t.nonNull.int("brand_id");
+    t.nonNull.id("brand_id");
     t.nonNull.field("ProductTypes", {
       type: "ProductTypes",
       resolve(s) {
@@ -72,7 +72,7 @@ export const Products = objectType({
       resolve(s, a) {
         return prisma.productRates.findMany({
           orderBy: { id: "desc" },
-          where: { id: s.product_id },
+          where: { product_id: s.id },
           take: a.limit,
         });
       },
@@ -94,6 +94,7 @@ export const ProductRates = objectType({
     t.nonNull.int("rate");
     t.nonNull.id("id");
     t.nonNull.string("description");
+    t.nonNull.id("product_id");
     t.nonNull.int("_count", {
       resolve(s) {
         return prisma.productRates.count({
@@ -101,7 +102,7 @@ export const ProductRates = objectType({
         });
       },
     });
-    t.nonNull.string("user_id");
+    t.nonNull.id("user_id");
     t.nonNull.field("User", {
       type: "User",
       resolve(s) {

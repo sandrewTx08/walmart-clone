@@ -22,11 +22,13 @@ export default function () {
             catalog(limit: 40) {
               id
               price
+              product_id
               Products {
                 name
                 ProductRates {
                   _count
                   rate
+                  product_id
                 }
               }
             }
