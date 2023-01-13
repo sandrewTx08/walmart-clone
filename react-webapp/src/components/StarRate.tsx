@@ -9,6 +9,28 @@ export default function (props: { rate: string }) {
   );
 
   switch (rate) {
+    default:
+      return (
+        <Fragment>
+          <RiStarLine />
+          <RiStarLine />
+          <RiStarLine />
+          <RiStarLine />
+          <RiStarLine />
+        </Fragment>
+      );
+
+    case 0.5:
+      return (
+        <Fragment>
+          <RiStarHalfFill />
+          <RiStarLine />
+          <RiStarLine />
+          <RiStarLine />
+          <RiStarLine />
+        </Fragment>
+      );
+
     case 1:
       return (
         <Fragment>
@@ -105,17 +127,6 @@ export default function (props: { rate: string }) {
           <RiStarFill />
           <RiStarFill />
           <RiStarFill />
-        </Fragment>
-      );
-
-    default:
-      return (
-        <Fragment>
-          <RiStarLine />
-          <RiStarLine />
-          <RiStarLine />
-          <RiStarLine />
-          <RiStarLine />
         </Fragment>
       );
   }
