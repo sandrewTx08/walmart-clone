@@ -91,7 +91,7 @@ export const Products = objectType({
 export const ProductRates = objectType({
   name: "ProductRates",
   definition(t) {
-    t.nonNull.int("rate");
+    t.nonNull.string("rate");
     t.nonNull.id("id");
     t.nonNull.string("description");
     t.nonNull.id("product_id");

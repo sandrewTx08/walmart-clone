@@ -1,7 +1,7 @@
 import { Fragment, PropsWithChildren } from "react";
 import { Link } from "react-router-dom";
 import { Query } from "../graphql";
-import Starrate from "./Starrate";
+import StarRate from "./StarRate";
 
 export default function (props: PropsWithChildren<{ query: Query }>) {
   return (
@@ -17,8 +17,8 @@ export default function (props: PropsWithChildren<{ query: Query }>) {
               {catalog.Products.name}
             </div>
             <div className="department-catalog-rate">
-              <Starrate
-                rate={
+              <StarRate
+                rate={(
                   catalog.Products.ProductRates.reduce(
                     (p, a) => p + Number(a.rate),
                     0
@@ -26,7 +26,7 @@ export default function (props: PropsWithChildren<{ query: Query }>) {
                   catalog.Products.ProductRates.find(
                     (p) => p.product_id == catalog.product_id
                   )?._count
-                }
+                ).toString()}
               />
               {
                 catalog.Products.ProductRates.find(

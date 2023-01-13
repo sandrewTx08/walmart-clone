@@ -33,7 +33,7 @@ export type ProductRates = {
   description: Scalars['String'];
   id: Scalars['ID'];
   product_id: Scalars['ID'];
-  rate: Scalars['Int'];
+  rate: Scalars['String'];
   user_id: Scalars['ID'];
 };
 

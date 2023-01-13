@@ -2,7 +2,7 @@ import request, { gql } from "graphql-request";
 import { Fragment, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Query } from "../graphql";
-import StartRate from "./Starrate";
+import StartRate from "./StarRate";
 
 export default function () {
   const { id } = useParams(),

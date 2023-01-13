@@ -37,7 +37,7 @@ model ProductRates {
   product_id  Int
   Users       Users    @relation(fields: [user_id], references: [id])
   user_id     String   @db.Uuid
-  rate        Int      @db.SmallInt
+  rate        Decimal
   description String
 }
 

@@ -20,7 +20,7 @@ type ProductRates {
   description: String!
   id: ID!
   product_id: ID!
-  rate: Int!
+  rate: String!
   user_id: ID!
 }
 
