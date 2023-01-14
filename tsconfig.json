@@ -8,9 +8,9 @@
     "esModuleInterop": false,
     "allowSyntheticDefaultImports": true,
     "strict": true,
-    "strictNullChecks": false,
     "forceConsistentCasingInFileNames": true,
-    "module": "ESNext",
+    "module": "CommonJS",
+    "strictNullChecks": false,
     "moduleResolution": "Node",
     "resolveJsonModule": true,
     "isolatedModules": true,
@@ -18,5 +18,14 @@
     "jsx": "react-jsx"
   },
   "include": ["src"],
+  "exclude": [
+    "node_modules",
+    "**/__mocks__*",
+    "**/__tests__*",
+    "**/*.spec.*",
+    "**/*.test.*",
+    "out",
+    ".next"
+  ],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

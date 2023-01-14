@@ -1,5 +1,5 @@
 import { nonNull, arg, extendType } from "nexus";
-import prisma from "../../utils/prisma";
+import prisma from "../prisma";
 
 export const department = extendType({
   type: "Query",

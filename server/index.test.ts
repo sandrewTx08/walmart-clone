@@ -1,4 +1,4 @@
-import server from "./server";
+import { server } from ".";
 import { CallbackFunc } from "light-my-request";
 
 function testGraphqlServer(query: string, callback: CallbackFunc) {

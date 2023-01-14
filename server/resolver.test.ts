@@ -1,4 +1,4 @@
-import { argsToPrisma } from "./resolver";
+import { argsToPrisma } from "./helpers";
 
 describe("argsToPrisma", () => {
   let result
