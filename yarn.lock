@@ -1812,7 +1812,7 @@
   dependencies:
     "@types/yargs-parser" "*"
 
-"@vitejs/plugin-react-swc@^3.0.0":
+"@vitejs/plugin-react-swc@^3.0.1":
   version "3.0.1"
   resolved "https://registry.yarnpkg.com/@vitejs/plugin-react-swc/-/plugin-react-swc-3.0.1.tgz#7c904f889967f2240e04ac13582399a061468990"
   integrity sha512-3GQ2oruZO9j8dSHcI0MUeOZQBhjYyDQsF/pKY4Px+CJxn0M16OhgFeEzUjeuwci4zhhjoNIDE9aFNaV5GMQ09g==
