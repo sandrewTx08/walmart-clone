@@ -5,8 +5,8 @@
   "scripts": {
     "dev": "concurrently \"vite\" \"nodemon server/index.ts\"",
     "codegen": "graphql-codegen --config codegen.yml",
-    "build": "tsc && vite build",
-    "preview": "vite preview",
+    "build": "tsc --project tsconfig.node.json && vite build",
+    "start": "concurrently \"vite preview\" \"node dist/server/index.js\"",
     "test": "jest"
   },
   "dependencies": {
