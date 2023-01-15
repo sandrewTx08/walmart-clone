@@ -4118,7 +4118,7 @@ map-cache@^0.2.0:
   resolved "https://registry.yarnpkg.com/map-cache/-/map-cache-0.2.2.tgz#c32abd0bd6525d9b051645bb4f26ac5dc98a0dbf"
   integrity sha512-8y/eV9QQZCiyn1SprXSrCmqJN0yNRATe+PO8ztwqrvrbdRLA3eYJF0yaR0YayLWkMbsQSKWS9N2gPcGEc4UsZg==
 
-mercurius@^11.4.0:
+mercurius@^11.5.0:
   version "11.5.0"
   resolved "https://registry.yarnpkg.com/mercurius/-/mercurius-11.5.0.tgz#07b2c6fbe0136ae23a1ad315361ae996586e7af7"
   integrity sha512-e2ZGC9OyX8eY7Dt/gUrTvzjVDojXECgv4dkjOz7Mux80V0D8ZC7im2cuywsInIQw6pEK1/p8WeVzuIADdWAJag==
