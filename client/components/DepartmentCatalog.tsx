@@ -1,21 +1,20 @@
 import { useParams } from "react-router-dom";
-import { request, gql } from "graphql-request";
 import { Fragment, useEffect, useState } from "react";
 import DepartmentCatalogItem from "./DeparmentCatalogItem";
-import { Query } from "../graphql";
+import { Query } from "../graphql-types";
 import { MdOutlinePriceChange, MdOutlineStore } from "react-icons/md";
 import { AiOutlineFire } from "react-icons/ai";
 import { BsListStars } from "react-icons/bs";
+import { graphQLClient } from "../graphql-client";
 
 export default function () {
   const { id } = useParams(),
     [query, querySet] = useState<Query>();
 
   useEffect(() => {
-    request(
-      "http://localhost:3000/graphql",
-      gql`
-        {
+    graphQLClient
+      .request(
+        `{
           department(department_id: ${id}) {
             name
             _count
@@ -33,9 +32,9 @@ export default function () {
               }
             }
           }
-        }
-      `
-    ).then(querySet);
+        }`
+      )
+      .then(querySet);
   }, [id]);
 
   return (

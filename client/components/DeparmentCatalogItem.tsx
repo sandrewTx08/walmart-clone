@@ -1,6 +1,6 @@
 import { Fragment, PropsWithChildren } from "react";
 import { Link } from "react-router-dom";
-import { Query } from "../graphql";
+import { Query } from "../graphql-types";
 import StarRate from "./StarRate";
 
 export default function (props: PropsWithChildren<{ query: Query }>) {

@@ -1,13 +1,13 @@
 import { HiOutlineSquares2X2 } from "react-icons/hi2";
 import { GiHamburgerMenu } from "react-icons/gi";
-import { gql, request } from "graphql-request";
 import { Link } from "react-router-dom";
 import Navbar from "./Navbar";
 import Searchbar from "./Searchbar";
 import { FiUser, FiMessageSquare } from "react-icons/fi";
 import { Fragment, useEffect, useState } from "react";
-import { Query } from "../graphql";
+import { Query } from "../graphql-types";
 import DropdownList from "./DropdownList";
+import { graphQLClient } from "../graphql-client";
 
 export default function () {
   const [departmentsMenu, departmentsMenuSet] = useState(false),
@@ -15,9 +15,9 @@ export default function () {
     [query, querySet] = useState<Query>();
 
   useEffect(() => {
-    request(
-      "http://localhost:3000/graphql",
-      gql`
+    graphQLClient
+      .request(
+        `
         {
           departments {
             name
@@ -25,7 +25,8 @@ export default function () {
           }
         }
       `
-    ).then(querySet);
+      )
+      .then(querySet);
   }, []);
 
   return (

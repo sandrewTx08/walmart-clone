@@ -25,4 +25,5 @@ jobs:
           cache: "yarn"
       - run: yarn install
       - run: yarn prisma generate
+      - run: yarn codegen
       - run: yarn build

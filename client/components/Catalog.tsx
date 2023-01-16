@@ -1,7 +1,7 @@
-import request, { gql } from "graphql-request";
 import { Fragment, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { Query } from "../graphql";
+import { graphQLClient } from "../graphql-client";
+import { Query } from "../graphql-types";
 import StartRate from "./StarRate";
 
 export default function () {
@@ -9,10 +9,9 @@ export default function () {
     [query, querySet] = useState<Query>();
 
   useEffect(() => {
-    request(
-      "http://localhost:3000/graphql",
-      gql`
-       {
+    graphQLClient
+      .request(
+        `{
         catalog(catalog_id: ${id}) {
           id
           price
@@ -31,9 +30,9 @@ export default function () {
             }
           }
         }
-       }
-      `
-    ).then(querySet);
+       }`
+      )
+      .then(querySet);
   }, [id]);
 
   return (
