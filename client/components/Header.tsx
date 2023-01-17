@@ -34,7 +34,7 @@ export default function () {
       {navbarVertical && (
         <ul className="navbar-vertical">
           <li>
-            <Link to={"login"}>
+            <Link to={"http://localhost:3000/login"}>
               <FiUser />
               <div>Login</div>
             </Link>
