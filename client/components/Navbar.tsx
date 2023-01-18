@@ -22,7 +22,7 @@ export default function () {
         </li>
 
         <li className="header-item">
-          <Link to={"help"}>
+          <Link to="chat">
             <FiMessageSquare />
             <div>
               <div>Chat assistent</div>
@@ -34,7 +34,7 @@ export default function () {
         </li>
 
         <li className="header-item">
-          <Link to={"cart"}>
+          <Link to="cart">
             <FiShoppingCart />
             <div>
               <div>Cart</div>

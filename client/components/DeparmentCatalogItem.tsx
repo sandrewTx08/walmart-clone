@@ -7,7 +7,7 @@ export default function (props: PropsWithChildren<{ query: Query }>) {
   return (
     <Fragment>
       {props.query.department.catalog.map((catalog) => (
-        <Link to={"/catalog/" + catalog.id}>
+        <Link to={"catalog/" + catalog.id}>
           <div className="department-catalog-item">
             <img src="/walmartLogoSmall.png" />
             <div className="department-catalog-price">

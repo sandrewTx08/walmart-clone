@@ -42,7 +42,10 @@ export default function () {
             <Route path="/" element={<Carousel />} />
             <Route path="/user" element={<>{JSON.stringify(a)}</>} />
             <Route path="department/:id" element={<DepartmentCatalog />} />
-            <Route path="catalog/:id" element={<Catalog />} />
+            <Route
+              path="department/:department_id/catalog/:id"
+              element={<Catalog />}
+            />
           </Routes>
         </main>
       </Cart.Provider>

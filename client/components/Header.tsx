@@ -34,15 +34,15 @@ export default function () {
       {navbarVertical && (
         <ul className="navbar-vertical">
           <li>
-            <Link to={"http://localhost:3000/login"}>
+            <a href="http://localhost:3000/login">
               <FiUser />
               <div>Login</div>
-            </Link>
+            </a>
           </li>
           <li>
-            <Link to={"help"}>
+            <Link to="chat">
               <FiMessageSquare />
-              <div>Help</div>
+              <div>Chat support</div>
             </Link>
           </li>
         </ul>
@@ -63,7 +63,7 @@ export default function () {
         </div>
 
         <div className="header-brand">
-          <Link to={"/"}>
+          <Link to="/">
             <img className="header-brand-small" src="/walmartLogoMedium.svg" />
             <img className="header-brand-medium" src="/walmartLogoSmall.png" />
           </Link>
