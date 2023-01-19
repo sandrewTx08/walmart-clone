@@ -36,7 +36,7 @@ model ProductRates {
   Products    Products @relation(fields: [product_id], references: [id])
   product_id  Int
   Users       Users    @relation(fields: [user_id], references: [id])
-  user_id     String   @db.Uuid
+  user_id     String
   rate        Decimal
   description String
 }
@@ -66,17 +66,19 @@ model Catalogs {
 }
 
 model Users {
-  id           String         @id @default(uuid()) @db.Uuid
+  id           String         @id
   first_name   String
   last_name    String
-  phone        Int
-  street       String
-  Cities       Cities         @relation(fields: [city_id], references: [id])
-  city_id      Int
-  sex          Int            @db.SmallInt
-  age          Int            @db.SmallInt
+  avatar       String
+  phone        Int?
+  street       String?
+  Cities       Cities?        @relation(fields: [city_id], references: [id])
+  city_id      Int?
+  sex          Int?           @db.SmallInt
+  age          Int?           @db.SmallInt
   join_at      DateTime       @default(now())
   email        String
+  cart         Json           @default("[]")
   ProductRates ProductRates[]
   Orders       Orders[]
 }
@@ -84,7 +86,7 @@ model Users {
 model Orders {
   id         Int      @id @default(autoincrement())
   Users      Users    @relation(fields: [user_id], references: [id])
-  user_id    String   @db.Uuid
+  user_id    String
   Catalogs   Catalogs @relation(fields: [catalog_id], references: [id])
   catalog_id Int
   quantity   Int

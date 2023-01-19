@@ -1,25 +1,39 @@
 import { useContext } from "react";
 import { FiUser, FiMessageSquare, FiShoppingCart } from "react-icons/fi";
 import { Link } from "react-router-dom";
-import { Cart } from "../App";
+import { UserContext } from "../App";
 
 export default function () {
-  const cart = useContext(Cart);
+  const user = useContext(UserContext);
 
   return (
     <nav className="navbar-horizontal">
       <ul>
-        <li className="header-item">
-          <a href="http://localhost:3000/login">
-            <FiUser />
-            <div>
-              <div>Sign in</div>
+        {user ? (
+          <li className="header-item">
+            <Link to="user">
+              <FiUser />
               <div>
-                <b>Account</b>
+                <div>{user.first_name}</div>
+                <div>
+                  <b>Account</b>
+                </div>
               </div>
-            </div>
-          </a>
-        </li>
+            </Link>
+          </li>
+        ) : (
+          <li className="header-item">
+            <a href="http://localhost:3000/login">
+              <FiUser />
+              <div>
+                <div>Sign in</div>
+                <div>
+                  <b>Account</b>
+                </div>
+              </div>
+            </a>
+          </li>
+        )}
 
         <li className="header-item">
           <Link to="chat">
@@ -40,9 +54,13 @@ export default function () {
               <div>Cart</div>
               <div>
                 $
-                {(
-                  cart.reduce((p, c) => p + c.price * c.quantity, 0) as number
-                ).toFixed(2)}
+                {user &&
+                  (
+                    user.cart.reduce(
+                      (p, c) => p + c.price * c.quantity,
+                      0
+                    ) as number
+                  ).toFixed(2)}
               </div>
             </div>
           </Link>

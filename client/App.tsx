@@ -14,33 +14,30 @@ import "./styles/DropdownList.css";
 import "./styles/DepartmentCatalog.css";
 import "./styles/index.css";
 import axios from "axios";
+import { Users } from "@prisma/client";
 
-export const Cart = createContext<any[]>(undefined);
+export const UserContext = createContext<Users>(null);
 
 export default function () {
-  const [a, ass] = useState<any>();
+  const [user, userSet] = useState<Users>();
 
   useEffect(() => {
     axios
       .get("http://localhost:3000/user", { withCredentials: true })
-      .then(({ data }) => ass(data));
+      .then(({ data }) => {
+        userSet(data);
+      });
   }, []);
 
   return (
     <Fragment>
-      <Cart.Provider
-        value={[
-          { product_id: 1, price: 4.29, quantity: 2 },
-          { product_id: 2, price: 1.14, quantity: 8 },
-          { product_id: 3, price: 7.52, quantity: 18 },
-        ]}
-      >
+      <UserContext.Provider value={user}>
         <Header />
 
         <main>
           <Routes>
             <Route path="/" element={<Carousel />} />
-            <Route path="/user" element={<>{JSON.stringify(a)}</>} />
+            <Route path="/user" element={<>{JSON.stringify(user)}</>} />
             <Route path="department/:id" element={<DepartmentCatalog />} />
             <Route
               path="department/:department_id/catalog/:id"
@@ -48,7 +45,7 @@ export default function () {
             />
           </Routes>
         </main>
-      </Cart.Provider>
+      </UserContext.Provider>
     </Fragment>
   );
 }

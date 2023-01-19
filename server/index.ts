@@ -4,6 +4,7 @@ import fastifyPassport from "@fastify/passport";
 import Fastify from "fastify";
 import { Strategy as OAuth20GoogleStrategy } from "passport-google-oauth20";
 import { Users } from "@prisma/client";
+import prisma from "./prisma";
 
 export const server = Fastify();
 server.register(require("mercurius"), { schema });
@@ -22,7 +23,10 @@ fastifyPassport.use(
       clientID: process.env.OAUTH_GOOGLE_CLIENTID as string,
       clientSecret: process.env.OAUTH_GOOGLE_SECRET as string,
       callbackURL: "http://localhost:3000/oauth/google",
-      scope: ["profile"],
+      scope: [
+        "https://www.googleapis.com/auth/userinfo.email",
+        "https://www.googleapis.com/auth/userinfo.profile",
+      ],
     },
     (accessToken, refreshToken, profile, done) => {
       done(null, profile);
@@ -31,7 +35,25 @@ fastifyPassport.use(
 );
 fastifyPassport.registerUserDeserializer<Users, unknown>(async (user) => user);
 fastifyPassport.registerUserSerializer<Users, unknown>(async (user) => user);
-server.get("/user", (req) => req.user);
+server.get("/user", (req) => {
+  const sessionUser = Object(req.user);
+
+  return prisma.users
+    .findUnique({ where: { id: sessionUser.id } })
+    .then((user) => {
+      if (user) {
+        return user;
+      } else {
+        const data: Users = Object();
+        data.id = sessionUser.id;
+        data.first_name = sessionUser.name.familyName;
+        data.last_name = sessionUser.name.givenName;
+        data.email = sessionUser.emails[0].value;
+        data.avatar = sessionUser.photos[0].value;
+        return prisma.users.create({ data });
+      }
+    });
+});
 server.get(
   "/oauth/google",
   {
