@@ -46,8 +46,8 @@ server.get("/user", (req) => {
       } else {
         const data: Users = Object();
         data.id = sessionUser.id;
-        data.first_name = sessionUser.name.familyName;
-        data.last_name = sessionUser.name.givenName;
+        data.first_name = sessionUser.name.givenName;
+        data.last_name = sessionUser.name.familyName;
         data.email = sessionUser.emails[0].value;
         data.avatar = sessionUser.photos[0].value;
         return prisma.users.create({ data });
