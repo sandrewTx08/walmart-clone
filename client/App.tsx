@@ -37,12 +37,13 @@ export default function () {
         <main>
           <Routes>
             <Route path="/" element={<Carousel />} />
-            <Route path="/user" element={<>{JSON.stringify(user)}</>} />
+            <Route path="user" element={<>{JSON.stringify(user)}</>} />
             <Route path="department/:id" element={<DepartmentCatalog />} />
             <Route
               path="department/:department_id/catalog/:id"
               element={<Catalog />}
             />
+            <Route path="*" element={<h1>Not Found</h1>} />
           </Routes>
         </main>
       </UserContext.Provider>
