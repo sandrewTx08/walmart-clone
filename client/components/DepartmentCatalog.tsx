@@ -37,6 +37,12 @@ export default function () {
       .then(querySet);
   }, [id]);
 
+  useEffect(() => {
+    if (query) {
+      document.title = `${query.department.name} - Walmart.com`;
+    }
+  }, [query]);
+
   return (
     <Fragment>
       {query && (

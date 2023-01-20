@@ -35,6 +35,12 @@ export default function () {
       .then(querySet);
   }, [id]);
 
+  useEffect(() => {
+    if (query) {
+      document.title = `${query.catalog.Products.name} - Walmart.com`;
+    }
+  }, [query]);
+
   return (
     query && (
       <Fragment>

@@ -19,6 +19,8 @@ import { Users } from "@prisma/client";
 export const UserContext = createContext<Users>(null);
 
 export default function () {
+  document.title = "Walmart.com";
+
   const [user, userSet] = useState<Users>();
 
   useEffect(() => {
@@ -30,23 +32,21 @@ export default function () {
   }, []);
 
   return (
-    <Fragment>
-      <UserContext.Provider value={user}>
-        <Header />
+    <UserContext.Provider value={user}>
+      <Header />
 
-        <main>
-          <Routes>
-            <Route path="/" element={<Carousel />} />
-            <Route path="user" element={<>{JSON.stringify(user)}</>} />
-            <Route path="department/:id" element={<DepartmentCatalog />} />
-            <Route
-              path="department/:department_id/catalog/:id"
-              element={<Catalog />}
-            />
-            <Route path="*" element={<h1>Not Found</h1>} />
-          </Routes>
-        </main>
-      </UserContext.Provider>
-    </Fragment>
+      <main>
+        <Routes>
+          <Route path="/" element={<Carousel />} />
+          <Route path="user" element={<>{JSON.stringify(user)}</>} />
+          <Route path="department/:id" element={<DepartmentCatalog />} />
+          <Route
+            path="department/:department_id/catalog/:id"
+            element={<Catalog />}
+          />
+          <Route path="*" element={<h1>Not Found</h1>} />
+        </Routes>
+      </main>
+    </UserContext.Provider>
   );
 }
