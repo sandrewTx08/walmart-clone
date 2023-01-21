@@ -5,6 +5,9 @@ import Fastify from "fastify";
 import { Strategy as OAuth20GoogleStrategy } from "passport-google-oauth20";
 import { Users } from "@prisma/client";
 import prisma from "./prisma";
+import { connect } from "mongoose";
+
+connect(process.env.MONGO_URL as string);
 
 export const server = Fastify();
 server.register(require("mercurius"), { schema });

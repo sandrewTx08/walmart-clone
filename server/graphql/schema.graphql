@@ -7,6 +7,16 @@ type Brands {
   name: String!
 }
 
+type Carts {
+  catalog_id: Int!
+  image: String!
+  name: String!
+  price: Int!
+  product_id: Int!
+  quantity: Int!
+  user_id: ID!
+}
+
 type Catalogs {
   Products: Products!
   id: ID!
@@ -14,8 +24,13 @@ type Catalogs {
   product_id: ID!
 }
 
+type Mutation {
+  cartAdd(catalog_id: Int!, quantity: Int!, user_id: ID!): Carts
+  cartDelete(catalog_id: Int!, quantity: Int!, user_id: ID!): Carts
+}
+
 type ProductRates {
-  User: User!
+  Users: Users!
   _count: Int!
   description: String!
   id: ID!
@@ -41,12 +56,13 @@ type Products {
 }
 
 type Query {
+  cart(user_id: ID!): [Carts]!
   catalog(catalog_id: Int!): Catalogs!
   department(department_id: Int!): ProductTypes!
   departments: [ProductTypes!]
 }
 
-type User {
+type Users {
   first_name: String!
   id: ID!
 }

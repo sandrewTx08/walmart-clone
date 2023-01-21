@@ -78,7 +78,6 @@ model Users {
   age          Int?           @db.SmallInt
   join_at      DateTime       @default(now())
   email        String
-  cart         Json           @default("[]")
   ProductRates ProductRates[]
   Orders       Orders[]
 }

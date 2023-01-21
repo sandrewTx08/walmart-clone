@@ -1,10 +1,11 @@
 import { useContext } from "react";
 import { FiUser, FiMessageSquare, FiShoppingCart } from "react-icons/fi";
 import { Link } from "react-router-dom";
-import { UserContext } from "../App";
+import { UserContext, CartContext } from "../App";
 
 export default function () {
-  const user = useContext(UserContext);
+  const user = useContext(UserContext),
+    query = useContext(CartContext);
 
   return (
     <nav className="navbar-horizontal">
@@ -56,7 +57,7 @@ export default function () {
                 $
                 {user &&
                   (
-                    user.cart.reduce(
+                    query.cart.reduce(
                       (p, c) => p + c.price * c.quantity,
                       0
                     ) as number

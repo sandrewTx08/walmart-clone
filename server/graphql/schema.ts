@@ -1,10 +1,11 @@
 import { makeSchema } from "nexus";
-import * as Types from "./types";
-import * as Query from "./query";
 import { join } from "path";
+import * as Type from "./type";
+import * as Mutation from "./mutation";
+import * as Query from "./query";
 
 const schema = makeSchema({
-  types: [Types, Query],
+  types: [Type, Query, Mutation],
   outputs: { schema: join(__dirname, "schema.graphql") },
 });
 

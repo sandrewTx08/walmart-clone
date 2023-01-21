@@ -1,4 +1,5 @@
 import { nonNull, arg, extendType } from "nexus";
+import { CartModel } from "../mongoose/model";
 import prisma from "../prisma";
 
 export const department = extendType({
@@ -36,6 +37,19 @@ export const catalog = extendType({
       args: { catalog_id: nonNull(arg({ type: "Int" })) },
       resolve({}, a) {
         return prisma.catalogs.findUnique({ where: { id: a.catalog_id } });
+      },
+    });
+  },
+});
+
+export const cart = extendType({
+  type: "Query",
+  definition(t) {
+    t.nonNull.list.field("cart", {
+      type: "Carts",
+      args: { user_id: nonNull(arg({ type: "ID" })) },
+      resolve({}, a) {
+        return CartModel.find({ user_id: a.user_id });
       },
     });
   },

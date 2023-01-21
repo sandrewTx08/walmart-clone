@@ -21,7 +21,7 @@ export default function () {
               rate
               description
               _count
-              User {
+              Users {
                 first_name
               }
             }
@@ -82,7 +82,7 @@ export default function () {
                 >
                   {productRate.description}
                 </div>
-                {productRate.User.first_name}
+                {productRate.Users.first_name}
               </div>
             ))}
           </div>

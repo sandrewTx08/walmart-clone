@@ -14,14 +14,18 @@ import "./styles/DropdownList.css";
 import "./styles/DepartmentCatalog.css";
 import "./styles/index.css";
 import axios from "axios";
-import { Users } from "@prisma/client";
+import { Query, Users } from "./graphql-types";
+import { graphQLClient } from "./graphql-client";
+import { gql } from "graphql-request";
 
 export const UserContext = createContext<Users>(null);
+export const CartContext = createContext<Query>(null);
 
 export default function () {
   document.title = "Walmart.com";
 
-  const [user, userSet] = useState<Users>();
+  const [user, userSet] = useState<Users>(),
+    [query, querySet] = useState<Query>();
 
   useEffect(() => {
     axios
@@ -31,9 +35,28 @@ export default function () {
       });
   }, []);
 
+  useEffect(() => {
+    if (user) {
+      graphQLClient
+        .request(
+          gql`{
+            cart(user_id: ${user.id}) {
+              price
+              quantity
+            }
+          }`
+        )
+        .then(querySet);
+    }
+  }, [user]);
+
   return (
     <UserContext.Provider value={user}>
-      <Header />
+      {query && (
+        <CartContext.Provider value={query}>
+          <Header />
+        </CartContext.Provider>
+      )}
 
       <main>
         <Routes>

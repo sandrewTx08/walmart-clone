@@ -1,6 +1,19 @@
 import { arg, nonNull, objectType } from "nexus";
 import prisma from "../prisma";
 
+export const Cart = objectType({
+  name: "Carts",
+  definition(t) {
+    t.nonNull.int("price");
+    t.nonNull.int("product_id");
+    t.nonNull.int("catalog_id");
+    t.nonNull.int("quantity");
+    t.nonNull.id("user_id");
+    t.nonNull.string("name");
+    t.nonNull.string("image");
+  },
+});
+
 export const Catalogs = objectType({
   name: "Catalogs",
   definition(t) {
@@ -103,8 +116,8 @@ export const ProductRates = objectType({
       },
     });
     t.nonNull.id("user_id");
-    t.nonNull.field("User", {
-      type: "User",
+    t.nonNull.field("Users", {
+      type: "Users",
       resolve(s) {
         return prisma.users.findUnique({
           where: { id: s.user_id },
@@ -115,7 +128,7 @@ export const ProductRates = objectType({
 });
 
 export const User = objectType({
-  name: "User",
+  name: "Users",
   definition(t) {
     t.nonNull.id("id");
     t.nonNull.string("first_name");
