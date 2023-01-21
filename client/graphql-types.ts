@@ -37,6 +37,20 @@ export type Catalogs = {
   product_id: Scalars['ID'];
 };
 
+export type Departments = {
+  __typename?: 'Departments';
+  _count: Scalars['Int'];
+  catalog?: Maybe<Array<Catalogs>>;
+  id: Scalars['ID'];
+  name: Scalars['String'];
+};
+
+
+export type DepartmentsCatalogArgs = {
+  limit: Scalars['Int'];
+  store_id?: InputMaybe<Scalars['Int']>;
+};
+
 export type Mutation = {
   __typename?: 'Mutation';
   cartAdd?: Maybe<Carts>;
@@ -68,25 +82,11 @@ export type ProductRates = {
   user_id: Scalars['ID'];
 };
 
-export type ProductTypes = {
-  __typename?: 'ProductTypes';
-  _count: Scalars['Int'];
-  catalog?: Maybe<Array<Catalogs>>;
-  id: Scalars['ID'];
-  name: Scalars['String'];
-};
-
-
-export type ProductTypesCatalogArgs = {
-  limit: Scalars['Int'];
-  store_id?: InputMaybe<Scalars['Int']>;
-};
-
 export type Products = {
   __typename?: 'Products';
   Brands: Brands;
+  Departments: Departments;
   ProductRates: Array<Maybe<ProductRates>>;
-  ProductTypes: ProductTypes;
   brand_id: Scalars['ID'];
   id: Scalars['ID'];
   name: Scalars['String'];
@@ -101,8 +101,8 @@ export type Query = {
   __typename?: 'Query';
   cart: Array<Maybe<Carts>>;
   catalog: Catalogs;
-  department: ProductTypes;
-  departments?: Maybe<Array<ProductTypes>>;
+  department: Departments;
+  departments?: Maybe<Array<Departments>>;
 };
 
 

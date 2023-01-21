@@ -25,7 +25,7 @@ model Cities {
   Users      Users[]
 }
 
-model ProductTypes {
+model Departments {
   id       Int        @id @default(autoincrement())
   name     String
   Products Products[]
@@ -42,16 +42,16 @@ model ProductRates {
 }
 
 model Products {
-  id              Int            @id @default(autoincrement())
-  name            String
-  Brands          Brands         @relation(fields: [brand_id], references: [id])
-  brand_id        Int
-  ProductTypes    ProductTypes   @relation(fields: [product_type_id], references: [id])
-  product_type_id Int
-  image           String
-  image_priority  Int            @default(0) @db.SmallInt
-  ProductRates    ProductRates[]
-  Catalogs        Catalogs[]
+  id             Int            @id @default(autoincrement())
+  name           String
+  Brands         Brands         @relation(fields: [brand_id], references: [id])
+  brand_id       Int
+  Departments    Departments    @relation(fields: [department_id], references: [id])
+  department_id  Int
+  image          String
+  image_priority Int            @default(0) @db.SmallInt
+  ProductRates   ProductRates[]
+  Catalogs       Catalogs[]
 }
 
 model Catalogs {

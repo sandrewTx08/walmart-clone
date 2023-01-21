@@ -6,10 +6,10 @@ export const department = extendType({
   type: "Query",
   definition(t) {
     t.nonNull.field("department", {
-      type: "ProductTypes",
+      type: "Departments",
       args: { department_id: nonNull(arg({ type: "Int" })) },
       resolve({}, a) {
-        return prisma.productTypes.findFirst({
+        return prisma.departments.findFirst({
           where: { id: a.department_id },
         });
       },
@@ -21,9 +21,9 @@ export const departments = extendType({
   type: "Query",
   definition(t) {
     t.list.nonNull.field("departments", {
-      type: "ProductTypes",
+      type: "Departments",
       resolve() {
-        return prisma.productTypes.findMany({});
+        return prisma.departments.findMany({});
       },
     });
   },
