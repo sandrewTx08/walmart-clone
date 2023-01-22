@@ -41,21 +41,23 @@ fastifyPassport.registerUserSerializer<Users, unknown>(async (user) => user);
 server.get("/user", (req) => {
   const sessionUser = Object(req.user);
 
-  return prisma.users
-    .findUnique({ where: { id: sessionUser.id } })
-    .then((user) => {
-      if (user) {
-        return user;
-      } else {
-        const data: Users = Object();
-        data.id = sessionUser.id;
-        data.first_name = sessionUser.name.givenName;
-        data.last_name = sessionUser.name.familyName;
-        data.email = sessionUser.emails[0].value;
-        data.avatar = sessionUser.photos[0].value;
-        return prisma.users.create({ data });
-      }
-    });
+  return sessionUser.id
+    ? prisma.users
+        .findUnique({ where: { id: sessionUser.id } })
+        .then((user) => {
+          if (user) {
+            return user;
+          } else {
+            const data: Users = Object();
+            data.id = sessionUser.id;
+            data.first_name = sessionUser.name.givenName;
+            data.last_name = sessionUser.name.familyName;
+            data.email = sessionUser.emails[0].value;
+            data.avatar = sessionUser.photos[0].value;
+            return prisma.users.create({ data });
+          }
+        })
+    : undefined;
 });
 server.get(
   "/oauth/google",
@@ -68,7 +70,7 @@ server.get(
   (req) => req.user
 );
 server.get("/login", fastifyPassport.authenticate("google"));
-server.get("/logout", (req) => {
+server.delete("/logout", (req) => {
   const logout = { success: req.user ? true : false };
   return req.logout().then(() => logout);
 });

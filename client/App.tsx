@@ -47,8 +47,26 @@ export default function () {
           }`
         )
         .then(querySet);
+    } else {
+      querySet(Object());
     }
   }, [user]);
+
+  function Saa() {
+    useEffect(() => {
+      axios
+        .delete("http://localhost:3000/logout", {
+          withCredentials: true,
+        })
+        .then(({ data }) => {
+          if (data.success) {
+            userSet(null);
+          }
+        });
+    }, []);
+
+    return <></>;
+  }
 
   return (
     <UserContext.Provider value={user}>
@@ -67,6 +85,7 @@ export default function () {
             path="department/:department_id/catalog/:id"
             element={<Catalog />}
           />
+          <Route path="logout" element={<Saa />} />
           <Route path="*" element={<h1>Not Found</h1>} />
         </Routes>
       </main>

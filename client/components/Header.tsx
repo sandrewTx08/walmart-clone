@@ -81,18 +81,16 @@ export default function () {
           </div>
 
           {departmentsMenu && (
-            <ul>
-              <DropdownList
-                list={
-                  query
-                    ? query.departments.map(({ name, id }) => ({
-                        href: "department/" + id,
-                        text: name,
-                      }))
-                    : []
-                }
-              />
-            </ul>
+            <DropdownList
+              list={
+                query
+                  ? query.departments.map(({ name, id }) => ({
+                      href: "department/" + id,
+                      text: name,
+                    }))
+                  : []
+              }
+            />
           )}
         </div>
 

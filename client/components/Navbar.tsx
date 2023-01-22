@@ -1,26 +1,39 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { FiUser, FiMessageSquare, FiShoppingCart } from "react-icons/fi";
 import { Link } from "react-router-dom";
 import { UserContext, CartContext } from "../App";
+import DropdownList from "./DropdownList";
 
 export default function () {
   const user = useContext(UserContext),
-    query = useContext(CartContext);
+    query = useContext(CartContext),
+    [userMenu, userMenuSet] = useState(false);
 
   return (
     <nav className="navbar-horizontal">
       <ul>
         {user ? (
-          <li className="header-item">
-            <Link to="user">
-              <FiUser />
+          <li
+            className="header-item"
+            onClick={() => {
+              userMenuSet(!userMenu);
+            }}
+          >
+            <FiUser />
+            <div>
+              <div>{user.first_name}</div>
               <div>
-                <div>{user.first_name}</div>
-                <div>
-                  <b>Account</b>
-                </div>
+                <b>Account</b>
               </div>
-            </Link>
+            </div>
+            {userMenu && (
+              <DropdownList
+                list={[
+                  { href: "logout", text: "Logout" },
+                  { href: "user", text: "Profile" },
+                ]}
+              />
+            )}
           </li>
         ) : (
           <li className="header-item">
@@ -55,13 +68,11 @@ export default function () {
               <div>Cart</div>
               <div>
                 $
-                {user &&
-                  (
-                    query.cart.reduce(
-                      (p, c) => p + c.price * c.quantity,
-                      0
-                    ) as number
-                  ).toFixed(2)}
+                {user && query.cart
+                  ? query.cart
+                      .reduce((p, c) => p + c.price * c.quantity, 0)
+                      .toFixed(2)
+                  : 0}
               </div>
             </div>
           </Link>
