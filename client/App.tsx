@@ -1,31 +1,20 @@
-import { createContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Route, Routes, Navigate } from "react-router-dom";
-import Header from "./components/Header";
+import Navigation from "./components/Navigation";
 import Carousel from "./components/Carousel";
 import DepartmentCatalog from "./components/DepartmentCatalog";
 import Catalog from "./components/Catalog";
-import "./styles/variables.css";
-import "./styles/Navbar.css";
-import "./styles/Header.css";
-import "./styles/Carousel.css";
-import "./styles/Catalog.css";
-import "./styles/Searchbar.css";
-import "./styles/DropdownList.css";
-import "./styles/DepartmentCatalog.css";
-import "./styles/index.css";
 import axios from "axios";
 import { Query, Users } from "./graphql-types";
 import { graphQLClient } from "./graphql-client";
-import { gql } from "graphql-request";
-
-export const UserContext = createContext<Users>(null);
-export const CartContext = createContext<Query>(null);
+import "./index.css";
 
 export default function () {
   document.title = "Walmart.com";
 
   const [user, userSet] = useState<Users>(),
-    [query, querySet] = useState<Query>();
+    [query, querySet] = useState<Query>(),
+    [cart, cartSet] = useState<Query>();
 
   useEffect(() => {
     axios
@@ -33,26 +22,37 @@ export default function () {
       .then(({ data }) => {
         userSet(data);
       });
+
+    graphQLClient
+      .request(
+        `{
+          departments {
+            name
+            id
+          }
+        }`
+      )
+      .then(querySet);
   }, []);
 
   useEffect(() => {
     if (user) {
       graphQLClient
         .request(
-          gql`{
+          `{
             cart(user_id: ${user.id}) {
               price
               quantity
             }
           }`
         )
-        .then(querySet);
+        .then(cartSet);
     } else {
       localStorage.setItem(
         "cart",
         JSON.stringify({ cart: [{ quantity: 0, price: 0 }] })
       );
-      querySet(JSON.parse(localStorage.getItem("cart")));
+      cartSet(JSON.parse(localStorage.getItem("cart")));
     }
   }, [user]);
 
@@ -73,14 +73,9 @@ export default function () {
   }
 
   return (
-    <UserContext.Provider value={user}>
-      {query && (
-        <CartContext.Provider value={query}>
-          <Header />
-        </CartContext.Provider>
-      )}
-
-      <main>
+    query &&
+    cart && (
+      <Navigation query={query} user={user} cart={cart}>
         <Routes>
           <Route path="/" element={<Carousel />} />
           <Route path="user" element={<>{JSON.stringify(user)}</>} />
@@ -92,7 +87,7 @@ export default function () {
           <Route path="logout" element={<Logout />} />
           <Route path="*" element={<h1>Not Found</h1>} />
         </Routes>
-      </main>
-    </UserContext.Provider>
+      </Navigation>
+    )
   );
 }

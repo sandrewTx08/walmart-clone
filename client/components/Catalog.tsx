@@ -1,8 +1,58 @@
 import { Fragment, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import styled from "styled-components";
 import { graphQLClient } from "../graphql-client";
 import { Query } from "../graphql-types";
 import StartRate from "./StarRate";
+
+const CatalogDetails = styled.div`
+  padding: 1em;
+  width: 40%;
+  word-break: break-all;
+  max-height: 400px;
+  min-width: 300px;
+  z-index: 100;
+  background-color: white;
+
+  div {
+    padding: 5px;
+  }
+
+  @media screen and (max-width: 768px) {
+    position: fixed;
+    width: 50%;
+  }
+`;
+
+const Catalog = styled.div`
+  display: flex;
+
+  img {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .catalog-price {
+    font-size: x-large;
+  }
+
+  .catalog-title {
+    font-size: large;
+  }
+`;
+
+const CatalogReview = styled.div`
+  h1 {
+    font-size: x-large;
+    padding: 1em;
+  }
+
+  div {
+    margin: 8px;
+    padding: 1em;
+    display: inline-block;
+  }
+`;
 
 export default function () {
   const { id } = useParams(),
@@ -12,25 +62,25 @@ export default function () {
     graphQLClient
       .request(
         `{
-        catalog(catalog_id: ${id}) {
-          id
-          price
-          Products {
-            name
-            ProductRates(limit: 6) {
-              rate
-              description
-              _count
-              Users {
-                first_name
+          catalog(catalog_id: ${id}) {
+            id
+            price
+            Products {
+              name
+              ProductRates(limit: 6) {
+                rate
+                description
+                _count
+                Users {
+                  first_name
+                }
+              }
+              Brands {
+                name
               }
             }
-            Brands {
-              name
-            }
           }
-        }
-       }`
+        }`
       )
       .then(querySet);
   }, [id]);
@@ -44,12 +94,10 @@ export default function () {
   return (
     query && (
       <Fragment>
-        <div className="catalog">
-          <div>
-            <img src="/walmartLogoSmall.png" />
-          </div>
+        <Catalog>
+          <img src="/walmartLogoSmall.png" />
 
-          <div className="catalog-details soft-shadow soft-border">
+          <CatalogDetails className="soft-shadow soft-border">
             <div className="catalog-brand">
               {query.catalog.Products.Brands.name}
             </div>
@@ -57,36 +105,28 @@ export default function () {
             <div className="catalog-price">
               <b>${query.catalog.price}</b>
             </div>
-          </div>
-        </div>
+          </CatalogDetails>
+        </Catalog>
 
         <hr />
 
-        <div className="catalog-review">
+        <CatalogReview>
           <h1>Customer reviews & ratings</h1>
 
-          <div className="catalog-review-items">
-            {query.catalog.Products.ProductRates.map((productRate) => (
-              <div className="catalog-review-item soft-shadow soft-border">
-                <div>
-                  <div>
-                    <b style={{ fontSize: "large" }}>
-                      <StartRate rate={productRate.rate} />
-                    </b>
-                    /{productRate._count}
-                  </div>
-                </div>
-                <div
-                  className="catalog-review-item-title"
-                  style={{ fontSize: "small" }}
-                >
-                  {productRate.description}
-                </div>
-                {productRate.Users.first_name}
+          {query.catalog.Products.ProductRates.map((productRate) => (
+            <div className="soft-shadow soft-border">
+              <div>
+                <b>
+                  <StartRate rate={productRate.rate} />
+                </b>
+                /{productRate._count}
               </div>
-            ))}
-          </div>
-        </div>
+
+              <div style={{ fontSize: "small" }}>{productRate.description}</div>
+              {productRate.Users.first_name}
+            </div>
+          ))}
+        </CatalogReview>
       </Fragment>
     )
   );

@@ -1,19 +1,47 @@
 import { Link } from "react-router-dom";
+import styled from "styled-components";
 
-export interface DropdownList {
+const DropdownList = styled.ul`
+  position: absolute;
+  background-color: white;
+  color: black;
+  border-radius: 1em;
+  box-shadow: var(--SOFT-SHADOW);
+  z-index: 300;
+
+  li a {
+    padding: 0.5em;
+    display: block;
+  }
+
+  li a div {
+    display: inline;
+    margin: 1em;
+  }
+
+  li a div.dropdown-list-sidetext {
+    color: gray;
+  }
+
+  .dropdown-list li a:hover {
+    border-left: 1em;
+  }
+`;
+
+export interface IDropdownList {
   href: string;
   text: string;
   sidetext?: string;
 }
 
 export type DropdownListProps = React.PropsWithChildren<{
-  list: DropdownList[];
-  onClick?(item: DropdownList): void;
+  list: IDropdownList[];
+  onClick?(item: IDropdownList): void;
 }>;
 
 export default function (props: DropdownListProps) {
   return (
-    <ul className="dropdown-list">
+    <DropdownList>
       {props.list.map((item) => (
         <li key={item.text}>
           <Link
@@ -29,6 +57,6 @@ export default function (props: DropdownListProps) {
           </Link>
         </li>
       ))}
-    </ul>
+    </DropdownList>
   );
 }
