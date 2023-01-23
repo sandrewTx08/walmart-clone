@@ -8,23 +8,25 @@ import { Fragment, useEffect, useState } from "react";
 import { Query } from "../graphql-types";
 import DropdownList from "./DropdownList";
 import { graphQLClient } from "../graphql-client";
-import s from "styled-components";
+import styled from "styled-components";
 
-export const HeaderItem = s.div`a {
-  display: flex;
-  align-items: center;
-}
+export const HeaderItem = styled.div`
+  a {
+    display: flex;
+    align-items: center;
+  }
 
-svg {
-  padding: 0 0.5em;
-}
+  svg {
+    padding: 0 0.5em;
+  }
 
-border-radius: 1em;
-padding: 0.5em;
+  border-radius: 1em;
+  padding: 0.5em;
 
-&:hover {
-  background-color: #00509b;
-}`;
+  &:hover {
+    background-color: #00509b;
+  }
+`;
 
 export default function () {
   const [departmentsMenu, departmentsMenuSet] = useState(false),

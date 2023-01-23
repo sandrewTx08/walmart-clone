@@ -1,22 +1,38 @@
 import { Fragment, PropsWithChildren } from "react";
 import { Link } from "react-router-dom";
+import styled from "styled-components";
 import { Query } from "../graphql-types";
 import StarRate from "./StarRate";
+
+const DepartmentCatalogItem = styled.div`
+  display: inline-block;
+  width: 23%;
+  padding: 0 1%;
+
+  div {
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  img {
+    width: 100%;
+    max-width: 100%;
+    display: block;
+  }
+`;
 
 export default function (props: PropsWithChildren<{ query: Query }>) {
   return (
     <Fragment>
       {props.query.department.catalog.map((catalog) => (
         <Link to={"catalog/" + catalog.id}>
-          <div className="department-catalog-item">
+          <DepartmentCatalogItem>
             <img src="/walmartLogoSmall.png" />
-            <div className="department-catalog-price">
+            <div>
               <b>${catalog.price}</b>
             </div>
-            <div className="department-catalog-title">
-              {catalog.Products.name}
-            </div>
-            <div className="department-catalog-rate">
+            <div>{catalog.Products.name}</div>
+            <div>
               <StarRate
                 rate={(
                   catalog.Products.ProductRates.reduce(
@@ -34,7 +50,7 @@ export default function (props: PropsWithChildren<{ query: Query }>) {
                 )?._count
               }
             </div>
-          </div>
+          </DepartmentCatalogItem>
         </Link>
       ))}
     </Fragment>

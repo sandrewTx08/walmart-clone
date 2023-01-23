@@ -6,6 +6,37 @@ import { MdOutlinePriceChange, MdOutlineStore } from "react-icons/md";
 import { AiOutlineFire } from "react-icons/ai";
 import { BsListStars } from "react-icons/bs";
 import { graphQLClient } from "../graphql-client";
+import styled from "styled-components";
+
+const DepartmentCatalogHeader = styled.div`
+  div {
+    padding-bottom: 1em;
+  }
+
+  h1 {
+    font-size: x-large;
+  }
+
+  span {
+    color: grey;
+    font-size: large;
+    margin: 0 3px;
+  }
+`;
+
+const DeparmentCatalogFilter = styled.div`
+  button {
+    border-radius: 4em;
+    padding: 1em;
+    color: white;
+    margin: 1%;
+    background-color: gray;
+  }
+
+  svg {
+    margin: 0 3px;
+  }
+`;
 
 export default function () {
   const { id } = useParams(),
@@ -47,7 +78,7 @@ export default function () {
     <Fragment>
       {query && (
         <div>
-          <div className="department-catalog-header">
+          <DepartmentCatalogHeader>
             <div>
               <h1>
                 {query.department.name}
@@ -57,7 +88,7 @@ export default function () {
 
             <div>Buy online now</div>
 
-            <div className="department-catalog-filter">
+            <DeparmentCatalogFilter>
               <button>
                 <MdOutlinePriceChange />
                 Prices
@@ -74,10 +105,10 @@ export default function () {
                 <AiOutlineFire />
                 Most wanted
               </button>
-            </div>
+            </DeparmentCatalogFilter>
 
             <hr />
-          </div>
+          </DepartmentCatalogHeader>
 
           {<DepartmentCatalogItem query={query} />}
         </div>
