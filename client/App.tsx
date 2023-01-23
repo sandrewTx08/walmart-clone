@@ -1,5 +1,5 @@
-import { createContext, Fragment, useEffect, useState } from "react";
-import { Route, Routes } from "react-router-dom";
+import { createContext, useEffect, useState } from "react";
+import { Route, Routes, Navigate } from "react-router-dom";
 import Header from "./components/Header";
 import Carousel from "./components/Carousel";
 import DepartmentCatalog from "./components/DepartmentCatalog";
@@ -48,11 +48,15 @@ export default function () {
         )
         .then(querySet);
     } else {
-      querySet(Object());
+      localStorage.setItem(
+        "cart",
+        JSON.stringify({ cart: [{ quantity: 0, price: 0 }] })
+      );
+      querySet(JSON.parse(localStorage.getItem("cart")));
     }
   }, [user]);
 
-  function Saa() {
+  function Logout() {
     useEffect(() => {
       axios
         .delete("http://localhost:3000/logout", {
@@ -65,7 +69,7 @@ export default function () {
         });
     }, []);
 
-    return <></>;
+    return <Navigate to="/" />;
   }
 
   return (
@@ -85,7 +89,7 @@ export default function () {
             path="department/:department_id/catalog/:id"
             element={<Catalog />}
           />
-          <Route path="logout" element={<Saa />} />
+          <Route path="logout" element={<Logout />} />
           <Route path="*" element={<h1>Not Found</h1>} />
         </Routes>
       </main>

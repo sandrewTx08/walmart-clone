@@ -68,11 +68,12 @@ export default function () {
               <div>Cart</div>
               <div>
                 $
-                {user && query.cart
-                  ? query.cart
-                      .reduce((p, c) => p + c.price * c.quantity, 0)
-                      .toFixed(2)
-                  : 0}
+                {(user && query.cart
+                  ? query
+                  : JSON.parse(localStorage.getItem("cart"))
+                ).cart
+                  .reduce((p, c) => p + c.price * c.quantity, 0)
+                  .toFixed(2)}
               </div>
             </div>
           </Link>
