@@ -22,24 +22,6 @@
   flex-shrink: 0;
 }
 
-.header-item a {
-  display: flex;
-  align-items: center;
-}
-
-.header-item:hover {
-  background-color: #00509b;
-}
-
-.header-item {
-  border-radius: 1em;
-  padding: 0.5em;
-}
-
-.header-item svg {
-  padding: 0 0.5em;
-}
-
 .navbar-horizontal ul {
   display: flex;
   justify-content: space-between;

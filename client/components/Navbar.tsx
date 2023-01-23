@@ -3,6 +3,7 @@ import { FiUser, FiMessageSquare, FiShoppingCart } from "react-icons/fi";
 import { Link } from "react-router-dom";
 import { UserContext, CartContext } from "../App";
 import DropdownList from "./DropdownList";
+import { HeaderItem } from "./Header";
 
 export default function () {
   const user = useContext(UserContext),
@@ -13,19 +14,20 @@ export default function () {
     <nav className="navbar-horizontal">
       <ul>
         {user ? (
-          <li
-            className="header-item"
+          <HeaderItem
             onClick={() => {
               userMenuSet(!userMenu);
             }}
           >
-            <FiUser />
-            <div>
-              <div>{user.first_name}</div>
+            <a>
+              <FiUser />
               <div>
-                <b>Account</b>
+                <div>{user.first_name}</div>
+                <div>
+                  <b>Account</b>
+                </div>
               </div>
-            </div>
+            </a>
             {userMenu && (
               <DropdownList
                 list={[
@@ -34,9 +36,9 @@ export default function () {
                 ]}
               />
             )}
-          </li>
+          </HeaderItem>
         ) : (
-          <li className="header-item">
+          <HeaderItem>
             <a href="http://localhost:3000/login">
               <FiUser />
               <div>
@@ -46,10 +48,10 @@ export default function () {
                 </div>
               </div>
             </a>
-          </li>
+          </HeaderItem>
         )}
 
-        <li className="header-item">
+        <HeaderItem>
           <Link to="chat">
             <FiMessageSquare />
             <div>
@@ -59,9 +61,9 @@ export default function () {
               </div>
             </div>
           </Link>
-        </li>
+        </HeaderItem>
 
-        <li className="header-item">
+        <HeaderItem>
           <Link to="cart">
             <FiShoppingCart />
             <div>
@@ -77,7 +79,7 @@ export default function () {
               </div>
             </div>
           </Link>
-        </li>
+        </HeaderItem>
       </ul>
     </nav>
   );
