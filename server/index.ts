@@ -57,7 +57,7 @@ server.get("/user", (req) => {
             return prisma.users.create({ data });
           }
         })
-    : undefined;
+    : null;
 });
 server.get(
   "/oauth/google",

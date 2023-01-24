@@ -12,25 +12,25 @@ export default function () {
     graphQLClient
       .request(
         `{
-        catalog(catalog_id: ${id}) {
-          id
-          price
-          Products {
-            name
-            ProductRates(limit: 6) {
-              rate
-              description
-              _count
-              Users {
-                first_name
+          catalog(catalog_id: ${id}) {
+            id
+            price
+            Products {
+              name
+              ProductRates(limit: 6) {
+                rate
+                description
+                _count
+                Users {
+                  first_name
+                }
+              }
+              Brands {
+                name
               }
             }
-            Brands {
-              name
-            }
           }
-        }
-       }`
+        }`
       )
       .then(querySet);
   }, [id]);
