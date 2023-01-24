@@ -3,13 +3,17 @@ import { GiHamburgerMenu } from "react-icons/gi";
 import { Link } from "react-router-dom";
 import Searchbar from "./Searchbar";
 import { FiUser, FiMessageSquare } from "react-icons/fi";
-import React, { Fragment, useState } from "react";
+import { Fragment, useState } from "react";
 import DropdownList from "./DropdownList";
 import styled from "styled-components";
 import { FiShoppingCart } from "react-icons/fi";
 import { Query, Users } from "../graphql-types";
 
 export const HeaderItem = styled.div`
+  flex-shrink: 0;
+  border-radius: 1em;
+  padding: 0.5em;
+
   a {
     display: flex;
     align-items: center;
@@ -19,8 +23,15 @@ export const HeaderItem = styled.div`
     padding: 0 0.5em;
   }
 
-  border-radius: 1em;
-  padding: 0.5em;
+  &.header-department {
+    font-size: medium;
+  }
+
+  @media screen and (max-width: 480px) {
+    &.header-department {
+      display: none;
+    }
+  }
 
   &:hover {
     background-color: #00509b;
@@ -37,25 +48,10 @@ const Header = styled.header`
   width: 100%;
   z-index: 200;
   position: fixed;
-
-  div {
-    flex-shrink: 0;
-  }
-`;
-
-const HeaderDepartment = styled.div`
-  div {
-    font-size: medium;
-  }
-
-  @media screen and (max-width: 480px) {
-    display: none;
-  }
 `;
 
 const HeaderBrand = styled.div`
   img {
-    max-width: 100%;
     height: 3em;
   }
 
@@ -69,7 +65,7 @@ const HeaderBrand = styled.div`
     }
 
     .header-brand-medium {
-      display: block;
+      display: inline;
     }
   }
 `;
@@ -107,7 +103,6 @@ const NavigationVerticalButton = styled.button`
 const NavigationHorizonatal = styled.nav`
   ul {
     display: flex;
-    justify-content: space-between;
     list-style: none;
   }
 
@@ -123,7 +118,6 @@ const NavigationHorizonatal = styled.nav`
   @media screen and (max-width: 768px) {
     ul {
       display: none;
-      justify-content: space-between;
       list-style: none;
     }
   }
@@ -151,10 +145,11 @@ export default function (
                 <div>Login</div>
               </a>
             </li>
+
             <li>
               <Link to="chat">
                 <FiMessageSquare />
-                <div>Chat assistant</div>
+                <div>Assistant</div>
               </Link>
             </li>
           </ul>
@@ -177,16 +172,14 @@ export default function (
           </Link>
         </HeaderBrand>
 
-        <HeaderDepartment>
-          <HeaderItem
-            onClick={() => {
-              departmentsMenuSet(!departmentsMenu);
-            }}
-          >
-            <HiOutlineSquares2X2 />
-            Departments
-          </HeaderItem>
-
+        <HeaderItem
+          className="header-department"
+          onClick={() => {
+            departmentsMenuSet(!departmentsMenu);
+          }}
+        >
+          <HiOutlineSquares2X2 />
+          Departments
           {departmentsMenu && (
             <DropdownList
               list={props.query.departments.map(({ name, id }) => ({
@@ -195,7 +188,7 @@ export default function (
               }))}
             />
           )}
-        </HeaderDepartment>
+        </HeaderItem>
 
         <Searchbar
           list={props.query.departments.map(({ name, id }) => ({
@@ -207,73 +200,76 @@ export default function (
 
         <NavigationHorizonatal>
           <ul>
-            {props.user ? (
-              <HeaderItem
-                onClick={() => {
-                  userMenuSet(!userMenu);
-                }}
-              >
-                <a>
-                  <FiUser />
-                  <div>
-                    <div>{props.user.first_name}</div>
+            <li>
+              {props.user ? (
+                <HeaderItem
+                  onClick={() => {
+                    userMenuSet(!userMenu);
+                  }}
+                >
+                  <a>
+                    <FiUser />
                     <div>
-                      <b>Account</b>
+                      <div>{props.user.first_name}</div>
+                      <div>
+                        <b>Account</b>
+                      </div>
                     </div>
-                  </div>
-                </a>
-                {userMenu && (
-                  <DropdownList
-                    list={[
-                      { href: "logout", text: "Logout" },
-                      { href: "user", text: "Profile" },
-                    ]}
-                  />
-                )}
-              </HeaderItem>
-            ) : (
+                  </a>
+                  {userMenu && (
+                    <DropdownList
+                      list={[
+                        { href: "logout", text: "Logout" },
+                        { href: "user", text: "Profile" },
+                      ]}
+                    />
+                  )}
+                </HeaderItem>
+              ) : (
+                <HeaderItem>
+                  <a href="http://localhost:3000/login">
+                    <FiUser />
+                    <div>
+                      <div>Sign in</div>
+                      <div>
+                        <b>Account</b>
+                      </div>
+                    </div>
+                  </a>
+                </HeaderItem>
+              )}
+            </li>
+
+            <li>
               <HeaderItem>
-                <a href="http://localhost:3000/login">
-                  <FiUser />
+                <Link to="chat">
+                  <FiMessageSquare />
                   <div>
-                    <div>Sign in</div>
+                    <div>Assistant</div>
                     <div>
-                      <b>Account</b>
+                      <b>Support</b>
                     </div>
                   </div>
-                </a>
+                </Link>
               </HeaderItem>
-            )}
+            </li>
 
-            <HeaderItem>
-              <Link to="chat">
-                <FiMessageSquare />
-                <div>
-                  <div>Chat assistant</div>
+            <li>
+              <HeaderItem>
+                <Link to="cart">
+                  <FiShoppingCart />
                   <div>
-                    <b>Support</b>
+                    <div>Cart</div>
+                    <div>
+                      {(props.user && props.cart
+                        ? props.cart
+                        : JSON.parse(localStorage.getItem("cart"))
+                      ).cart.reduce((p, c) => p + c.quantity, 0)}
+                    </div>
                   </div>
-                </div>
-              </Link>
-            </HeaderItem>
-
-            <HeaderItem>
-              <Link to="cart">
-                <FiShoppingCart />
-                <div>
-                  <div>Cart</div>
-                  <div>
-                    $
-                    {(props.user && props.cart
-                      ? props.cart
-                      : JSON.parse(localStorage.getItem("cart"))
-                    ).cart
-                      .reduce((p, c) => p + c.price * c.quantity, 0)
-                      .toFixed(2)}
-                  </div>
-                </div>
-              </Link>
-            </HeaderItem>
+                </Link>
+              </HeaderItem>
+            </li>
           </ul>
         </NavigationHorizonatal>
       </Header>

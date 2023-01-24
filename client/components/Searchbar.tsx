@@ -4,26 +4,29 @@ import styled from "styled-components";
 import DropdownList, { DropdownListProps } from "./DropdownList";
 
 const SearchBar = styled.div`
+  display: flex;
+
   input {
-    border: 1em;
+    border: 0;
     background-color: white;
-    border-radius: 1em;
-    padding: 0.5em;
-    padding-right: 30px;
+    border-radius: 1em 0 0 1em;
+    padding: 8px;
+    width: 100%;
   }
 
   button {
     background-color: var(--WALMART-YALLOW);
-    padding: 0.5em;
-    border-radius: 1em;
-    display: inline;
-    position: relative;
-    float: right;
-    right: 28px;
+    border-radius: 0 1em 1em 0;
+    padding: 8px;
+    cursor: pointer;
   }
 
   button svg {
     color: black;
+  }
+
+  ul {
+    top: 3em;
   }
 `;
 
