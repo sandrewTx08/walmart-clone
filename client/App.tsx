@@ -4,14 +4,10 @@ import Navigation from "./components/Navigation";
 import Carousel from "./components/Carousel";
 import DepartmentCatalog from "./components/DepartmentCatalog";
 import Catalog from "./components/Catalog";
-import "./styles/variables.css";
-import "./styles/Carousel.css";
-import "./styles/Catalog.css";
-import "./styles/Searchbar.css";
-import "./styles/index.css";
 import axios from "axios";
 import { Query, Users } from "./graphql-types";
 import { graphQLClient } from "./graphql-client";
+import "./index.css";
 
 export default function () {
   document.title = "Walmart.com";
