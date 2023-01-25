@@ -5,6 +5,7 @@ import DropdownList, { DropdownListProps } from "./DropdownList";
 
 const SearchBar = styled.div`
   display: flex;
+  width: 100%;
 
   input {
     border: 0;

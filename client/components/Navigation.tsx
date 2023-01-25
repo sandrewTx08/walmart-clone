@@ -27,7 +27,7 @@ export const HeaderItem = styled.div`
     font-size: medium;
   }
 
-  @media screen and (max-width: 480px) {
+  @media screen and (max-width: 768px) {
     &.header-department {
       display: none;
     }
@@ -48,6 +48,7 @@ const Header = styled.header`
   width: 100%;
   z-index: 200;
   position: fixed;
+  gap: 5px;
 `;
 
 const HeaderBrand = styled.div`
@@ -100,27 +101,19 @@ const NavigationVerticalButton = styled.button`
   }
 `;
 
-const NavigationHorizonatal = styled.nav`
-  ul {
-    display: flex;
-    list-style: none;
-  }
-
-  li {
-    align-items: center;
-    display: flex;
-  }
-
-  li svg {
-    justify-content: center;
-  }
-
+const HeaderItemWrapper = styled.nav`
   @media screen and (max-width: 768px) {
-    ul {
-      display: none;
-      list-style: none;
-    }
+    display: none;
   }
+`;
+
+const CartButton = styled.div`
+  background-color: var(--WALMART-YALLOW);
+  border-radius: 50%;
+  color: black;
+  width: 20px;
+  height: 20px;
+  text-align: center;
 `;
 
 export default function (
@@ -157,20 +150,28 @@ export default function (
       )}
 
       <Header>
-        <NavigationVerticalButton
-          onClick={() => {
-            navigationVerticalSet(!navigationVertical);
-          }}
-        >
-          <GiHamburgerMenu />
-        </NavigationVerticalButton>
+        <div style={{ display: "flex", marginLeft: "1em" }}>
+          <NavigationVerticalButton
+            onClick={() => {
+              navigationVerticalSet(!navigationVertical);
+            }}
+          >
+            <GiHamburgerMenu />
+          </NavigationVerticalButton>
 
-        <HeaderBrand>
-          <Link to="/">
-            <img className="header-brand-small" src="/walmartLogoMedium.svg" />
-            <img className="header-brand-medium" src="/walmartLogoSmall.png" />
-          </Link>
-        </HeaderBrand>
+          <HeaderBrand>
+            <Link to="/">
+              <img
+                className="header-brand-small"
+                src="/walmartLogoMedium.svg"
+              />
+              <img
+                className="header-brand-medium"
+                src="/walmartLogoSmall.png"
+              />
+            </Link>
+          </HeaderBrand>
+        </div>
 
         <HeaderItem
           className="header-department"
@@ -198,80 +199,72 @@ export default function (
           }))}
         />
 
-        <NavigationHorizonatal>
-          <ul>
-            <li>
-              {props.user ? (
-                <HeaderItem
-                  onClick={() => {
-                    userMenuSet(!userMenu);
-                  }}
-                >
-                  <a>
-                    <FiUser />
-                    <div>
-                      <div>{props.user.first_name}</div>
-                      <div>
-                        <b>Account</b>
-                      </div>
-                    </div>
-                  </a>
-                  {userMenu && (
-                    <DropdownList
-                      list={[
-                        { href: "logout", text: "Logout" },
-                        { href: "user", text: "Profile" },
-                      ]}
-                    />
-                  )}
-                </HeaderItem>
-              ) : (
-                <HeaderItem>
-                  <a href="http://localhost:3000/login">
-                    <FiUser />
-                    <div>
-                      <div>Sign in</div>
-                      <div>
-                        <b>Account</b>
-                      </div>
-                    </div>
-                  </a>
-                </HeaderItem>
+        <HeaderItemWrapper>
+          {props.user ? (
+            <HeaderItem
+              onClick={() => {
+                userMenuSet(!userMenu);
+              }}
+            >
+              <a>
+                <FiUser />
+                <div>
+                  <div>{props.user.first_name}</div>
+                  <div>
+                    <b>Account</b>
+                  </div>
+                </div>
+              </a>
+              {userMenu && (
+                <DropdownList
+                  list={[
+                    { href: "logout", text: "Logout" },
+                    { href: "user", text: "Profile" },
+                  ]}
+                />
               )}
-            </li>
-
-            <li>
-              <HeaderItem>
-                <Link to="chat">
-                  <FiMessageSquare />
+            </HeaderItem>
+          ) : (
+            <HeaderItem>
+              <a href="http://localhost:3000/login">
+                <FiUser />
+                <div>
+                  <div>Sign in</div>
                   <div>
-                    <div>Assistant</div>
-                    <div>
-                      <b>Support</b>
-                    </div>
+                    <b>Account</b>
                   </div>
-                </Link>
-              </HeaderItem>
-            </li>
+                </div>
+              </a>
+            </HeaderItem>
+          )}
+        </HeaderItemWrapper>
 
-            <li>
-              <HeaderItem>
-                <Link to="cart">
-                  <FiShoppingCart />
-                  <div>
-                    <div>Cart</div>
-                    <div>
-                      {(props.user && props.cart
-                        ? props.cart
-                        : JSON.parse(localStorage.getItem("cart"))
-                      ).cart.reduce((p, c) => p + c.quantity, 0)}
-                    </div>
-                  </div>
-                </Link>
-              </HeaderItem>
-            </li>
-          </ul>
-        </NavigationHorizonatal>
+        <HeaderItemWrapper>
+          <HeaderItem>
+            <Link to="chat">
+              <FiMessageSquare />
+              <div>
+                <div>Assistant</div>
+                <div>
+                  <b>Support</b>
+                </div>
+              </div>
+            </Link>
+          </HeaderItem>
+        </HeaderItemWrapper>
+
+        <HeaderItem style={{ marginRight: "1em" }}>
+          <Link to="cart">
+            <CartButton>{props.cart.cart.length}</CartButton>
+            <FiShoppingCart />$
+            {(props.user && props.cart
+              ? props.cart
+              : JSON.parse(localStorage.getItem("cart"))
+            ).cart
+              .reduce((p, c) => p + c.price * c.quantity, 0)
+              .toFixed(2)}
+          </Link>
+        </HeaderItem>
       </Header>
 
       <main>{props.children}</main>
