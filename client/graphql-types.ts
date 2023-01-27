@@ -49,6 +49,7 @@ export type Departments = {
 export type DepartmentsCatalogArgs = {
   brand_id?: InputMaybe<Scalars['Int']>;
   limit: Scalars['Int'];
+  price_sort?: InputMaybe<OrderBy>;
   store_id?: InputMaybe<Scalars['Int']>;
 };
 
@@ -71,6 +72,11 @@ export type MutationCartDeleteArgs = {
   quantity: Scalars['Int'];
   user_id: Scalars['ID'];
 };
+
+export enum OrderBy {
+  Asc = 'asc',
+  Desc = 'desc'
+}
 
 export type ProductRates = {
   __typename?: 'ProductRates';

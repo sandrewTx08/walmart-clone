@@ -51,6 +51,10 @@ export default function () {
     });
 
   useEffect(() => {
+    filtersSet({ ...filters, department_id: Number(id) });
+  }, [id]);
+
+  useEffect(() => {
     graphQLClient
       .request(
         `query Query($department_id: Int!, $brand_id: Int, $store_id: Int, $price_sort: OrderBy) {
@@ -83,7 +87,7 @@ export default function () {
         filters
       )
       .then(querySet);
-  }, [id, filters]);
+  }, [filters]);
 
   useEffect(() => {
     if (query) {
