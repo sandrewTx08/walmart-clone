@@ -17,14 +17,14 @@ export const Cart = objectType({
 export const Catalogs = objectType({
   name: "Catalogs",
   definition(t) {
-    t.nonNull.id("id");
+    t.nonNull.int("id");
     t.nonNull.int("price");
-    t.nonNull.id("product_id");
+    t.nonNull.int("product_id");
     t.nonNull.field("Products", {
       type: "Products",
-      resolve(s) {
-        return prisma.products.findUnique({
-          where: { id: s.product_id },
+      resolve(s, a) {
+        return prisma.products.findFirst({
+          where: { id: s.product_id, brand_id: a.brand_id },
         });
       },
     });
@@ -35,7 +35,7 @@ export const Departments = objectType({
   name: "Departments",
   definition(t) {
     t.nonNull.string("name");
-    t.nonNull.id("id");
+    t.nonNull.int("id");
     t.nonNull.int("_count", {
       resolve(s) {
         return prisma.products.count({
@@ -47,6 +47,7 @@ export const Departments = objectType({
       type: "Catalogs",
       args: {
         limit: nonNull(arg({ type: "Int" })),
+        brand_id: arg({ type: "Int" }),
         store_id: arg({ type: "Int" }),
       },
       resolve(s, a) {
@@ -55,7 +56,7 @@ export const Departments = objectType({
           take: a.limit,
           where: {
             store_id: a.store_id,
-            Products: { department_id: s.id },
+            Products: { department_id: s.id, brand_id: a.brand_id },
           },
         });
       },
@@ -67,8 +68,8 @@ export const Products = objectType({
   name: "Products",
   definition(t) {
     t.nonNull.string("name");
-    t.nonNull.id("id");
-    t.nonNull.id("brand_id");
+    t.nonNull.int("id");
+    t.nonNull.int("brand_id");
     t.nonNull.field("Departments", {
       type: "Departments",
       resolve(s) {
@@ -105,9 +106,9 @@ export const ProductRates = objectType({
   name: "ProductRates",
   definition(t) {
     t.nonNull.string("rate");
-    t.nonNull.id("id");
+    t.nonNull.int("id");
     t.nonNull.string("description");
-    t.nonNull.id("product_id");
+    t.nonNull.int("product_id");
     t.nonNull.int("_count", {
       resolve(s) {
         return prisma.productRates.count({
@@ -130,7 +131,7 @@ export const ProductRates = objectType({
 export const Users = objectType({
   name: "Users",
   definition(t) {
-    t.nonNull.id("id");
+    t.nonNull.string("id");
     t.nonNull.string("first_name");
   },
 });
@@ -138,7 +139,7 @@ export const Users = objectType({
 export const Brands = objectType({
   name: "Brands",
   definition(t) {
-    t.nonNull.id("id");
+    t.nonNull.int("id");
     t.nonNull.string("name");
   },
 });

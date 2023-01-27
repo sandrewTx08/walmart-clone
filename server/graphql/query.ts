@@ -7,9 +7,11 @@ export const department = extendType({
   definition(t) {
     t.nonNull.field("department", {
       type: "Departments",
-      args: { department_id: nonNull(arg({ type: "Int" })) },
+      args: {
+        department_id: nonNull(arg({ type: "Int" })),
+      },
       resolve({}, a) {
-        return prisma.departments.findFirst({
+        return prisma.departments.findUnique({
           where: { id: a.department_id },
         });
       },
@@ -24,6 +26,25 @@ export const departments = extendType({
       type: "Departments",
       resolve() {
         return prisma.departments.findMany({});
+      },
+    });
+  },
+});
+
+export const productBrands = extendType({
+  type: "Query",
+  definition(t) {
+    t.list.nonNull.field("productBrands", {
+      type: "Brands",
+      args: { department_id: nonNull(arg({ type: "Int" })) },
+      resolve({}, a) {
+        return prisma.brands.findMany({
+          where: {
+            Products: {
+              some: { department_id: a.department_id },
+            },
+          },
+        });
       },
     });
   },

@@ -12,7 +12,7 @@ import { Query, Users } from "../graphql-types";
 export const HeaderItem = styled.div`
   flex-shrink: 0;
   border-radius: 1em;
-  padding: 0.5em;
+  padding: 5px;
 
   a {
     display: flex;
@@ -20,7 +20,7 @@ export const HeaderItem = styled.div`
   }
 
   svg {
-    padding: 0 0.5em;
+    margin-right: 6px;
   }
 
   &.header-department {

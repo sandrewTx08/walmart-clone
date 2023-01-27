@@ -3,7 +3,7 @@
 
 
 type Brands {
-  id: ID!
+  id: Int!
   name: String!
 }
 
@@ -19,15 +19,15 @@ type Carts {
 
 type Catalogs {
   Products: Products!
-  id: ID!
+  id: Int!
   price: Int!
-  product_id: ID!
+  product_id: Int!
 }
 
 type Departments {
   _count: Int!
-  catalog(limit: Int!, store_id: Int): [Catalogs!]
-  id: ID!
+  catalog(brand_id: Int, limit: Int!, store_id: Int): [Catalogs!]
+  id: Int!
   name: String!
 }
 
@@ -40,8 +40,8 @@ type ProductRates {
   Users: Users!
   _count: Int!
   description: String!
-  id: ID!
-  product_id: ID!
+  id: Int!
+  product_id: Int!
   rate: String!
   user_id: ID!
 }
@@ -50,8 +50,8 @@ type Products {
   Brands: Brands!
   Departments: Departments!
   ProductRates(limit: Int): [ProductRates]!
-  brand_id: ID!
-  id: ID!
+  brand_id: Int!
+  id: Int!
   name: String!
 }
 
@@ -60,9 +60,10 @@ type Query {
   catalog(catalog_id: Int!): Catalogs!
   department(department_id: Int!): Departments!
   departments: [Departments!]
+  productBrands(department_id: Int!): [Brands!]
 }
 
 type Users {
   first_name: String!
-  id: ID!
+  id: String!
 }

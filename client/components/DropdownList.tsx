@@ -34,12 +34,13 @@ export interface IDropdownList {
   sidetext?: string;
 }
 
-export type DropdownListProps = React.PropsWithChildren<{
-  list: IDropdownList[];
-  onClick?(item: IDropdownList): void;
-}>;
+export type DropdownListProps<T extends IDropdownList> =
+  React.PropsWithChildren<{
+    list: T[];
+    onClick?(item: T): void;
+  }>;
 
-export default function (props: DropdownListProps) {
+export default function <T extends IDropdownList>(props: DropdownListProps<T>) {
   return (
     <DropdownList>
       {props.list.map((item) => (

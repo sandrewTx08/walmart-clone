@@ -5,35 +5,16 @@ import { MdOutlinePriceChange, MdOutlineStore } from "react-icons/md";
 import { AiOutlineFire } from "react-icons/ai";
 import { BsListStars } from "react-icons/bs";
 import { graphQLClient } from "../graphql-client";
-import { Link } from "react-router-dom";
 import styled from "styled-components";
-import StarRate from "./StarRate";
-
-const DepartmentCatalogItem = styled.div`
-  display: inline-block;
-  width: 23%;
-  padding: 0 1%;
-
-  div {
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-
-  img {
-    width: 100%;
-    max-width: 100%;
-    display: block;
-  }
-`;
+import CatalogCard from "./CatalogCard";
+import DropdownList from "./DropdownList";
 
 const DepartmentCatalogHeader = styled.div`
   div {
     padding-bottom: 1em;
   }
 
-  h1 {
-    font-size: x-large;
-  }
+  font-size: x-large;
 
   span {
     color: grey;
@@ -58,16 +39,25 @@ const DeparmentCatalogFilter = styled.div`
 
 export default function () {
   const { id } = useParams(),
-    [query, querySet] = useState<Query>();
+    [query, querySet] = useState<Query>(),
+    [brandFilterMenu, brandFilterMenuSet] = useState(false),
+    [filters, filtersSet] = useState({
+      brand_id: undefined,
+      department_id: Number(id),
+    });
 
   useEffect(() => {
     graphQLClient
       .request(
-        `{
-          department(department_id: ${id}) {
+        `query Query($department_id: Int!, $brand_id: Int) {
+          productBrands(department_id: $department_id) {
+            name
+            id
+          }
+          department(department_id: $department_id) {
             name
             _count
-            catalog(limit: 40) {
+            catalog(limit: 40, brand_id: $brand_id) {
               id
               price
               product_id
@@ -81,10 +71,11 @@ export default function () {
               }
             }
           }
-        }`
+        }`,
+        filters
       )
       .then(querySet);
-  }, [id]);
+  }, [id, filters]);
 
   useEffect(() => {
     if (query) {
@@ -96,68 +87,52 @@ export default function () {
     query && (
       <Fragment>
         <DepartmentCatalogHeader>
-          <div>
-            <h1>
-              {query.department.name}
-              <span>({query.department._count})</span>
-            </h1>
-          </div>
-
-          <div>Buy online now</div>
-
-          <DeparmentCatalogFilter>
-            <button>
-              <MdOutlinePriceChange />
-              Prices
-            </button>
-            <button>
-              <BsListStars />
-              Brands
-            </button>
-            <button>
-              <MdOutlineStore />
-              Stores
-            </button>
-            <button>
-              <AiOutlineFire />
-              Most wanted
-            </button>
-          </DeparmentCatalogFilter>
-
-          <hr />
+          {query.department.name}
+          <span>({query.department._count})</span>
         </DepartmentCatalogHeader>
 
-        <div>
-          {query.department.catalog.map((catalog) => (
-            <Link to={"catalog/" + catalog.id}>
-              <DepartmentCatalogItem>
-                <img src="/walmartLogoSmall.png" />
-                <div>
-                  <b>${catalog.price}</b>
-                </div>
-                <div>{catalog.Products.name}</div>
-                <div>
-                  <StarRate
-                    rate={(
-                      catalog.Products.ProductRates.reduce(
-                        (p, a) => p + Number(a.rate),
-                        0
-                      ) /
-                      catalog.Products.ProductRates.find(
-                        (p) => p.product_id == catalog.product_id
-                      )?._count
-                    ).toString()}
-                  />
-                  {
-                    catalog.Products.ProductRates.find(
-                      (p) => p.product_id == catalog.product_id
-                    )?._count
-                  }
-                </div>
-              </DepartmentCatalogItem>
-            </Link>
-          ))}
-        </div>
+        <div>Buy online now</div>
+
+        <DeparmentCatalogFilter>
+          <button>
+            <MdOutlinePriceChange />
+            Prices
+          </button>
+          <button
+            onClick={() => {
+              brandFilterMenuSet(!brandFilterMenu);
+            }}
+          >
+            <BsListStars />
+            Brands
+            {brandFilterMenu && (
+              <DropdownList
+                list={query.productBrands.map(({ id, name }) => ({
+                  href: "",
+                  text: name,
+                  id,
+                }))}
+                onClick={(item) => {
+                  filtersSet({ ...filters, brand_id: item.id });
+                }}
+              />
+            )}
+          </button>
+          <button>
+            <MdOutlineStore />
+            Stores
+          </button>
+          <button>
+            <AiOutlineFire />
+            Most wanted
+          </button>
+        </DeparmentCatalogFilter>
+
+        <hr />
+
+        <section>
+          <CatalogCard query={query} />
+        </section>
       </Fragment>
     )
   );
