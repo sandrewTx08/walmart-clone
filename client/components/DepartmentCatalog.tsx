@@ -3,7 +3,7 @@ import { Fragment, useEffect, useState } from "react";
 import { Query } from "../graphql-types";
 import { MdOutlinePriceChange, MdOutlineStore } from "react-icons/md";
 import { AiOutlineFire } from "react-icons/ai";
-import { BsListStars } from "react-icons/bs";
+import { BsListStars, BsList } from "react-icons/bs";
 import { graphQLClient } from "../graphql-client";
 import styled from "styled-components";
 import CatalogCard from "./CatalogCard";
@@ -42,16 +42,18 @@ export default function () {
     [query, querySet] = useState<Query>(),
     [brandFilterMenu, brandFilterMenuSet] = useState(false),
     [storeFilterMenu, storeFilterMenuSet] = useState(false),
+    [sortByMenu, sortByMenuSet] = useState(false),
     [filters, filtersSet] = useState({
       brand_id: undefined,
       store_id: undefined,
+      price_sort: undefined,
       department_id: Number(id),
     });
 
   useEffect(() => {
     graphQLClient
       .request(
-        `query Query($department_id: Int!, $brand_id: Int, $store_id: Int) {
+        `query Query($department_id: Int!, $brand_id: Int, $store_id: Int, $price_sort: OrderBy) {
           productBrands(department_id: $department_id) {
             name
             id
@@ -63,7 +65,7 @@ export default function () {
           department(department_id: $department_id) {
             name
             _count
-            catalog(limit: 40, brand_id: $brand_id, store_id: $store_id) {
+            catalog(limit: 40, brand_id: $brand_id, store_id: $store_id, price_sort: $price_sort) {
               id
               price
               product_id
@@ -147,6 +149,25 @@ export default function () {
           <button>
             <AiOutlineFire />
             Most wanted
+          </button>
+          <button
+            onClick={() => {
+              sortByMenuSet(!sortByMenu);
+            }}
+          >
+            <BsList />
+            Sort by
+            {sortByMenu && (
+              <DropdownList
+                list={[
+                  { href: "", text: "Price high", sort: "desc" },
+                  { href: "", text: "Price low", sort: "asc" },
+                ]}
+                onClick={(item) => {
+                  filtersSet({ ...filters, price_sort: item.sort });
+                }}
+              />
+            )}
           </button>
         </DeparmentCatalogFilter>
 

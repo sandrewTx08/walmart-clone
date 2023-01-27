@@ -26,7 +26,7 @@ type Catalogs {
 
 type Departments {
   _count: Int!
-  catalog(brand_id: Int, limit: Int!, store_id: Int): [Catalogs!]
+  catalog(brand_id: Int, limit: Int!, price_sort: OrderBy, store_id: Int): [Catalogs!]
   id: Int!
   name: String!
 }
@@ -34,6 +34,11 @@ type Departments {
 type Mutation {
   cartAdd(catalog_id: Int!, quantity: Int!, user_id: ID!): Carts
   cartDelete(catalog_id: Int!, quantity: Int!, user_id: ID!): Carts
+}
+
+enum OrderBy {
+  asc
+  desc
 }
 
 type ProductRates {

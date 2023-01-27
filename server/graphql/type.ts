@@ -48,11 +48,12 @@ export const Departments = objectType({
       args: {
         limit: nonNull(arg({ type: "Int" })),
         brand_id: arg({ type: "Int" }),
+        price_sort: arg({ type: "OrderBy" }),
         store_id: arg({ type: "Int" }),
       },
       resolve(s, a) {
         return prisma.catalogs.findMany({
-          orderBy: { id: "desc" },
+          orderBy: { price: a.price_sort },
           take: a.limit,
           where: {
             store_id: a.store_id,
