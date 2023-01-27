@@ -19,13 +19,25 @@ export const department = extendType({
   },
 });
 
+export const stores = extendType({
+  type: "Query",
+  definition(t) {
+    t.nonNull.list.field("stores", {
+      type: "Stores",
+      resolve() {
+        return prisma.stores.findMany();
+      },
+    });
+  },
+});
+
 export const departments = extendType({
   type: "Query",
   definition(t) {
     t.list.nonNull.field("departments", {
       type: "Departments",
       resolve() {
-        return prisma.departments.findMany({});
+        return prisma.departments.findMany();
       },
     });
   },

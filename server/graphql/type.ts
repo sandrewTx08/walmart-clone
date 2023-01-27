@@ -143,3 +143,11 @@ export const Brands = objectType({
     t.nonNull.string("name");
   },
 });
+
+export const Stores = objectType({
+  name: "Stores",
+  definition(t) {
+    t.nonNull.int("id");
+    t.nonNull.string("name");
+  },
+});

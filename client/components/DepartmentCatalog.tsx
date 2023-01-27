@@ -41,23 +41,29 @@ export default function () {
   const { id } = useParams(),
     [query, querySet] = useState<Query>(),
     [brandFilterMenu, brandFilterMenuSet] = useState(false),
+    [storeFilterMenu, storeFilterMenuSet] = useState(false),
     [filters, filtersSet] = useState({
       brand_id: undefined,
+      store_id: undefined,
       department_id: Number(id),
     });
 
   useEffect(() => {
     graphQLClient
       .request(
-        `query Query($department_id: Int!, $brand_id: Int) {
+        `query Query($department_id: Int!, $brand_id: Int, $store_id: Int) {
           productBrands(department_id: $department_id) {
             name
             id
           }
+          stores {
+            id
+            name
+          }
           department(department_id: $department_id) {
             name
             _count
-            catalog(limit: 40, brand_id: $brand_id) {
+            catalog(limit: 40, brand_id: $brand_id, store_id: $store_id) {
               id
               price
               product_id
@@ -118,9 +124,25 @@ export default function () {
               />
             )}
           </button>
-          <button>
+          <button
+            onClick={() => {
+              storeFilterMenuSet(!storeFilterMenu);
+            }}
+          >
             <MdOutlineStore />
             Stores
+            {storeFilterMenu && (
+              <DropdownList
+                list={query.stores.map(({ id, name }) => ({
+                  href: "",
+                  text: name,
+                  id,
+                }))}
+                onClick={(item) => {
+                  filtersSet({ ...filters, store_id: item.id });
+                }}
+              />
+            )}
           </button>
           <button>
             <AiOutlineFire />

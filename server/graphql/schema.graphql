@@ -61,6 +61,12 @@ type Query {
   department(department_id: Int!): Departments!
   departments: [Departments!]
   productBrands(department_id: Int!): [Brands!]
+  stores: [Stores]!
+}
+
+type Stores {
+  id: Int!
+  name: String!
 }
 
 type Users {

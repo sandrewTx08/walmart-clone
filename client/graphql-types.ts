@@ -105,6 +105,7 @@ export type Query = {
   department: Departments;
   departments?: Maybe<Array<Departments>>;
   productBrands?: Maybe<Array<Brands>>;
+  stores: Array<Maybe<Stores>>;
 };
 
 
@@ -125,6 +126,12 @@ export type QueryDepartmentArgs = {
 
 export type QueryProductBrandsArgs = {
   department_id: Scalars['Int'];
+};
+
+export type Stores = {
+  __typename?: 'Stores';
+  id: Scalars['Int'];
+  name: Scalars['String'];
 };
 
 export type Users = {
