@@ -10,13 +10,14 @@ import { graphQLClient } from "./graphql-client";
 import "./index.css";
 import { CartDatabase } from "./cart";
 
-export const CartContext = createContext<CartDatabase>(null);
+export const CartContext = createContext<[CartDatabase, Query]>(null);
 
 export default function () {
   document.title = "Walmart.com";
 
   const [user, userSet] = useState<Users>(),
-    [query, querySet] = useState<Query>(),
+    [queryDepartment, queryDepartmentSet] = useState<Query>(),
+    [queryCart, queryCartSet] = useState<Query>(),
     [cart, cartSet] = useState<CartDatabase>();
 
   useEffect(() => {
@@ -35,12 +36,16 @@ export default function () {
           }
         }`
       )
-      .then(querySet);
+      .then(queryDepartmentSet);
   }, []);
 
   useEffect(() => {
     if (user) {
-      cartSet(new CartDatabase(user.id));
+      const c = new CartDatabase(user.id);
+      cartSet(c);
+      c.cartGet().then((value) => {
+        queryCartSet(value);
+      });
     } else {
       localStorage.setItem(
         "cart",
@@ -67,10 +72,11 @@ export default function () {
   }
 
   return (
-    query &&
+    queryDepartment &&
+    queryCart &&
     cart && (
-      <CartContext.Provider value={cart}>
-        <Navigation query={query} user={user}>
+      <CartContext.Provider value={[cart, queryCart]}>
+        <Navigation query={queryDepartment} user={user}>
           <Routes>
             <Route path="/" element={<Carousel />} />
             <Route path="user" element={<>{JSON.stringify(user)}</>} />

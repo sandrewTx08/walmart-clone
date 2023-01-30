@@ -3,7 +3,7 @@ import { GiHamburgerMenu } from "react-icons/gi";
 import { Link } from "react-router-dom";
 import Searchbar from "./Searchbar";
 import { FiUser, FiMessageSquare } from "react-icons/fi";
-import { Fragment, useContext, useState } from "react";
+import { Fragment, useContext, useEffect, useState } from "react";
 import DropdownList from "./DropdownList";
 import styled from "styled-components";
 import { FiShoppingCart } from "react-icons/fi";
@@ -126,7 +126,7 @@ export default function (
   const [departmentsMenu, departmentsMenuSet] = useState(false),
     [navigationVertical, navigationVerticalSet] = useState(false),
     [userMenu, userMenuSet] = useState(false),
-    cart = useContext(CartContext);
+    [_c, cart] = useContext(CartContext);
 
   return (
     <Fragment>
@@ -256,14 +256,14 @@ export default function (
 
         <HeaderItem style={{ marginRight: "1em" }}>
           <Link to="cart">
-            {/* <CartButton>{cart.cart.length}</CartButton> */}
+            <CartButton>{cart.cart.length}</CartButton>
             <FiShoppingCart />$
-            {/* {(props.user && cart
+            {(props.user && cart
               ? cart
               : JSON.parse(localStorage.getItem("cart"))
             ).cart
               .reduce((p, c) => p + c.price * c.quantity, 0)
-              .toFixed(2)} */}
+              .toFixed(2)}
           </Link>
         </HeaderItem>
       </Header>

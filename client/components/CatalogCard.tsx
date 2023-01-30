@@ -48,17 +48,10 @@ const QuantityMenu = styled.div`
 `;
 
 export default function (props: React.PropsWithChildren<{ query: Query }>) {
-  const cart = useContext(CartContext),
-    [cartSave, cartSavedSet] = useState<Query>(),
+  const [cart, cartSave] = useContext(CartContext),
     [quantityMenu, quantityMenuSet] = useState<{
       [catalog_id: number]: { quantity: number; showMenu?: boolean };
     }>();
-
-  useEffect(() => {
-    cart.cartGet().then((value) => {
-      cartSavedSet(value);
-    });
-  }, []);
 
   useEffect(() => {
     if (cartSave) {
