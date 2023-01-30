@@ -3,11 +3,12 @@ import { GiHamburgerMenu } from "react-icons/gi";
 import { Link } from "react-router-dom";
 import Searchbar from "./Searchbar";
 import { FiUser, FiMessageSquare } from "react-icons/fi";
-import { Fragment, useState } from "react";
+import { Fragment, useContext, useState } from "react";
 import DropdownList from "./DropdownList";
 import styled from "styled-components";
 import { FiShoppingCart } from "react-icons/fi";
 import { Query, Users } from "../graphql-types";
+import { CartContext } from "../App";
 
 export const HeaderItem = styled.div`
   flex-shrink: 0;
@@ -118,14 +119,14 @@ const CartButton = styled.div`
 
 export default function (
   props: React.PropsWithChildren<{
-    cart: Query;
     query: Query;
     user: Users;
   }>
 ) {
   const [departmentsMenu, departmentsMenuSet] = useState(false),
     [navigationVertical, navigationVerticalSet] = useState(false),
-    [userMenu, userMenuSet] = useState(false);
+    [userMenu, userMenuSet] = useState(false),
+    cart = useContext(CartContext);
 
   return (
     <Fragment>
@@ -255,14 +256,14 @@ export default function (
 
         <HeaderItem style={{ marginRight: "1em" }}>
           <Link to="cart">
-            <CartButton>{props.cart.cart.length}</CartButton>
+            {/* <CartButton>{cart.cart.length}</CartButton> */}
             <FiShoppingCart />$
-            {(props.user && props.cart
-              ? props.cart
+            {/* {(props.user && cart
+              ? cart
               : JSON.parse(localStorage.getItem("cart"))
             ).cart
               .reduce((p, c) => p + c.price * c.quantity, 0)
-              .toFixed(2)}
+              .toFixed(2)} */}
           </Link>
         </HeaderItem>
       </Header>
