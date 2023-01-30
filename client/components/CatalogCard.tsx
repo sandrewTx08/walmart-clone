@@ -48,30 +48,28 @@ const QuantityMenu = styled.div`
 `;
 
 export default function (props: React.PropsWithChildren<{ query: Query }>) {
-  const [cart, cartSave] = useContext(CartContext),
+  const [cart, queryCart] = useContext(CartContext),
     [quantityMenu, quantityMenuSet] = useState<{
       [catalog_id: number]: { quantity: number; showMenu?: boolean };
     }>();
 
   useEffect(() => {
-    if (cartSave) {
-      const o = Object();
-      cartSave.cart.forEach((c) => {
-        o[c.catalog_id] = {
-          quantity: c.quantity,
-          showMenu: c.quantity ? true : false,
-        };
-      });
-      quantityMenuSet(o);
-    }
-  }, [cartSave]);
+    const o = Object();
+    queryCart.cart.forEach((c) => {
+      o[c.catalog_id] = {
+        quantity: c.quantity,
+        showMenu: c.quantity ? true : false,
+      };
+    });
+    quantityMenuSet(o);
+  }, [queryCart]);
 
   return (
     <Fragment>
-      {cartSave &&
+      {queryCart &&
         quantityMenu &&
-        props.query.department.catalog.map((catalog) => (
-          <DepartmentCatalogItem>
+        props.query.department.catalog.map((catalog, index) => (
+          <DepartmentCatalogItem key={index}>
             <Link to={"catalog/" + catalog.id}>
               <img src="/walmartLogoSmall.png" />
             </Link>

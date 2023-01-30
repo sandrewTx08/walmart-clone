@@ -80,7 +80,7 @@ export const cart = extendType({
   definition(t) {
     t.nonNull.list.field("cart", {
       type: "Carts",
-      args: { user_id: nonNull(arg({ type: "ID" })) },
+      args: { user_id: nonNull(arg({ type: "String" })) },
       resolve({}, a) {
         return CartModel.find({ user_id: a.user_id });
       },

@@ -6,7 +6,7 @@ export const Cart = extendType({
   type: "Mutation",
   definition(t) {
     const args = {
-      user_id: nonNull(arg({ type: "ID" })),
+      user_id: nonNull(arg({ type: "String" })),
       catalog_id: nonNull(arg({ type: "Int" })),
       quantity: nonNull(arg({ type: "Int" })),
     };

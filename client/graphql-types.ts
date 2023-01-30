@@ -26,7 +26,7 @@ export type Carts = {
   price: Scalars['Int'];
   product_id: Scalars['Int'];
   quantity: Scalars['Int'];
-  user_id: Scalars['ID'];
+  user_id: Scalars['String'];
 };
 
 export type Catalogs = {
@@ -63,14 +63,14 @@ export type Mutation = {
 export type MutationCartAddArgs = {
   catalog_id: Scalars['Int'];
   quantity: Scalars['Int'];
-  user_id: Scalars['ID'];
+  user_id: Scalars['String'];
 };
 
 
 export type MutationCartDeleteArgs = {
   catalog_id: Scalars['Int'];
   quantity: Scalars['Int'];
-  user_id: Scalars['ID'];
+  user_id: Scalars['String'];
 };
 
 export enum OrderBy {
@@ -86,7 +86,7 @@ export type ProductRates = {
   id: Scalars['Int'];
   product_id: Scalars['Int'];
   rate: Scalars['String'];
-  user_id: Scalars['ID'];
+  user_id: Scalars['String'];
 };
 
 export type Products = {
@@ -116,7 +116,7 @@ export type Query = {
 
 
 export type QueryCartArgs = {
-  user_id: Scalars['ID'];
+  user_id: Scalars['String'];
 };
 
 

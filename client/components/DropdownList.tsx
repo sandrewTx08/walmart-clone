@@ -43,8 +43,8 @@ export type DropdownListProps<T extends IDropdownList> =
 export default function <T extends IDropdownList>(props: DropdownListProps<T>) {
   return (
     <DropdownList>
-      {props.list.map((item) => (
-        <li key={item.text}>
+      {props.list.map((item, index) => (
+        <li key={index}>
           <Link
             to={item.href}
             onClick={() => {

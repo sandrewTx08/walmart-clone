@@ -14,7 +14,7 @@ type Carts {
   price: Int!
   product_id: Int!
   quantity: Int!
-  user_id: ID!
+  user_id: String!
 }
 
 type Catalogs {
@@ -32,8 +32,8 @@ type Departments {
 }
 
 type Mutation {
-  cartAdd(catalog_id: Int!, quantity: Int!, user_id: ID!): Carts
-  cartDelete(catalog_id: Int!, quantity: Int!, user_id: ID!): Carts
+  cartAdd(catalog_id: Int!, quantity: Int!, user_id: String!): Carts
+  cartDelete(catalog_id: Int!, quantity: Int!, user_id: String!): Carts
 }
 
 enum OrderBy {
@@ -48,7 +48,7 @@ type ProductRates {
   id: Int!
   product_id: Int!
   rate: String!
-  user_id: ID!
+  user_id: String!
 }
 
 type Products {
@@ -61,7 +61,7 @@ type Products {
 }
 
 type Query {
-  cart(user_id: ID!): [Carts]!
+  cart(user_id: String!): [Carts]!
   catalog(catalog_id: Int!): Catalogs!
   department(department_id: Int!): Departments!
   departments: [Departments!]

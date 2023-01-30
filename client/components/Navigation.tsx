@@ -120,7 +120,7 @@ const CartButton = styled.div`
 export default function (
   props: React.PropsWithChildren<{
     query: Query;
-    user: Users;
+    user: any;
   }>
 ) {
   const [departmentsMenu, departmentsMenuSet] = useState(false),
@@ -201,7 +201,7 @@ export default function (
         />
 
         <HeaderItemWrapper>
-          {props.user ? (
+          {props.user && props.user.auth ? (
             <HeaderItem
               onClick={() => {
                 userMenuSet(!userMenu);
@@ -256,7 +256,9 @@ export default function (
 
         <HeaderItem style={{ marginRight: "1em" }}>
           <Link to="cart">
-            <CartButton>{cart.cart.length}</CartButton>
+            <CartButton>
+              {cart.cart.reduce((p, c) => p + c.quantity, 0)}
+            </CartButton>
             <FiShoppingCart />$
             {(props.user && cart
               ? cart

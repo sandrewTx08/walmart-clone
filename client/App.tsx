@@ -1,4 +1,4 @@
-import { createContext, useEffect, useState } from "react";
+import { createContext, Fragment, useEffect, useState } from "react";
 import { Route, Routes, Navigate } from "react-router-dom";
 import Navigation from "./components/Navigation";
 import Carousel from "./components/Carousel";
@@ -8,9 +8,9 @@ import axios from "axios";
 import { Query, Users } from "./graphql-types";
 import { graphQLClient } from "./graphql-client";
 import "./index.css";
-import { CartDatabase } from "./cart";
+import { Cart } from "./cart";
 
-export const CartContext = createContext<[CartDatabase, Query]>(null);
+export const CartContext = createContext<[Cart, Query]>(null);
 
 export default function () {
   document.title = "Walmart.com";
@@ -18,13 +18,18 @@ export default function () {
   const [user, userSet] = useState<Users>(),
     [queryDepartment, queryDepartmentSet] = useState<Query>(),
     [queryCart, queryCartSet] = useState<Query>(),
-    [cart, cartSet] = useState<CartDatabase>();
+    [cart, cartSet] = useState<Cart>();
 
   useEffect(() => {
     axios
       .get("http://localhost:3000/user", { withCredentials: true })
       .then(({ data }) => {
         userSet(data);
+        const c = new Cart(data.id);
+        cartSet(c);
+        c.cartGet().then((value) => {
+          queryCartSet(value);
+        });
       });
 
     graphQLClient
@@ -38,22 +43,6 @@ export default function () {
       )
       .then(queryDepartmentSet);
   }, []);
-
-  useEffect(() => {
-    if (user) {
-      const c = new CartDatabase(user.id);
-      cartSet(c);
-      c.cartGet().then((value) => {
-        queryCartSet(value);
-      });
-    } else {
-      localStorage.setItem(
-        "cart",
-        JSON.stringify({ cart: [{ quantity: 0, price: 0 }] })
-      );
-      cartSet(JSON.parse(localStorage.getItem("cart")));
-    }
-  }, [user]);
 
   function Logout() {
     useEffect(() => {

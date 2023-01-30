@@ -8,7 +8,7 @@ export const Cart = objectType({
     t.nonNull.int("product_id");
     t.nonNull.int("catalog_id");
     t.nonNull.int("quantity");
-    t.nonNull.id("user_id");
+    t.nonNull.string("user_id");
     t.nonNull.string("name");
     t.nonNull.string("image");
   },
@@ -117,7 +117,7 @@ export const ProductRates = objectType({
         });
       },
     });
-    t.nonNull.id("user_id");
+    t.nonNull.string("user_id");
     t.nonNull.field("Users", {
       type: "Users",
       resolve(s) {

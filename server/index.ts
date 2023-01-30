@@ -1,18 +1,23 @@
 import "dotenv/config";
 import schema from "./graphql/schema";
 import fastifyPassport from "@fastify/passport";
+import fastifySecureSession from "@fastify/secure-session";
+import fastifyCors from "@fastify/cors";
+import mercurius from "mercurius";
 import Fastify from "fastify";
 import { Strategy as OAuth20GoogleStrategy } from "passport-google-oauth20";
 import { Users } from "@prisma/client";
 import prisma from "./prisma";
 import { connect } from "mongoose";
+import { randomUUID } from "crypto";
 
 connect(process.env.MONGO_URL as string);
 
 export const server = Fastify();
-server.register(require("mercurius"), { schema });
-server.register(require("@fastify/cors"));
-server.register(require("@fastify/secure-session"), {
+server.register(mercurius, { schema });
+server.register(fastifyCors);
+// @ts-ignore
+server.register(fastifySecureSession, {
   secret: process.env.SESSION_SECRET,
   salt: process.env.SESSION_SALT,
   cookie: { path: "/" },
@@ -41,23 +46,35 @@ fastifyPassport.registerUserSerializer<Users, unknown>(async (user) => user);
 server.get("/user", (req) => {
   const sessionUser = Object(req.user);
 
-  return sessionUser.id
-    ? prisma.users
-        .findUnique({ where: { id: sessionUser.id } })
-        .then((user) => {
-          if (user) {
-            return user;
-          } else {
-            const data: Users = Object();
-            data.id = sessionUser.id;
-            data.first_name = sessionUser.name.givenName;
-            data.last_name = sessionUser.name.familyName;
-            data.email = sessionUser.emails[0].value;
-            data.avatar = sessionUser.photos[0].value;
-            return prisma.users.create({ data });
-          }
-        })
-    : null;
+  if (sessionUser.id) {
+    return prisma.users
+      .findUnique({ where: { id: sessionUser.id } })
+      .then((user) => {
+        if (user) {
+          return { ...user, auth: true };
+        } else {
+          const data: Users = Object();
+          data.id = sessionUser.id;
+          data.first_name = sessionUser.name.givenName;
+          data.last_name = sessionUser.name.familyName;
+          data.email = sessionUser.emails[0].value;
+          data.avatar = sessionUser.photos[0].value;
+          return prisma.users
+            .create({ data })
+            .then((newUser) => ({ ...newUser, auth: true }));
+        }
+      });
+  } else {
+    const user_id = req.session.get("user_id");
+
+    if (user_id) {
+      return { id: user_id, auth: false };
+    } else {
+      const uuid = randomUUID();
+      req.session.set("user_id", uuid);
+      return { id: uuid, auth: false };
+    }
+  }
 });
 server.get(
   "/oauth/google",
