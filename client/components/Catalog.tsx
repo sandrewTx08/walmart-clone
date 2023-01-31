@@ -1,8 +1,10 @@
 import { Fragment, useEffect, useState } from "react";
+import { RiAddLine, RiSubtractFill } from "react-icons/ri";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import { graphQLClient } from "../graphql-client";
 import { Query } from "../graphql-types";
+import { AddCartButton, QuantityMenu, useCartQuantity } from "./QuantityMenu";
 import StartRate from "./StarRate";
 
 const CatalogDetails = styled.div`
@@ -56,7 +58,8 @@ const CatalogReview = styled.div`
 
 export default function () {
   const { id } = useParams(),
-    [query, querySet] = useState<Query>();
+    [query, querySet] = useState<Query>(),
+    { updateQuantity, displayMenu, queryCart } = useCartQuantity();
 
   useEffect(() => {
     graphQLClient
@@ -105,6 +108,48 @@ export default function () {
             <div className="catalog-price">
               <b>${query.catalog.price}</b>
             </div>
+            <div>
+              <AddCartButton
+                onClick={() => {
+                  if (!displayMenu[id]) {
+                    updateQuantity(Number(id), 1, true);
+                  }
+                }}
+              >
+                Add cart
+              </AddCartButton>
+              {displayMenu[id]?.displayMenu && (
+                <QuantityMenu>
+                  <button
+                    className="quantity-add"
+                    onClick={() => {
+                      updateQuantity(
+                        Number(id),
+                        displayMenu[id].quantity + 1,
+                        true
+                      );
+                    }}
+                  >
+                    <RiAddLine />
+                  </button>
+                  <div>
+                    <b>{displayMenu[id].quantity}</b>
+                  </div>
+                  <button
+                    className="quantity-remove"
+                    onClick={() => {
+                      updateQuantity(
+                        Number(id),
+                        displayMenu[id].quantity - 1,
+                        true
+                      );
+                    }}
+                  >
+                    <RiSubtractFill />
+                  </button>
+                </QuantityMenu>
+              )}
+            </div>
           </CatalogDetails>
         </Catalog>
 
@@ -113,8 +158,8 @@ export default function () {
         <CatalogReview>
           <h1>Customer reviews & ratings</h1>
 
-          {query.catalog.Products.ProductRates.map((productRate) => (
-            <div className="soft-shadow soft-border">
+          {query.catalog.Products.ProductRates.map((productRate, index) => (
+            <div className="soft-shadow soft-border" key={index}>
               <div>
                 <b>
                   <StartRate rate={productRate.rate} />

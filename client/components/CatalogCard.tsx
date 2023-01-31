@@ -2,9 +2,9 @@ import { Link } from "react-router-dom";
 import { Query } from "../graphql-types";
 import styled from "styled-components";
 import StarRate from "./StarRate";
-import { Fragment, useContext, useEffect, useState } from "react";
-import { CartContext } from "../App";
+import { Fragment } from "react";
 import { RiAddLine, RiSubtractFill } from "react-icons/ri";
+import { AddCartButton, QuantityMenu, useCartQuantity } from "./QuantityMenu";
 
 const DepartmentCatalogItem = styled.div`
   display: inline-block;
@@ -23,13 +23,6 @@ const DepartmentCatalogItem = styled.div`
   }
 `;
 
-const AddCartButton = styled.button`
-  padding: 7px;
-  background-color: var(--WALMART-BLUE);
-  color: white;
-  border-radius: 12px;
-`;
-
 const PriceWrapper = styled.div`
   display: flex;
   justify-content: space-between;
@@ -42,32 +35,13 @@ const PriceWrapper = styled.div`
   }
 `;
 
-const QuantityMenu = styled.div`
-  display: flex;
-  justify-content: space-between;
-`;
-
 export default function (props: React.PropsWithChildren<{ query: Query }>) {
-  const [cart, queryCart] = useContext(CartContext),
-    [quantityMenu, quantityMenuSet] = useState<{
-      [catalog_id: number]: { quantity: number; showMenu?: boolean };
-    }>();
-
-  useEffect(() => {
-    const o = Object();
-    queryCart.cart.forEach((c) => {
-      o[c.catalog_id] = {
-        quantity: c.quantity,
-        showMenu: c.quantity ? true : false,
-      };
-    });
-    quantityMenuSet(o);
-  }, [queryCart]);
+  const { updateQuantity, displayMenu, queryCart } = useCartQuantity();
 
   return (
     <Fragment>
       {queryCart &&
-        quantityMenu &&
+        displayMenu &&
         props.query.department.catalog.map((catalog, index) => (
           <DepartmentCatalogItem key={index}>
             <Link to={"catalog/" + catalog.id}>
@@ -79,73 +53,38 @@ export default function (props: React.PropsWithChildren<{ query: Query }>) {
               </div>
               <AddCartButton
                 onClick={() => {
-                  if (!quantityMenu[catalog.id]) {
-                    quantityMenuSet({
-                      ...quantityMenu,
-                      [catalog.id]: {
-                        ...quantityMenu[catalog.id],
-                        quantity: 1,
-                        showMenu: true,
-                      },
-                    });
-                    cart.cartUpdate({
-                      catalog_id: catalog.id,
-                      quantity: 1,
-                    });
-                  } else {
-                    quantityMenuSet({
-                      ...quantityMenu,
-                      [catalog.id]: {
-                        ...quantityMenu[catalog.id],
-                        showMenu: true,
-                      },
-                    });
-                    cart.cartUpdate({
-                      catalog_id: catalog.id,
-                      quantity: quantityMenu[catalog.id].quantity,
-                    });
+                  if (!displayMenu[catalog.id]) {
+                    updateQuantity(catalog.id, 1, true);
                   }
                 }}
               >
                 Add cart
               </AddCartButton>
-              {quantityMenu[catalog.id]?.showMenu && (
+              {displayMenu[catalog.id]?.displayMenu && (
                 <QuantityMenu>
                   <button
                     className="quantity-add"
                     onClick={() => {
-                      quantityMenuSet({
-                        ...quantityMenu,
-                        [catalog.id]: {
-                          ...quantityMenu[catalog.id],
-                          quantity: quantityMenu[catalog.id].quantity + 1,
-                        },
-                      });
-                      cart.cartUpdate({
-                        catalog_id: catalog.id,
-                        quantity: quantityMenu[catalog.id].quantity + 1,
-                      });
+                      updateQuantity(
+                        catalog.id,
+                        displayMenu[catalog.id].quantity + 1,
+                        true
+                      );
                     }}
                   >
                     <RiAddLine />
                   </button>
                   <div>
-                    <b>{quantityMenu[catalog.id].quantity}</b>
+                    <b>{displayMenu[catalog.id].quantity}</b>
                   </div>
                   <button
                     className="quantity-remove"
                     onClick={() => {
-                      quantityMenuSet({
-                        ...quantityMenu,
-                        [catalog.id]: {
-                          ...quantityMenu[catalog.id],
-                          quantity: quantityMenu[catalog.id].quantity - 1,
-                        },
-                      });
-                      cart.cartUpdate({
-                        catalog_id: catalog.id,
-                        quantity: quantityMenu[catalog.id].quantity - 1,
-                      });
+                      updateQuantity(
+                        catalog.id,
+                        displayMenu[catalog.id].quantity - 1,
+                        true
+                      );
                     }}
                   >
                     <RiSubtractFill />
