@@ -1,6 +1,8 @@
 import styled from "styled-components";
-import { useContext, useEffect, useState } from "react";
+import React, { Fragment, useContext, useEffect, useState } from "react";
 import { CartContext } from "../App";
+import { RiAddLine, RiSubtractFill } from "react-icons/ri";
+import { Catalogs } from "../graphql-types";
 
 export const QuantityMenu = styled.div`
   display: flex;
@@ -15,18 +17,61 @@ export const AddCartButton = styled.button`
 `;
 
 export function useCartQuantity() {
-  const [cart, queryCart] = useContext(CartContext),
-    [displayMenu, displayMenuSet] = useState<{
-      [catalog_id: number]: { quantity: number; displayMenu: boolean };
+  const [cart, query] = useContext(CartContext),
+    [quantity, quantitySet] = useState<{
+      [catalog_id: number]: { quantity: number };
     }>();
 
-  function updateQuantity(id: number, q: number, d: boolean) {
-    displayMenuSet({
-      ...displayMenu,
+  function QuantityMenu(props: React.PropsWithChildren<{ catalog: Catalogs }>) {
+    return (
+      <Fragment>
+        {quantity[props.catalog.id]?.quantity > 0 ? (
+          <Fragment>
+            <button
+              className="quantity-add"
+              onClick={() => {
+                updateQuantity(
+                  props.catalog.id,
+                  quantity[props.catalog.id].quantity + 1
+                );
+              }}
+            >
+              <RiAddLine />
+            </button>
+            <div>
+              <b>{quantity[props.catalog.id].quantity}</b>
+            </div>
+            <button
+              className="quantity-remove"
+              onClick={() => {
+                updateQuantity(
+                  props.catalog.id,
+                  quantity[props.catalog.id].quantity - 1
+                );
+              }}
+            >
+              <RiSubtractFill />
+            </button>
+          </Fragment>
+        ) : (
+          <AddCartButton
+            onClick={() => {
+              updateQuantity(props.catalog.id, 1);
+            }}
+          >
+            Add cart
+          </AddCartButton>
+        )}
+      </Fragment>
+    );
+  }
+
+  function updateQuantity(id: number, q: number) {
+    quantitySet({
+      ...quantity,
       [id]: {
-        ...displayMenu[id],
+        ...quantity[id],
         quantity: q,
-        displayMenu: d,
       },
     });
     cart.cartUpdate({
@@ -36,16 +81,13 @@ export function useCartQuantity() {
   }
 
   useEffect(() => {
-    displayMenuSet(
-      queryCart.cart.reduce<typeof displayMenu>((o, c) => {
-        o[c.catalog_id] = {
-          quantity: c.quantity,
-          displayMenu: c.quantity ? true : false,
-        };
+    quantitySet(
+      query.cart.reduce<typeof quantity>((o, c) => {
+        o[c.catalog_id] = { quantity: c.quantity };
         return o;
       }, Object())
     );
-  }, [queryCart]);
+  }, [query]);
 
-  return { updateQuantity, displayMenu, queryCart };
+  return { updateQuantity, quantity, query, QuantityMenu };
 }

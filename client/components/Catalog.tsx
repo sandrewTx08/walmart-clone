@@ -59,7 +59,7 @@ const CatalogReview = styled.div`
 export default function () {
   const { id } = useParams(),
     [query, querySet] = useState<Query>(),
-    { updateQuantity, displayMenu, queryCart } = useCartQuantity();
+    { QuantityMenu } = useCartQuantity();
 
   useEffect(() => {
     graphQLClient
@@ -109,46 +109,7 @@ export default function () {
               <b>${query.catalog.price}</b>
             </div>
             <div>
-              <AddCartButton
-                onClick={() => {
-                  if (!displayMenu[id]) {
-                    updateQuantity(Number(id), 1, true);
-                  }
-                }}
-              >
-                Add cart
-              </AddCartButton>
-              {displayMenu[id]?.displayMenu && (
-                <QuantityMenu>
-                  <button
-                    className="quantity-add"
-                    onClick={() => {
-                      updateQuantity(
-                        Number(id),
-                        displayMenu[id].quantity + 1,
-                        true
-                      );
-                    }}
-                  >
-                    <RiAddLine />
-                  </button>
-                  <div>
-                    <b>{displayMenu[id].quantity}</b>
-                  </div>
-                  <button
-                    className="quantity-remove"
-                    onClick={() => {
-                      updateQuantity(
-                        Number(id),
-                        displayMenu[id].quantity - 1,
-                        true
-                      );
-                    }}
-                  >
-                    <RiSubtractFill />
-                  </button>
-                </QuantityMenu>
-              )}
+              <QuantityMenu catalog={query.catalog} />
             </div>
           </CatalogDetails>
         </Catalog>
