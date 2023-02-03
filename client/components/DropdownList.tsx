@@ -34,7 +34,7 @@ export interface IDropdownList {
   sidetext?: string;
 }
 
-export type DropdownListProps<T extends IDropdownList> =
+export type DropdownListProps<T extends IDropdownList = IDropdownList> =
   React.PropsWithChildren<{
     list: T[];
     onClick?(item: T): void;

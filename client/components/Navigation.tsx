@@ -126,7 +126,7 @@ export default function (
   const [departmentsMenu, departmentsMenuSet] = useState(false),
     [navigationVertical, navigationVerticalSet] = useState(false),
     [userMenu, userMenuSet] = useState(false),
-    [{}, query] = useContext(CartContext);
+    [{}, [query]] = useContext(CartContext);
 
   return (
     <Fragment>

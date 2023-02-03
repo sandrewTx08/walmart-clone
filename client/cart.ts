@@ -27,6 +27,7 @@ export class Cart {
         cartAdd(catalog_id: $catalog_id, quantity: $quantity, user_id: $user_id) {
           price
           quantity
+          catalog_id
         }
       }`,
       { ...args, user_id: this.user_id }
@@ -39,6 +40,7 @@ export class Cart {
         cartDelete(catalog_id: $catalog_id, quantity: $quantity, user_id: $user_id) {
           price
           quantity
+          catalog_id
         }
       }`,
       { ...args, user_id: this.user_id }

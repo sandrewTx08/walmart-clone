@@ -2,8 +2,7 @@ import { Link } from "react-router-dom";
 import { Query } from "../graphql-types";
 import styled from "styled-components";
 import StarRate from "./StarRate";
-import { Fragment, useEffect } from "react";
-import { RiAddLine, RiSubtractFill } from "react-icons/ri";
+import { Fragment } from "react";
 import { useCartQuantity } from "./QuantityMenu";
 
 const DepartmentCatalogItem = styled.div`

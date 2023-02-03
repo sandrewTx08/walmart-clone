@@ -10,7 +10,7 @@ import { graphQLClient } from "./graphql-client";
 import "./index.css";
 import { Cart } from "./cart";
 
-export const CartContext = createContext<[Cart, Query]>(null);
+export const CartContext = createContext<[Cart, [Query, Function]]>(null);
 
 export default function () {
   document.title = "Walmart.com";
@@ -62,9 +62,8 @@ export default function () {
 
   return (
     queryDepartment &&
-    queryCart &&
-    cart && (
-      <CartContext.Provider value={[cart, queryCart]}>
+    queryCart && (
+      <CartContext.Provider value={[cart, [queryCart, queryCartSet]]}>
         <Navigation query={queryDepartment} user={user}>
           <Routes>
             <Route path="/" element={<Carousel />} />

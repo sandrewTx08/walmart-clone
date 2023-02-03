@@ -17,7 +17,7 @@ export const AddCartButton = styled.button`
 `;
 
 export function useCartQuantity() {
-  const [cart, query] = useContext(CartContext),
+  const [cart, [query, querySet]] = useContext(CartContext),
     [quantity, quantitySet] = useState<{
       [catalog_id: number]: { quantity: number };
     }>();
@@ -89,10 +89,16 @@ export function useCartQuantity() {
         quantity: q,
       },
     });
-    cart.cartUpdate({
-      catalog_id: id,
-      quantity: q,
-    });
+    cart
+      .cartUpdate({
+        catalog_id: id,
+        quantity: q,
+      })
+      .then(() => {
+        cart.cartGet().then((q) => {
+          querySet(q);
+        });
+      });
   }
 
   useEffect(() => {
