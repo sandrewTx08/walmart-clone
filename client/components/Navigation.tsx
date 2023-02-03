@@ -3,11 +3,11 @@ import { GiHamburgerMenu } from "react-icons/gi";
 import { Link } from "react-router-dom";
 import Searchbar from "./Searchbar";
 import { FiUser, FiMessageSquare } from "react-icons/fi";
-import { Fragment, useContext, useEffect, useState } from "react";
+import { Fragment, useContext, useState } from "react";
 import DropdownList from "./DropdownList";
 import styled from "styled-components";
 import { FiShoppingCart } from "react-icons/fi";
-import { Query, Users } from "../graphql-types";
+import { Query } from "../graphql-types";
 import { CartContext } from "../App";
 
 export const HeaderItem = styled.div`
@@ -126,7 +126,7 @@ export default function (
   const [departmentsMenu, departmentsMenuSet] = useState(false),
     [navigationVertical, navigationVerticalSet] = useState(false),
     [userMenu, userMenuSet] = useState(false),
-    [_c, cart] = useContext(CartContext);
+    [{}, query] = useContext(CartContext);
 
   return (
     <Fragment>
@@ -257,13 +257,10 @@ export default function (
         <HeaderItem style={{ marginRight: "1em" }}>
           <Link to="cart">
             <CartButton>
-              {cart.cart.reduce((p, c) => p + c.quantity, 0)}
+              {query.cart.reduce((p, c) => p + c.quantity, 0)}
             </CartButton>
             <FiShoppingCart />$
-            {(props.user && cart
-              ? cart
-              : JSON.parse(localStorage.getItem("cart"))
-            ).cart
+            {(props.user && query).cart
               .reduce((p, c) => p + c.price * c.quantity, 0)
               .toFixed(2)}
           </Link>

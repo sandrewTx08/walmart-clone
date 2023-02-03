@@ -23,40 +23,55 @@ export function useCartQuantity() {
     }>();
 
   function QuantityMenu(props: React.PropsWithChildren<{ catalog: Catalogs }>) {
+    function QuantityAddButton() {
+      return (
+        <button
+          className="quantity-add"
+          onClick={() => {
+            quantityUpdate(
+              props.catalog.id,
+              quantity[props.catalog.id].quantity + 1
+            );
+          }}
+        >
+          <RiAddLine />
+        </button>
+      );
+    }
+
+    function QuantityRemoveButton() {
+      return (
+        <button
+          className="quantity-remove"
+          onClick={() => {
+            quantityUpdate(
+              props.catalog.id,
+              quantity[props.catalog.id].quantity - 1
+            );
+          }}
+        >
+          <RiSubtractFill />
+        </button>
+      );
+    }
+
     return (
       <Fragment>
-        {quantity[props.catalog.id]?.quantity > 0 ? (
-          <Fragment>
-            <button
-              className="quantity-add"
-              onClick={() => {
-                updateQuantity(
-                  props.catalog.id,
-                  quantity[props.catalog.id].quantity + 1
-                );
-              }}
-            >
-              <RiAddLine />
-            </button>
-            <div>
-              <b>{quantity[props.catalog.id].quantity}</b>
-            </div>
-            <button
-              className="quantity-remove"
-              onClick={() => {
-                updateQuantity(
-                  props.catalog.id,
-                  quantity[props.catalog.id].quantity - 1
-                );
-              }}
-            >
-              <RiSubtractFill />
-            </button>
-          </Fragment>
+        {quantity[props.catalog.id]?.quantity === 12 ? (
+          <div>
+            <b>Max 12</b>
+            <QuantityRemoveButton />
+          </div>
+        ) : quantity[props.catalog.id]?.quantity > 0 ? (
+          <div>
+            <QuantityAddButton />
+            <b>{quantity[props.catalog.id].quantity}</b>
+            <QuantityRemoveButton />
+          </div>
         ) : (
           <AddCartButton
             onClick={() => {
-              updateQuantity(props.catalog.id, 1);
+              quantityUpdate(props.catalog.id, 1);
             }}
           >
             Add cart
@@ -66,7 +81,7 @@ export function useCartQuantity() {
     );
   }
 
-  function updateQuantity(id: number, q: number) {
+  function quantityUpdate(id: number, q: number) {
     quantitySet({
       ...quantity,
       [id]: {
@@ -89,5 +104,5 @@ export function useCartQuantity() {
     );
   }, [query]);
 
-  return { updateQuantity, quantity, query, QuantityMenu };
+  return { quantityUpdate, quantity, query, QuantityMenu };
 }
