@@ -188,7 +188,7 @@ export default function () {
         <CatalogCard query={query} />
 
         <PaginationNavigation
-          totalPages={query.department.catalog[0].totalPages}
+          totalPages={query.department.catalog[0]?.totalPages || 1}
           page={filters.page}
         />
       </Fragment>

@@ -45,10 +45,12 @@ export default function (props: { totalPages: number; page: number }) {
         )}
         {[
           props.page,
-          ...(props.totalPages > 0 && [
-            props.page + 1 < props.totalPages && props.page + 1,
-            props.page + 2 < props.totalPages && props.page + 2,
-          ]),
+          ...[
+            props.totalPages > 0 && [
+              props.page + 1 < props.totalPages && props.page + 1,
+              props.page + 2 < props.totalPages && props.page + 2,
+            ],
+          ],
           props.totalPages !== props.page && props.totalPages,
         ]
           .filter((page) => typeof page === "number")
