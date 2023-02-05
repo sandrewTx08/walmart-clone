@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { useParams, useSearchParams } from "react-router-dom";
 import { Fragment, useEffect, useState } from "react";
 import { Query } from "../graphql-types";
 import { MdOutlinePriceChange, MdOutlineStore } from "react-icons/md";
@@ -8,6 +8,7 @@ import { graphQLClient } from "../graphql-client";
 import styled from "styled-components";
 import CatalogCard from "./CatalogCard";
 import DropdownList from "./DropdownList";
+import PaginationNavigation from "./PaginationNavigation";
 
 const DepartmentCatalogHeader = styled.div`
   div {
@@ -43,21 +44,27 @@ export default function () {
     [brandFilterMenu, brandFilterMenuSet] = useState(false),
     [storeFilterMenu, storeFilterMenuSet] = useState(false),
     [sortByMenu, sortByMenuSet] = useState(false),
+    [searchParams] = useSearchParams(),
     [filters, filtersSet] = useState({
-      brand_id: undefined,
-      store_id: undefined,
-      price_sort: undefined,
+      brand_id: Number(searchParams.get("brand_id")) || undefined,
+      store_id: Number(searchParams.get("store_id")) || undefined,
+      price_sort: searchParams.get("price_sort") || undefined,
       department_id: Number(id),
+      page: Number(searchParams.get("page")) || 1,
     });
 
   useEffect(() => {
-    filtersSet({ ...filters, department_id: Number(id) });
-  }, [id]);
+    filtersSet({
+      ...filters,
+      department_id: Number(id),
+      page: Number(searchParams.get("page")) || 1,
+    });
+  }, [id, searchParams.get("page")]);
 
   useEffect(() => {
     graphQLClient
       .request(
-        `query Query($department_id: Int!, $brand_id: Int, $store_id: Int, $price_sort: OrderBy) {
+        `query Query($department_id: Int!, $brand_id: Int, $store_id: Int, $price_sort: OrderBy, $page: Int) {
           productBrands(department_id: $department_id) {
             name
             id
@@ -69,10 +76,11 @@ export default function () {
           department(department_id: $department_id) {
             name
             _count
-            catalog(limit: 40, brand_id: $brand_id, store_id: $store_id, price_sort: $price_sort) {
+            catalog(page: $page, limit: 12, brand_id: $brand_id, store_id: $store_id, price_sort: $price_sort) {
               id
               price
               product_id
+              totalPages
               Products {
                 name
                 ProductRates {
@@ -177,9 +185,12 @@ export default function () {
 
         <hr />
 
-        <section>
-          <CatalogCard query={query} />
-        </section>
+        <CatalogCard query={query} />
+
+        <PaginationNavigation
+          totalPages={query.department.catalog[0].totalPages}
+          page={filters.page}
+        />
       </Fragment>
     )
   );

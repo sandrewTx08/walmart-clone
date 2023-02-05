@@ -5819,6 +5819,14 @@ pretty-format@^29.4.1:
     ansi-styles "^5.0.0"
     react-is "^18.0.0"
 
+prisma-paginate@^4.1.0:
+  version "4.1.0"
+  resolved "https://registry.yarnpkg.com/prisma-paginate/-/prisma-paginate-4.1.0.tgz#d4129607cb3a09852638016da79f1b9a70badf13"
+  integrity sha512-MEvlO0Z2x1Jf8/TmWXGVRgZNEU/XPrb5eQxhdUyFD/NpAu94hqroPB1NWlWSRz+pEv5IwWs57JZsMt//qGrYeg==
+  dependencies:
+    "@prisma/client" "^4.9.0"
+    prisma "^4.9.0"
+
 prisma@^4.9.0:
   version "4.9.0"
   resolved "https://registry.yarnpkg.com/prisma/-/prisma-4.9.0.tgz#295954b2a89cd35a0e6bcf66b2b036dbf80c75ee"

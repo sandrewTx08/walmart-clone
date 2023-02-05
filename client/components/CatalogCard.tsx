@@ -38,7 +38,7 @@ export default function (props: React.PropsWithChildren<{ query: Query }>) {
   const { quantity, QuantityMenu } = useCartQuantity();
 
   return (
-    <Fragment>
+    <section>
       {quantity &&
         props.query.department.catalog.map((catalog, index) => (
           <DepartmentCatalogItem key={index}>
@@ -72,6 +72,6 @@ export default function (props: React.PropsWithChildren<{ query: Query }>) {
             </div>
           </DepartmentCatalogItem>
         ))}
-    </Fragment>
+    </section>
   );
 }

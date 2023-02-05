@@ -1,4 +1,4 @@
-import { createContext, Fragment, useEffect, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 import { Route, Routes, Navigate } from "react-router-dom";
 import Navigation from "./components/Navigation";
 import Carousel from "./components/Carousel";
@@ -10,7 +10,10 @@ import { graphQLClient } from "./graphql-client";
 import "./index.css";
 import { Cart } from "./cart";
 
-export const CartContext = createContext<[Cart, [Query, Function]]>(null);
+export const CartContext =
+  createContext<[Cart, [Query, React.Dispatch<React.SetStateAction<Query>>]]>(
+    null
+  );
 
 export default function () {
   document.title = "Walmart.com";

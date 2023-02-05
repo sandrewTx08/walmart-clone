@@ -22,11 +22,12 @@ type Catalogs {
   id: Int!
   price: Int!
   product_id: Int!
+  totalPages: Int!
 }
 
 type Departments {
   _count: Int!
-  catalog(brand_id: Int, limit: Int!, price_sort: OrderBy, store_id: Int): [Catalogs!]
+  catalog(brand_id: Int, limit: Int!, page: Int, price_sort: OrderBy, store_id: Int): [Catalogs!]
   id: Int!
   name: String!
 }

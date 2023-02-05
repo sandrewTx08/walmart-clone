@@ -19,6 +19,7 @@ export const Catalogs = objectType({
   definition(t) {
     t.nonNull.int("id");
     t.nonNull.int("price");
+    t.nonNull.int("totalPages");
     t.nonNull.int("product_id");
     t.nonNull.field("Products", {
       type: "Products",
@@ -50,16 +51,22 @@ export const Departments = objectType({
         brand_id: arg({ type: "Int" }),
         price_sort: arg({ type: "OrderBy" }),
         store_id: arg({ type: "Int" }),
+        page: arg({ type: "Int" }),
       },
       resolve(s, a) {
-        return prisma.catalogs.findMany({
-          orderBy: { price: a.price_sort },
-          take: a.limit,
-          where: {
-            store_id: a.store_id,
-            Products: { department_id: s.id, brand_id: a.brand_id },
-          },
-        });
+        return prisma.catalogs
+          .paginate({
+            orderBy: { price: a.price_sort },
+            limit: a.limit,
+            page: a.page,
+            where: {
+              store_id: a.store_id,
+              Products: { department_id: s.id, brand_id: a.brand_id },
+            },
+          })
+          .then(({ result, totalPages }) =>
+            result.map((v) => ({ ...v, totalPages }))
+          );
       },
     });
   },

@@ -35,6 +35,7 @@ export type Catalogs = {
   id: Scalars['Int'];
   price: Scalars['Int'];
   product_id: Scalars['Int'];
+  totalPages: Scalars['Int'];
 };
 
 export type Departments = {
@@ -49,6 +50,7 @@ export type Departments = {
 export type DepartmentsCatalogArgs = {
   brand_id?: InputMaybe<Scalars['Int']>;
   limit: Scalars['Int'];
+  page?: InputMaybe<Scalars['Int']>;
   price_sort?: InputMaybe<OrderBy>;
   store_id?: InputMaybe<Scalars['Int']>;
 };
