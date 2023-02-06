@@ -2,7 +2,6 @@ import { Link } from "react-router-dom";
 import { Query } from "../graphql-types";
 import styled from "styled-components";
 import StarRate from "./StarRate";
-import { Fragment } from "react";
 import { useCartQuantity } from "./QuantityMenu";
 
 const DepartmentCatalogItem = styled.div`
@@ -49,7 +48,7 @@ export default function (props: React.PropsWithChildren<{ query: Query }>) {
               <div>
                 <b>${catalog.price}</b>
               </div>
-              <QuantityMenu catalog={catalog} />
+              <QuantityMenu catalog_id={catalog.id} />
             </PriceWrapper>
             <div>{catalog.Products.name}</div>
             <div>

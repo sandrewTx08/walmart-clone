@@ -5,7 +5,7 @@ import {
 } from "./graphql-types";
 import { graphQLClient } from "./graphql-client";
 
-export class Cart {
+export class CartAPI {
   constructor(public user_id: string) {}
 
   cartGet(): Promise<Query> {

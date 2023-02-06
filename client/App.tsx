@@ -8,12 +8,13 @@ import axios from "axios";
 import { Query, Users } from "./graphql-types";
 import { graphQLClient } from "./graphql-client";
 import "./index.css";
-import { Cart } from "./cart";
+import { CartAPI } from "./cartApi";
+import Cart from "./components/Cart";
 
 export const CartContext =
-  createContext<[Cart, [Query, React.Dispatch<React.SetStateAction<Query>>]]>(
-    null
-  );
+  createContext<
+    [CartAPI, [Query, React.Dispatch<React.SetStateAction<Query>>]]
+  >(null);
 
 export default function () {
   document.title = "Walmart.com";
@@ -21,15 +22,15 @@ export default function () {
   const [user, userSet] = useState<Users>(),
     [queryDepartment, queryDepartmentSet] = useState<Query>(),
     [queryCart, queryCartSet] = useState<Query>(),
-    [cart, cartSet] = useState<Cart>();
+    [cartAPI, cartAPISet] = useState<CartAPI>();
 
   useEffect(() => {
     axios
       .get("http://localhost:3000/user", { withCredentials: true })
       .then(({ data }) => {
         userSet(data);
-        const c = new Cart(data.id);
-        cartSet(c);
+        const c = new CartAPI(data.id);
+        cartAPISet(c);
         c.cartGet().then((value) => {
           queryCartSet(value);
         });
@@ -66,7 +67,7 @@ export default function () {
   return (
     queryDepartment &&
     queryCart && (
-      <CartContext.Provider value={[cart, [queryCart, queryCartSet]]}>
+      <CartContext.Provider value={[cartAPI, [queryCart, queryCartSet]]}>
         <Navigation query={queryDepartment} user={user}>
           <Routes>
             <Route path="/" element={<Carousel />} />
@@ -77,6 +78,7 @@ export default function () {
               element={<Catalog />}
             />
             <Route path="logout" element={<Logout />} />
+            <Route path="cart" element={<Cart />} />
             <Route path="*" element={<h1>Not Found</h1>} />
           </Routes>
         </Navigation>
