@@ -91,20 +91,18 @@ export function useCartQuantity() {
         quantity: q,
       },
     });
-    cart
-      .cartUpdate({
-        catalog_id: id,
-        quantity: q,
-      })
-      .then(() => {
-        if (q === 0) {
-          cart.cartDelete({ catalog_id: id });
-        }
 
-        cart.cartGet().then((q) => {
-          querySet(q);
-        });
+    (q === 0
+      ? cart.cartDelete({ catalog_id: id })
+      : cart.cartUpdate({
+          catalog_id: id,
+          quantity: q,
+        })
+    ).then(() => {
+      cart.cartGet().then((q) => {
+        querySet(q);
       });
+    });
   }
 
   useEffect(() => {
@@ -126,6 +124,6 @@ export function useCartQuantity() {
     quantityUpdate,
     quantity,
     QuantityMenu,
-    catalogLegth: catalogLength,
+    catalogLength,
   };
 }

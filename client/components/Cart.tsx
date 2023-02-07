@@ -45,11 +45,11 @@ const CartListItem = styled.li`
 
 export default function () {
   const [{}, [query]] = useContext(CartContext),
-    { QuantityMenu, catalogLegth } = useCartQuantity();
+    { QuantityMenu, catalogLength } = useCartQuantity();
 
   return (
     <CartWrapper>
-      {catalogLegth > 0 && (
+      {catalogLength > 0 && (
         <CartDetails className="soft-shadow soft-border">
           <CartList>
             {query.cart.map((cartItem, index) => (

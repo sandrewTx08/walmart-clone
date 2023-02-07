@@ -18,15 +18,12 @@ export const CartContext =
 
 export const UserContext = createContext<Users & { auth: boolean }>(null);
 
-export default function () {
-  document.title = "Walmart.com";
-
+export function useUser() {
   const [user, userSet] = useState<Users & { auth: boolean }>(),
-    [queryDepartment, queryDepartmentSet] = useState<Query>(),
-    [queryCart, queryCartSet] = useState<Query>(),
-    [cartAPI, cartAPISet] = useState<CartAPI>();
+    [cart, cartAPISet] = useState<CartAPI>(),
+    [query, querySet] = useState<Query>();
 
-  useEffect(() => {
+  function userRequest() {
     axios
       .get("http://localhost:3000/user", { withCredentials: true })
       .then(({ data }) => {
@@ -34,21 +31,12 @@ export default function () {
         const c = new CartAPI(data.id);
         cartAPISet(c);
         c.cartGet().then((value) => {
-          queryCartSet(value);
+          querySet(value);
         });
       });
+  }
 
-    graphQLClient
-      .request(
-        `{
-          departments {
-            name
-            id
-          }
-        }`
-      )
-      .then(queryDepartmentSet);
-  }, []);
+  useEffect(userRequest, []);
 
   function Logout() {
     useEffect(() => {
@@ -58,13 +46,41 @@ export default function () {
         })
         .then(({ data }) => {
           if (data.success) {
-            userSet(null);
+            userRequest();
           }
         });
     }, []);
 
     return <Navigate to="/" />;
   }
+
+  return { user, querySet, cart, query, Logout };
+}
+
+export default function () {
+  document.title = "Walmart.com";
+
+  const [queryDepartment, queryDepartmentSet] = useState<Query>(),
+    {
+      user,
+      cart: cartAPI,
+      Logout,
+      querySet: queryCartSet,
+      query: queryCart,
+    } = useUser();
+
+  useEffect(() => {
+    graphQLClient
+      .request(
+        `{
+      departments {
+        name
+        id
+      }
+    }`
+      )
+      .then(queryDepartmentSet);
+  }, []);
 
   return (
     user &&
