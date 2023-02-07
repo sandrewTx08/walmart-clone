@@ -1,5 +1,5 @@
 import {
-  MutationCartAddArgs,
+  MutationCartUpdateArgs,
   MutationCartDeleteArgs,
   Query,
 } from "./graphql-types";
@@ -21,10 +21,10 @@ export class CartAPI {
     );
   }
 
-  cartUpdate(args: Omit<MutationCartAddArgs, "user_id">): Promise<Query> {
+  cartUpdate(args: Omit<MutationCartUpdateArgs, "user_id">): Promise<Query> {
     return graphQLClient.request(
       `mutation Mutation($catalog_id: Int!, $quantity: Int!, $user_id: String!) {
-        cartAdd(catalog_id: $catalog_id, quantity: $quantity, user_id: $user_id) {
+        cartUpdate(catalog_id: $catalog_id, quantity: $quantity, user_id: $user_id) {
           price
           quantity
           catalog_id
@@ -36,8 +36,8 @@ export class CartAPI {
 
   cartDelete(args: Omit<MutationCartDeleteArgs, "user_id">): Promise<Query> {
     return graphQLClient.request(
-      `mutation Mutation($catalog_id: Int!, $quantity: Int!, $user_id: String!) {
-        cartDelete(catalog_id: $catalog_id, quantity: $quantity, user_id: $user_id) {
+      `mutation Mutation($catalog_id: Int!, $user_id: String!) {
+        cartDelete(catalog_id: $catalog_id, user_id: $user_id) {
           price
           quantity
           catalog_id

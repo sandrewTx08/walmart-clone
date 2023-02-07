@@ -8,7 +8,7 @@ import DropdownList from "./DropdownList";
 import styled from "styled-components";
 import { FiShoppingCart } from "react-icons/fi";
 import { Query } from "../graphql-types";
-import { CartContext } from "../App";
+import { CartContext, UserContext } from "../App";
 
 export const HeaderItem = styled.div`
   flex-shrink: 0;
@@ -117,15 +117,11 @@ const CartButton = styled.div`
   text-align: center;
 `;
 
-export default function (
-  props: React.PropsWithChildren<{
-    query: Query;
-    user: any;
-  }>
-) {
+export default function (props: React.PropsWithChildren<{ query: Query }>) {
   const [departmentsMenu, departmentsMenuSet] = useState(false),
     [navigationVertical, navigationVerticalSet] = useState(false),
     [userMenu, userMenuSet] = useState(false),
+    user = useContext(UserContext),
     [{}, [query]] = useContext(CartContext);
 
   return (
@@ -201,7 +197,7 @@ export default function (
         />
 
         <HeaderItemWrapper>
-          {props.user && props.user.auth ? (
+          {user && user.auth ? (
             <HeaderItem
               onClick={() => {
                 userMenuSet(!userMenu);
@@ -210,7 +206,7 @@ export default function (
               <a>
                 <FiUser />
                 <div>
-                  <div>{props.user.first_name}</div>
+                  <div>{user.first_name}</div>
                   <div>
                     <b>Account</b>
                   </div>
@@ -260,7 +256,7 @@ export default function (
               {query.cart.reduce((p, c) => p + c.quantity, 0)}
             </CartButton>
             <FiShoppingCart />$
-            {(props.user && query).cart
+            {(user && query).cart
               .reduce((p, c) => p + c.price * c.quantity, 0)
               .toFixed(2)}
           </Link>

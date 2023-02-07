@@ -45,27 +45,29 @@ const CartListItem = styled.li`
 
 export default function () {
   const [{}, [query]] = useContext(CartContext),
-    { quantity, QuantityMenu } = useCartQuantity();
+    { QuantityMenu, catalogLegth } = useCartQuantity();
 
   return (
     <CartWrapper>
-      <CartDetails className="soft-shadow soft-border">
-        <CartList>
-          {query.cart.map((cartItem, index) => (
-            <CartListItem key={index}>
-              <img src={cartItem.image || "/walmartLogoSmall.png"} />
+      {catalogLegth > 0 && (
+        <CartDetails className="soft-shadow soft-border">
+          <CartList>
+            {query.cart.map((cartItem, index) => (
+              <CartListItem key={index}>
+                <img src={cartItem.image || "/walmartLogoSmall.png"} />
 
-              <div>{cartItem.name}</div>
+                <div>{cartItem.name}</div>
 
-              <div>
-                {quantity && <QuantityMenu catalog_id={cartItem.catalog_id} />}
-              </div>
+                <div>
+                  <QuantityMenu catalog_id={cartItem.catalog_id} />
+                </div>
 
-              <div>{cartItem.price}</div>
-            </CartListItem>
-          ))}
-        </CartList>
-      </CartDetails>
+                <div>{cartItem.price}</div>
+              </CartListItem>
+            ))}
+          </CartList>
+        </CartDetails>
+      )}
 
       <CartDetails
         className="soft-shadow soft-border"

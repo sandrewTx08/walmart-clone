@@ -2,7 +2,6 @@ import styled from "styled-components";
 import React, { Fragment, useContext, useEffect, useState } from "react";
 import { CartContext } from "../App";
 import { RiAddLine, RiSubtractFill } from "react-icons/ri";
-import { Catalogs } from "../graphql-types";
 
 export const QuantityMenu = styled.div`
   display: flex;
@@ -20,7 +19,8 @@ export function useCartQuantity() {
   const [cart, [query, querySet]] = useContext(CartContext),
     [quantity, quantitySet] = useState<{
       [catalog_id: number]: { quantity: number };
-    }>();
+    }>(),
+    [catalogLength, catalogLengthSet] = useState(0);
 
   function QuantityMenu(
     props: React.PropsWithChildren<{ catalog_id: number }>
@@ -97,6 +97,10 @@ export function useCartQuantity() {
         quantity: q,
       })
       .then(() => {
+        if (q === 0) {
+          cart.cartDelete({ catalog_id: id });
+        }
+
         cart.cartGet().then((q) => {
           querySet(q);
         });
@@ -112,5 +116,16 @@ export function useCartQuantity() {
     );
   }, [query]);
 
-  return { quantityUpdate, quantity, query, QuantityMenu };
+  useEffect(() => {
+    if (quantity) {
+      catalogLengthSet(Object.keys(quantity).length);
+    }
+  }, [quantity]);
+
+  return {
+    quantityUpdate,
+    quantity,
+    QuantityMenu,
+    catalogLegth: catalogLength,
+  };
 }

@@ -57,19 +57,18 @@ export type DepartmentsCatalogArgs = {
 
 export type Mutation = {
   __typename?: 'Mutation';
-  cartAdd?: Maybe<Carts>;
   cartDelete?: Maybe<Carts>;
-};
-
-
-export type MutationCartAddArgs = {
-  catalog_id: Scalars['Int'];
-  quantity: Scalars['Int'];
-  user_id: Scalars['String'];
+  cartUpdate?: Maybe<Carts>;
 };
 
 
 export type MutationCartDeleteArgs = {
+  catalog_id: Scalars['Int'];
+  user_id: Scalars['String'];
+};
+
+
+export type MutationCartUpdateArgs = {
   catalog_id: Scalars['Int'];
   quantity: Scalars['Int'];
   user_id: Scalars['String'];

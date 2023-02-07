@@ -5,15 +5,13 @@ import { CartModel } from "../mongoose/model";
 export const Cart = extendType({
   type: "Mutation",
   definition(t) {
-    const args = {
-      user_id: nonNull(arg({ type: "String" })),
-      catalog_id: nonNull(arg({ type: "Int" })),
-      quantity: nonNull(arg({ type: "Int" })),
-    };
-
-    t.field("cartAdd", {
+    t.field("cartUpdate", {
       type: "Carts",
-      args,
+      args: {
+        user_id: nonNull(arg({ type: "String" })),
+        catalog_id: nonNull(arg({ type: "Int" })),
+        quantity: nonNull(arg({ type: "Int" })),
+      },
       async resolve({}, a) {
         const catalogProduct = await prisma.catalogs.findUnique({
           include: { Products: true },
@@ -38,7 +36,10 @@ export const Cart = extendType({
 
     t.field("cartDelete", {
       type: "Carts",
-      args,
+      args: {
+        user_id: nonNull(arg({ type: "String" })),
+        catalog_id: nonNull(arg({ type: "Int" })),
+      },
       resolve(s, a) {
         return CartModel.findOneAndRemove({
           user_id: a.user_id,

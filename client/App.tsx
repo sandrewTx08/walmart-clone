@@ -16,10 +16,12 @@ export const CartContext =
     [CartAPI, [Query, React.Dispatch<React.SetStateAction<Query>>]]
   >(null);
 
+export const UserContext = createContext<Users & { auth: boolean }>(null);
+
 export default function () {
   document.title = "Walmart.com";
 
-  const [user, userSet] = useState<Users>(),
+  const [user, userSet] = useState<Users & { auth: boolean }>(),
     [queryDepartment, queryDepartmentSet] = useState<Query>(),
     [queryCart, queryCartSet] = useState<Query>(),
     [cartAPI, cartAPISet] = useState<CartAPI>();
@@ -65,24 +67,27 @@ export default function () {
   }
 
   return (
+    user &&
     queryDepartment &&
     queryCart && (
-      <CartContext.Provider value={[cartAPI, [queryCart, queryCartSet]]}>
-        <Navigation query={queryDepartment} user={user}>
-          <Routes>
-            <Route path="/" element={<Carousel />} />
-            <Route path="user" element={<>{JSON.stringify(user)}</>} />
-            <Route path="department/:id" element={<DepartmentCatalog />} />
-            <Route
-              path="department/:department_id/catalog/:id"
-              element={<Catalog />}
-            />
-            <Route path="logout" element={<Logout />} />
-            <Route path="cart" element={<Cart />} />
-            <Route path="*" element={<h1>Not Found</h1>} />
-          </Routes>
-        </Navigation>
-      </CartContext.Provider>
+      <UserContext.Provider value={user}>
+        <CartContext.Provider value={[cartAPI, [queryCart, queryCartSet]]}>
+          <Navigation query={queryDepartment}>
+            <Routes>
+              <Route path="/" element={<Carousel />} />
+              <Route path="user" element={<>{JSON.stringify(user)}</>} />
+              <Route path="department/:id" element={<DepartmentCatalog />} />
+              <Route
+                path="department/:department_id/catalog/:id"
+                element={<Catalog />}
+              />
+              <Route path="logout" element={<Logout />} />
+              <Route path="cart" element={<Cart />} />
+              <Route path="*" element={<h1>Not Found</h1>} />
+            </Routes>
+          </Navigation>
+        </CartContext.Provider>
+      </UserContext.Provider>
     )
   );
 }
