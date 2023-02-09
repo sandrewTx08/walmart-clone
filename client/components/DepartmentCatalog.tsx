@@ -1,8 +1,4 @@
-import {
-  useParams,
-  useSearchParams,
-  createSearchParams,
-} from "react-router-dom";
+import { useParams, useSearchParams } from "react-router-dom";
 import { Fragment, useEffect, useState } from "react";
 import { Query } from "../graphql-types";
 import { MdOutlinePriceChange, MdOutlineStore } from "react-icons/md";

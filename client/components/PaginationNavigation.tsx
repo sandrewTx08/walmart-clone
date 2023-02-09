@@ -1,13 +1,13 @@
+import { MdOutlineNavigateBefore, MdOutlineNavigateNext } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 const PaginationList = styled.ul`
   display: flex;
+  width: 250px;
   justify-content: space-between;
-  border: 1px solid black;
-  width: 60%;
-  gap: 1em;
   margin: 0 auto;
+  font-size: large;
 
   a {
     text-align: center;
@@ -18,7 +18,15 @@ const PaginationList = styled.ul`
 const PaginationListItem = styled.li``;
 
 const PaginationNavigationButton = styled.button`
-  padding: 1em;
+  border: 2px solid var(--WALMART-BLUE);
+  height: 50px;
+  width: 50px;
+  border-radius: 50%;
+  background-color: white;
+
+  &:hover {
+    background-color: #b3b3b3;
+  }
 `;
 
 const PaginationNextPage = styled(PaginationNavigationButton)``;
@@ -39,7 +47,7 @@ export default function (props: { totalPages: number; page: number }) {
                 navigate({ search: "?page=" + (props.page - 1), pathname: "" });
               }}
             >
-              Prev page
+              <MdOutlineNavigateBefore />
             </PaginationLastPage>
           </PaginationListItem>
         )}
@@ -71,7 +79,7 @@ export default function (props: { totalPages: number; page: number }) {
                 navigate({ search: "?page=" + (props.page + 1), pathname: "" });
               }}
             >
-              Next page
+              <MdOutlineNavigateNext />
             </PaginationNextPage>
           </PaginationListItem>
         )}
