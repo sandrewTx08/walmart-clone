@@ -1,6 +1,7 @@
 import { Fragment, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
+import { formatCurrency } from "../currency";
 import { graphQLClient } from "../graphql-client";
 import { Query } from "../graphql-types";
 import CatalogReview from "./CatalogReview";
@@ -74,7 +75,7 @@ export default function () {
             </div>
             <div className="catalog-title">{query.catalog.Products.name}</div>
             <div className="catalog-price">
-              <b>${query.catalog.price}</b>
+              <b>{formatCurrency["USD"](Number(query.catalog.price))}</b>
             </div>
             <div>
               <QuantityMenu catalog_id={query.catalog.id} />

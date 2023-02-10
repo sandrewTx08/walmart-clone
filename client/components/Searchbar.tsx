@@ -9,15 +9,15 @@ const SearchBar = styled.div`
 
   input {
     border: 0;
+    border-radius: 2em 0 0 2em;
     background-color: white;
-    border-radius: 1em 0 0 1em;
-    padding: 8px;
     width: 100%;
+    padding-left: 20px;
   }
 
   button {
     background-color: var(--WALMART-YALLOW);
-    border-radius: 0 1em 1em 0;
+    border-radius: 0 2em 2em 0;
     padding: 8px;
     cursor: pointer;
   }

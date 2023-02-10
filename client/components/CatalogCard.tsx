@@ -3,6 +3,7 @@ import { Query } from "../graphql-types";
 import styled from "styled-components";
 import StarRate from "./StarRate";
 import { useCartQuantity } from "./QuantityMenu";
+import { formatCurrency } from "../currency";
 
 const DepartmentCatalogItem = styled.div`
   display: inline-block;
@@ -46,7 +47,7 @@ export default function (props: React.PropsWithChildren<{ query: Query }>) {
             </Link>
             <PriceWrapper>
               <div>
-                <b>${catalog.price}</b>
+                <b>{formatCurrency["USD"](Number(catalog.price))}</b>
               </div>
               <QuantityMenu catalog_id={catalog.id} />
             </PriceWrapper>

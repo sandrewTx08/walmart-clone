@@ -9,6 +9,7 @@ import styled from "styled-components";
 import { FiShoppingCart } from "react-icons/fi";
 import { Query } from "../graphql-types";
 import { CartContext, UserContext } from "../App";
+import { formatCurrency } from "../currency";
 
 export const HeaderItem = styled.div`
   flex-shrink: 0;
@@ -111,6 +112,7 @@ const HeaderItemWrapper = styled.nav`
 const CartButton = styled.div`
   background-color: var(--WALMART-YALLOW);
   border-radius: 50%;
+  border: 2px solid gold;
   color: black;
   width: 20px;
   height: 20px;
@@ -251,14 +253,30 @@ export default function (props: React.PropsWithChildren<{ query: Query }>) {
         </HeaderItemWrapper>
 
         <HeaderItem style={{ marginRight: "1em" }}>
-          <Link to="cart">
-            <CartButton>
-              {query.cart.reduce((p, c) => p + c.quantity, 0)}
-            </CartButton>
-            <FiShoppingCart />$
-            {(user && query).cart
-              .reduce((p, c) => p + c.price * c.quantity, 0)
-              .toFixed(2)}
+          <Link to="cart" style={{ gap: "5px" }}>
+            <div>
+              <CartButton>
+                {query.cart.reduce((p, c) => p + c.quantity, 0)}
+              </CartButton>
+            </div>
+            <div>
+              <FiShoppingCart
+                style={{
+                  fontSize: "large",
+                  position: "relative",
+                  top: "3px",
+                }}
+              />
+            </div>
+            <div>
+              {formatCurrency["USD"](
+                Number(
+                  (user && query).cart
+                    .reduce((p, c) => p + c.price * c.quantity, 0)
+                    .toFixed(2)
+                )
+              )}
+            </div>
           </Link>
         </HeaderItem>
       </Header>
