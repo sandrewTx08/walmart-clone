@@ -6,7 +6,7 @@ export const Cart = extendType({
   type: "Mutation",
   definition(t) {
     t.field("cartUpdate", {
-      type: "Carts",
+      type: "CartItems",
       args: {
         user_id: nonNull(arg({ type: "String" })),
         catalog_id: nonNull(arg({ type: "Int" })),
@@ -35,7 +35,7 @@ export const Cart = extendType({
     });
 
     t.field("cartDelete", {
-      type: "Carts",
+      type: "CartItems",
       args: {
         user_id: nonNull(arg({ type: "String" })),
         catalog_id: nonNull(arg({ type: "Int" })),

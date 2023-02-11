@@ -52,7 +52,7 @@ export default function () {
       {catalogLength > 0 && (
         <CartDetails className="soft-shadow soft-border">
           <CartList>
-            {query.cart.map((cartItem, index) => (
+            {query.cart.items.map((cartItem, index) => (
               <CartListItem key={index}>
                 <img src={cartItem.image || "/walmartLogoSmall.png"} />
 
@@ -79,25 +79,14 @@ export default function () {
 
         <CartDiv>
           <div>
-            <b>Subtotal</b> (Items{" "}
-            {query.cart.reduce((p, c) => p + c.quantity, 0)})
+            <b>Subtotal</b> (Items {query.cart.quantity})
           </div>
-          <div>
-            $
-            {query.cart
-              .reduce((p, c) => p + c.price * c.quantity, 0)
-              .toFixed(2)}
-          </div>
+          <div>{query.cart.currency_price_subtotal}</div>
         </CartDiv>
 
         <CartDiv>
           <b>Estimated total</b>
-          <div>
-            $
-            {query.cart
-              .reduce((p, c) => p + c.price * c.quantity, 0)
-              .toFixed(2)}
-          </div>
+          <div>{query.cart.currency_price_estimatedtotal}</div>
         </CartDiv>
       </CartDetails>
     </CartWrapper>

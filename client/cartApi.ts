@@ -12,12 +12,15 @@ export class CartAPI {
     return graphQLClient.request(
       `query Query($user_id: String!) {
         cart(user_id: $user_id) {
-          price
-          currency_price
           currency_price_subtotal
           currency_price_estimatedtotal 
           quantity
-          catalog_id
+          items {
+            currency_price
+            price
+            quantity
+            catalog_id
+          }
         }
       }`,
       { user_id: this.user_id }

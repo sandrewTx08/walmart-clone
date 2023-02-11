@@ -84,16 +84,33 @@ export const catalog = extendType({
 export const cart = extendType({
   type: "Query",
   definition(t) {
-    t.nonNull.list.field("cart", {
+    t.nonNull.field("cart", {
       type: "Carts",
       args: { user_id: nonNull(arg({ type: "String" })) },
       resolve({}, a) {
-        return CartModel.find({ user_id: a.user_id }).then((x) =>
-          x.map((y) => ({
-            ...y.toJSON(),
-            currency_price: y.price && formatCurrency["USD"](Number(y.price)),
-          }))
-        );
+        return CartModel.find({ user_id: a.user_id }).then((x) => {
+          return {
+            quantity: x.reduce((p, y) => p + (y.quantity || 0), 0),
+            currency_price_subtotal: formatCurrency["USD"](
+              Number(
+                x
+                  .reduce((p, y) => p + (y.price || 0) * (y.quantity || 0), 0)
+                  .toFixed(2)
+              )
+            ),
+            currency_price_estimatedtotal: formatCurrency["USD"](
+              Number(
+                x
+                  .reduce((p, y) => p + (y.price || 0) * (y.quantity || 0), 0)
+                  .toFixed(2)
+              )
+            ),
+            items: x.map((y) => ({
+              ...y.toJSON(),
+              currency_price: formatCurrency["USD"](Number(y.price)),
+            })),
+          };
+        });
       },
     });
   },

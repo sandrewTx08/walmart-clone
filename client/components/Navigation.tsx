@@ -254,9 +254,7 @@ export default function (props: React.PropsWithChildren<{ query: Query }>) {
         <HeaderItem style={{ marginRight: "1em" }}>
           <Link to="cart" style={{ gap: "5px" }}>
             <div>
-              <CartButton>
-                {query.cart.reduce((p, c) => p + c.quantity, 0)}
-              </CartButton>
+              <CartButton>{query.cart.quantity}</CartButton>
             </div>
             <div>
               <FiShoppingCart
@@ -267,11 +265,7 @@ export default function (props: React.PropsWithChildren<{ query: Query }>) {
                 }}
               />
             </div>
-            <div>
-              {(user && query).cart
-                .reduce((p, c) => p + c.price * c.quantity, 0)
-                .toFixed(2)}
-            </div>
+            <div>{query.cart.currency_price_subtotal}</div>
           </Link>
         </HeaderItem>
       </Header>

@@ -107,7 +107,7 @@ export function useCartQuantity() {
 
   useEffect(() => {
     quantitySet(
-      query.cart.reduce<typeof quantity>((o, c) => {
+      query.cart.items.reduce<typeof quantity>((o, c) => {
         o[c.catalog_id] = { quantity: c.quantity };
         return o;
       }, Object())

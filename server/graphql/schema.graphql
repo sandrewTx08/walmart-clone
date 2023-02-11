@@ -7,7 +7,7 @@ type Brands {
   name: String!
 }
 
-type Carts {
+type CartItems {
   catalog_id: Int!
   currency_price: String!
   image: String!
@@ -16,6 +16,14 @@ type Carts {
   product_id: Int!
   quantity: Int!
   user_id: String!
+}
+
+type Carts {
+  currency_price: String!
+  currency_price_estimatedtotal: String!
+  currency_price_subtotal: String!
+  items: [CartItems!]
+  quantity: Int!
 }
 
 type Catalogs {
@@ -35,8 +43,8 @@ type Departments {
 }
 
 type Mutation {
-  cartDelete(catalog_id: Int!, user_id: String!): Carts
-  cartUpdate(catalog_id: Int!, quantity: Int!, user_id: String!): Carts
+  cartDelete(catalog_id: Int!, user_id: String!): CartItems
+  cartUpdate(catalog_id: Int!, quantity: Int!, user_id: String!): CartItems
 }
 
 enum OrderBy {
@@ -64,7 +72,7 @@ type Products {
 }
 
 type Query {
-  cart(user_id: String!): [Carts]!
+  cart(user_id: String!): Carts!
   catalog(catalog_id: Int!): Catalogs!
   department(department_id: Int!): Departments!
   departments: [Departments!]

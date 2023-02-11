@@ -2,8 +2,8 @@ import { arg, nonNull, objectType } from "nexus";
 import { formatCurrency } from "../currency";
 import prisma from "../prisma";
 
-export const Cart = objectType({
-  name: "Carts",
+export const CartItems = objectType({
+  name: "CartItems",
   definition(t) {
     t.nonNull.int("price");
     t.nonNull.string("currency_price");
@@ -13,6 +13,17 @@ export const Cart = objectType({
     t.nonNull.string("user_id");
     t.nonNull.string("name");
     t.nonNull.string("image");
+  },
+});
+
+export const Cart = objectType({
+  name: "Carts",
+  definition(t) {
+    t.nonNull.string("currency_price");
+    t.nonNull.string("currency_price_subtotal");
+    t.nonNull.string("currency_price_estimatedtotal");
+    t.nonNull.int("quantity");
+    t.list.nonNull.field("items", { type: "CartItems" });
   },
 });
 
