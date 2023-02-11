@@ -13,6 +13,9 @@ export class CartAPI {
       `query Query($user_id: String!) {
         cart(user_id: $user_id) {
           price
+          currency_price
+          currency_price_subtotal
+          currency_price_estimatedtotal 
           quantity
           catalog_id
         }

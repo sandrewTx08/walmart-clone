@@ -9,6 +9,7 @@ type Brands {
 
 type Carts {
   catalog_id: Int!
+  currency_price: String!
   image: String!
   name: String!
   price: Int!
@@ -19,6 +20,7 @@ type Carts {
 
 type Catalogs {
   Products: Products!
+  currency_price: String!
   id: Int!
   price: Int!
   product_id: Int!

@@ -1,4 +1,5 @@
 import { nonNull, arg, extendType } from "nexus";
+import { formatCurrency } from "../currency";
 import { CartModel } from "../mongoose/model";
 import prisma from "../prisma";
 
@@ -69,7 +70,12 @@ export const catalog = extendType({
       type: "Catalogs",
       args: { catalog_id: nonNull(arg({ type: "Int" })) },
       resolve({}, a) {
-        return prisma.catalogs.findUnique({ where: { id: a.catalog_id } });
+        return prisma.catalogs
+          .findUnique({ where: { id: a.catalog_id } })
+          .then((v) => ({
+            ...v,
+            currency_price: v && formatCurrency["USD"](v.price.toNumber()),
+          }));
       },
     });
   },
@@ -82,7 +88,12 @@ export const cart = extendType({
       type: "Carts",
       args: { user_id: nonNull(arg({ type: "String" })) },
       resolve({}, a) {
-        return CartModel.find({ user_id: a.user_id });
+        return CartModel.find({ user_id: a.user_id }).then((x) =>
+          x.map((y) => ({
+            ...y.toJSON(),
+            currency_price: y.price && formatCurrency["USD"](Number(y.price)),
+          }))
+        );
       },
     });
   },

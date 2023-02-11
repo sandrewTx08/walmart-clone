@@ -21,6 +21,7 @@ export type Brands = {
 export type Carts = {
   __typename?: 'Carts';
   catalog_id: Scalars['Int'];
+  currency_price: Scalars['String'];
   image: Scalars['String'];
   name: Scalars['String'];
   price: Scalars['Int'];
@@ -32,6 +33,7 @@ export type Carts = {
 export type Catalogs = {
   __typename?: 'Catalogs';
   Products: Products;
+  currency_price: Scalars['String'];
   id: Scalars['Int'];
   price: Scalars['Int'];
   product_id: Scalars['Int'];

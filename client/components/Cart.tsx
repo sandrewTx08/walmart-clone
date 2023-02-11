@@ -62,7 +62,7 @@ export default function () {
                   <QuantityMenu catalog_id={cartItem.catalog_id} />
                 </div>
 
-                <div>{cartItem.price}</div>
+                <div>{cartItem.currency_price}</div>
               </CartListItem>
             ))}
           </CartList>

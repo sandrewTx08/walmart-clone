@@ -9,7 +9,6 @@ import styled from "styled-components";
 import { FiShoppingCart } from "react-icons/fi";
 import { Query } from "../graphql-types";
 import { CartContext, UserContext } from "../App";
-import { formatCurrency } from "../currency";
 
 export const HeaderItem = styled.div`
   flex-shrink: 0;
@@ -269,13 +268,9 @@ export default function (props: React.PropsWithChildren<{ query: Query }>) {
               />
             </div>
             <div>
-              {formatCurrency["USD"](
-                Number(
-                  (user && query).cart
-                    .reduce((p, c) => p + c.price * c.quantity, 0)
-                    .toFixed(2)
-                )
-              )}
+              {(user && query).cart
+                .reduce((p, c) => p + c.price * c.quantity, 0)
+                .toFixed(2)}
             </div>
           </Link>
         </HeaderItem>

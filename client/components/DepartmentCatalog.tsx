@@ -79,6 +79,7 @@ export default function () {
             catalog(page: $page, limit: 12, brand_id: $brand_id, store_id: $store_id, price_sort: $price_sort) {
               id
               price
+              currency_price
               product_id
               totalPages
               Products {
