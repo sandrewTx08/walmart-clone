@@ -87,6 +87,10 @@ const NavigationVertical = styled.nav`
   li svg {
     margin: 1em;
   }
+
+  @media screen and (min-width: 1024px) {
+    display: none;
+  }
 `;
 
 const NavigationVerticalButton = styled.button`
