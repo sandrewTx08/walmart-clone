@@ -1,11 +1,45 @@
 import styled from "styled-components";
-import React, { Fragment, useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState, Fragment } from "react";
 import { CartContext } from "../App";
 import { RiAddLine, RiSubtractFill } from "react-icons/ri";
 
-export const QuantityMenu = styled.div`
+const QuantityMenuButton = styled.div`
   display: flex;
+  border: 1px solid gray;
+  padding: 3px;
   justify-content: space-between;
+  justify-items: center;
+  border-radius: 1em;
+  height: 20px;
+
+  & > * {
+    margin: 0 3px;
+  }
+
+  span {
+    display: block;
+  }
+
+  button {
+    height: 0;
+  }
+
+  svg {
+    height: 0px;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+  }
+
+  button svg {
+    color: black;
+    background-color: white;
+  }
+
+  button svg:hover {
+    color: white;
+    background-color: gray;
+  }
 `;
 
 export const AddCartButton = styled.button`
@@ -28,7 +62,6 @@ export function useCartQuantity() {
     function QuantityAddButton() {
       return (
         <button
-          className="quantity-add"
           onClick={() => {
             quantityUpdate(
               props.catalog_id,
@@ -44,7 +77,6 @@ export function useCartQuantity() {
     function QuantityRemoveButton() {
       return (
         <button
-          className="quantity-remove"
           onClick={() => {
             quantityUpdate(
               props.catalog_id,
@@ -60,16 +92,18 @@ export function useCartQuantity() {
     return (
       <Fragment>
         {quantity[props.catalog_id]?.quantity === 12 ? (
-          <div>
-            <b>Max 12</b>
+          <QuantityMenuButton>
+            <span>
+              <b>Max 12</b>
+            </span>
             <QuantityRemoveButton />
-          </div>
+          </QuantityMenuButton>
         ) : quantity[props.catalog_id]?.quantity > 0 ? (
-          <div>
+          <QuantityMenuButton>
             <QuantityAddButton />
-            <b>{quantity[props.catalog_id].quantity}</b>
+            <span>{quantity[props.catalog_id].quantity}</span>
             <QuantityRemoveButton />
-          </div>
+          </QuantityMenuButton>
         ) : (
           <AddCartButton
             onClick={() => {
