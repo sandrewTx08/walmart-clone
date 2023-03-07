@@ -1,5 +1,3 @@
-"use client";
-
 import { Cart } from "prisma/prisma-client";
 import { createContext, useReducer } from "react";
 

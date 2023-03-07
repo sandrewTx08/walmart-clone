@@ -1,5 +1,3 @@
-"use client";
-
 import { G } from ".";
 import { BsCart2 } from "react-icons/bs";
 import { useContext, useEffect, useState } from "react";

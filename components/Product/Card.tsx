@@ -1,5 +1,3 @@
-"use client";
-
 import styled from "styled-components";
 import Cart from "@/components/Product/Cart";
 import { useContext } from "react";
