@@ -11,8 +11,6 @@ export async function getServerSideProps({
     include: { ProductPhotos: { include: { Photos: true } } },
   });
 
-  console.log(data);
-
   return {
     props: { product: { ...data, price: data.price.toNumber() } },
   };

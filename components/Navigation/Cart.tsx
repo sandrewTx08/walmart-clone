@@ -1,18 +1,10 @@
 import { G } from ".";
 import { BsCart2 } from "react-icons/bs";
-import { useContext, useEffect, useState } from "react";
+import { useContext } from "react";
 import { CartContext } from "@/contexts/Cart";
 
 export default function C() {
   const [state] = useContext(CartContext);
-  const [x, xs] = useState(false);
-
-  // Fix to render on "total" change
-  useEffect(() => {
-    setInterval(() => {
-      xs(!x);
-    }, 1000);
-  }, [x]);
 
   return (
     <G>

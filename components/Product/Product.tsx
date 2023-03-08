@@ -12,8 +12,6 @@ const D = styled.div``;
 const E = styled.img``;
 
 export default function C({ product }) {
-  console.log(product);
-
   return (
     <A>
       <B>

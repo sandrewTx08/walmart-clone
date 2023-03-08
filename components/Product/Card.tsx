@@ -23,7 +23,7 @@ export default function C({ product }) {
         <B
           src={
             (product?.ProductPhotos?.length &&
-              product?.ProductPhotos[0]?.path) ||
+              product?.ProductPhotos[0].Photos?.path) ||
             "/logo-small.png"
           }
         />
