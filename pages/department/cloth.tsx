@@ -1,28 +1,19 @@
 import ProductCard from "@/components/Product/Card";
 import ProductContainer from "@/components/Product/Container";
 import { Departments } from "@/departments";
-import apolloClient from "@/utils/apolloClient";
-import { gql } from "@apollo/client/core";
+import prisma from "@/utils/prismaClient";
 
 export async function getServerSideProps() {
-  const { data } = await apolloClient.query({
-    query: gql`
-      query Query($departmentId: Int!) {
-        products(departmentId: $departmentId) {
-          name
-          price
-          id
-          ProductPhotos {
-            id
-            path
-          }
-        }
-      }
-    `,
-    variables: { departmentId: Departments.Cloth },
+  const data = await prisma.products.findMany({
+    where: { departmentId: Departments.Cloth },
+    include: { ProductPhotos: true },
   });
 
-  return { props: data };
+  return {
+    props: {
+      products: data.map((data) => ({ ...data, price: data.price.toNumber() })),
+    },
+  };
 }
 
 export default function Page({ products }) {

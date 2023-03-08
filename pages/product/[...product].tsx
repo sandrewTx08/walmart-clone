@@ -1,33 +1,23 @@
-import apolloClient from "@/utils/apolloClient";
-import { gql } from "@apollo/client/core";
 import { GetServerSidePropsContext } from "next";
 import Product from "@/components/Product/Product";
+import prisma from "@/utils/prismaClient";
 
 export async function getServerSideProps({
   params,
 }: GetServerSidePropsContext) {
   const [name, id] = params.product as string[];
-  const { data } = await apolloClient.query({
-    query: gql`
-      query Query($name: String!, $id: Int!) {
-        products(name: $name, id: $id) {
-          name
-          price
-          id
-          ProductPhotos {
-            id
-            path
-          }
-        }
-      }
-    `,
-    variables: { name: name.replace("-", " "), id: Number(id) },
+  const data = await prisma.products.findFirst({
+    where: { name: name.replace("-", " "), id: Number(id) },
+    include: { ProductPhotos: { include: { Photos: true } } },
   });
+
   console.log(data);
 
-  return { props: data };
+  return {
+    props: { product: { ...data, price: data.price.toNumber() } },
+  };
 }
 
-export default function Page({ products }) {
-  // return <Product product={products[0]} />;
+export default function Page({ product }) {
+  return <Product product={product} />;
 }

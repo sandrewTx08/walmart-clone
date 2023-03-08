@@ -9,10 +9,18 @@ const CC = styled.div``;
 
 const D = styled.div``;
 
+const E = styled.img``;
+
 export default function C({ product }) {
+  console.log(product);
+
   return (
     <A>
-      <B>{product.ProductPhotos}</B>
+      <B>
+        {product.ProductPhotos.map(({ Photos }) => (
+          <E src={Photos.path} key={Photos.id} />
+        ))}
+      </B>
 
       <CC></CC>
 
