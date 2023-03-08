@@ -2,6 +2,7 @@ import styled from "styled-components";
 import Cart from "@/components/Product/Cart";
 import { useContext } from "react";
 import { CartContext } from "@/contexts/Cart";
+import Link from "next/link";
 
 const A = styled.div`
   overflow: hidden;
@@ -13,17 +14,19 @@ const B = styled.img`
   height: auto;
 `;
 
-export default function C({
-  product,
-}: {
-  product: { name: string; price: number; id: number };
-}) {
+export default function C({ product }) {
   const [_, dispatch] = useContext(CartContext);
 
   return (
     <A>
       <div>
-        <B src="/logo-small.png" />
+        <B
+          src={
+            (product?.ProductPhotos?.length &&
+              product?.ProductPhotos[0]?.path) ||
+            "/logo-small.png"
+          }
+        />
         <Cart
           onClick={() => {
             dispatch({ type: "SUM", payload: { product } });
@@ -32,10 +35,14 @@ export default function C({
           <b>Add</b>
         </Cart>
       </div>
-      <div style={{ fontSize: "large" }}>
-        <b>{product.price}</b>
-      </div>
-      <div>{product.name}</div>
+      <Link
+        href={"/product/" + product.name.replace(" ", "-") + "/" + product.id}
+      >
+        <div style={{ fontSize: "large" }}>
+          <b>{product.price}</b>
+        </div>
+        <div>{product.name}</div>
+      </Link>
     </A>
   );
 }

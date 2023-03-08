@@ -3,7 +3,6 @@ import ProductContainer from "@/components/Product/Container";
 import { Departments } from "@/departments";
 import apolloClient from "@/utils/apolloClient";
 import { gql } from "@apollo/client/core";
-import { Products } from "prisma/prisma-client";
 
 export async function getServerSideProps() {
   const { data } = await apolloClient.query({
@@ -13,6 +12,10 @@ export async function getServerSideProps() {
           name
           price
           id
+          ProductPhotos {
+            id
+            path
+          }
         }
       }
     `,
@@ -22,11 +25,11 @@ export async function getServerSideProps() {
   return { props: data };
 }
 
-export default function Page({ products }: { products: Products[] }) {
+export default function Page({ products }) {
   return (
     <ProductContainer>
-      {products.map(({ name, price, id }) => (
-        <ProductCard key={id} product={{ name, price, id }} />
+      {products.map((product) => (
+        <ProductCard key={product.id} product={product} />
       ))}
     </ProductContainer>
   );

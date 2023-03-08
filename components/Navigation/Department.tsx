@@ -22,7 +22,7 @@ export default function C() {
       {x && (
         <Ul className="shadow-soft">
           <Li>
-            <Link href="all-departments">
+            <Link href="/all-departments">
               <b>All departmets</b>
             </Link>
           </Li>

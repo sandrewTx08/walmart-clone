@@ -43,11 +43,17 @@ const schema = createSchema<Context>({
       price: Float!
       brandId: Int!
       departmentId: Int!
+      ProductPhotos: [ProductPhotos!]!
+    }
+
+    type ProductPhotos {
+      id: Int!
+      path: String!
     }
 
     type Query {
-      departments(id: Int): [Departments!]!
-      products(departmentId: Int): [Products!]!
+      departments: [Departments!]!
+      products(departmentId: Int, name: String, id: Int): [Products!]!
       cartUpdate(quantity: Int!, userId: Int!, productId: Int!): Boolean!
     }
   `,
@@ -58,7 +64,12 @@ const schema = createSchema<Context>({
       },
       products(p, a, { prisma }) {
         return prisma.products.findMany({
-          where: { departmentId: a.departmentId },
+          where: {
+            departmentId: a.departmentId,
+            name: a.name,
+            id: a.id,
+          },
+          include: { ProductPhotos: true },
         });
       },
       cartUpdate(p, a, { prisma }) {

@@ -33,14 +33,15 @@ model Brands {
 }
 
 model Products {
-  id           Int         @id @default(autoincrement())
-  name         String
-  price        Decimal
-  Brands       Brands      @relation(fields: [brandId], references: [id])
-  brandId      Int
-  Departments  Departments @relation(fields: [departmentId], references: [id])
-  departmentId Int
-  Cart         Cart[]
+  id            Int             @id @default(autoincrement())
+  name          String
+  price         Decimal
+  Brands        Brands          @relation(fields: [brandId], references: [id])
+  brandId       Int
+  Departments   Departments     @relation(fields: [departmentId], references: [id])
+  departmentId  Int
+  Cart          Cart[]
+  ProductPhotos ProductPhotos[]
 }
 
 model Users {
@@ -49,4 +50,20 @@ model Users {
   firstName String
   lastName  String
   Cart      Cart[]
+}
+
+model Photos {
+  id            Int             @id @default(autoincrement())
+  path          String
+  ProductPhotos ProductPhotos[]
+}
+
+model ProductPhotos {
+  priority  Int
+  Products  Products @relation(fields: [productId], references: [id])
+  productId Int
+  Photos    Photos   @relation(fields: [photoId], references: [id])
+  photoId   Int
+
+  @@id([photoId, productId, priority])
 }
