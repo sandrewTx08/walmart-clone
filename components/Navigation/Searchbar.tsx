@@ -20,12 +20,20 @@ const CC = styled.button`
   padding: 10px;
 `;
 
-export default function C({}) {
+const D = styled.ul`
+  position: absolute;
+`;
+
+const E = styled.li``;
+
+export default function C() {
+
   return (
     <B>
       <A />
       <CC>
         <TfiSearch />
+        {}
       </CC>
     </B>
   );

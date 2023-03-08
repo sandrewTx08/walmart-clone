@@ -5,42 +5,42 @@ const GlobalStyle = createGlobalStyle`
     font-family: 'Bogle';
     font-style: normal;
     font-weight: 400;
-    src: url('fonts/Bogle/BOGLEREGULAR.OTF') format('opentype');
+    src: url('/fonts/Bogle/BOGLEREGULAR.OTF') format('opentype');
   }
 
   @font-face {
     font-family: 'Bogle';
     font-style: italic;
     font-weight: 400;
-    src: url('fonts/Bogle/BOGLEITALIC.OTF') format('opentype');
+    src: url('/fonts/Bogle/BOGLEITALIC.OTF') format('opentype');
   }
 
   @font-face {
     font-family: 'Bogle';
     font-style: normal;
     font-weight: 700;
-    src: url('fonts/Bogle/BOGLEBOLD.OTF') format('opentype');
+    src: url('/fonts/Bogle/BOGLEBOLD.OTF') format('opentype');
   }
 
   @font-face {
     font-family: 'Bogle';
     font-style: italic;
     font-weight: 700;
-    src: url('fonts/Bogle/BOGLEBOLDITALIC.OTF') format('opentype');
+    src: url('/fonts/Bogle/BOGLEBOLDITALIC.OTF') format('opentype');
   }
 
   @font-face {
     font-family: 'Bogle';
     font-style: normal;
     font-weight: 900;
-    src: url('fonts/Bogle/BOGLEBLACK.OTF') format('opentype');
+    src: url('/fonts/Bogle/BOGLEBLACK.OTF') format('opentype');
   }
 
   @font-face {
     font-family: 'Bogle';
     font-style: italic;
     font-weight: 900;
-    src: url('fonts/Bogle/BOGLEBLACKITALIC.OTF') format('opentype');
+    src: url('/fonts/Bogle/BOGLEBLACKITALIC.OTF') format('opentype');
   }
   
   * {

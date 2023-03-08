@@ -65,27 +65,3 @@ export function CartProvider({
     <CartContext.Provider value={reducer}>{children}</CartContext.Provider>
   );
 }
-
-// if (action.payload.quantity <= 0) {
-//   prisma.cart.delete({
-//     where: {
-//       userId_productId: {
-//         userId: userId,
-//         productId: action.payload.cart.productId,
-//       },
-//     },
-//   });
-// } else {
-//   prisma.cart.update({
-//     data: {
-//       productId: action.payload.cart.productId,
-//       quantity: action.payload.quantity,
-//     },
-//     where: {
-//       userId_productId: {
-//         userId: userId,
-//         productId: action.payload.cart.productId,
-//       },
-//     },
-//   });
-// }

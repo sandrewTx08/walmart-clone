@@ -7,7 +7,7 @@ export default function C() {
   const [state] = useContext(CartContext);
   const [x, xs] = useState(false);
 
-  // Depen "total" bug
+  // Fix to render on "total" change
   useEffect(() => {
     setInterval(() => {
       xs(!x);

@@ -2,6 +2,8 @@ import { G } from "@/components/Navigation";
 import { HiOutlineSquares2X2 } from "react-icons/hi2";
 import { useState } from "react";
 import { Li, Ul } from "@/components/List/List1";
+import { Departments } from "@/departments";
+import Link from "next/link";
 
 export default function C() {
   const [x, xs] = useState(false);
@@ -19,9 +21,18 @@ export default function C() {
       </G>
       {x && (
         <Ul className="shadow-soft">
-          <Li>123</Li>
-          <Li>432543</Li>
-          <Li>45654</Li>
+          <Li>
+            <Link href="all-departments">
+              <b>All departmets</b>
+            </Link>
+          </Li>
+          {Object.entries(Departments).map(([name]) => (
+            <Li key={name}>
+              <Link href={"/department/" + name.toLocaleLowerCase()}>
+                {name}
+              </Link>
+            </Li>
+          ))}
         </Ul>
       )}
     </div>
