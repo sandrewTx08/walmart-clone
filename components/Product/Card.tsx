@@ -13,6 +13,8 @@ const A = styled.div`
 const B = styled.img`
   width: 100%;
   height: auto;
+  display: inline-block;
+  margin: auto;
 `;
 
 export default function C({ product }) {
@@ -30,6 +32,7 @@ export default function C({ product }) {
           }
         />
       </Link>
+
 
       <Cart
         style={{

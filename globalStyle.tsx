@@ -61,10 +61,12 @@ const GlobalStyle = createGlobalStyle`
 
   button {
     border: 0;
+    cursor: pointer;
   }
 
   :root {
     --WALMART-BLUE: #0071dc;
+    --WALMART-BLUE-DARK: #004f9a;
     --WALMART-YALLOW: #ffc220;
   }
 

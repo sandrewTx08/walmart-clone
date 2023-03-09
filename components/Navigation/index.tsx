@@ -17,6 +17,15 @@ const H = styled.img`
 const A = styled.nav`
   display: flex;
   align-items: center;
+  justify-items: center;
+
+  a,
+  img,
+  li {
+    align-items: center;
+    justify-items: center;
+    margin: auto;
+  }
 
   .logo-large {
     display: none;
@@ -40,6 +49,14 @@ const A = styled.nav`
     .logo-small {
       display: block;
     }
+
+    #departments {
+      display: none;
+    }
+
+    #account {
+      display: none;
+    }
   }
 `;
 
@@ -57,7 +74,6 @@ const E = styled.button`
 const B = styled.ul`
   display: flex;
   align-items: center;
-  gap: 2em;
   width: 100%;
 `;
 
@@ -75,7 +91,23 @@ const F = styled.header`
 
 export const G = styled.li`
   display: flex;
+  justify-items: center;
   align-items: center;
+  padding: 0 1em;
+  border: 0 solid;
+  border-radius: 2em;
+  border-bottom: 0;
+  border-top: 0;
+  cursor: pointer;
+  height: 50px;
+
+  &.disable-hover:hover {
+    background-color: inherit;
+  }
+
+  &:hover {
+    background-color: var(--WALMART-BLUE-DARK);
+  }
 
   svg:first-child {
     padding-right: 6px;
@@ -92,12 +124,16 @@ export default function C({ children }: React.PropsWithChildren) {
               <RxHamburgerMenu color="white" />
             </E>
 
-            <Link href="/">
-              <G>
-                <H className="logo-small" src="/logo-small.png" alt="" />
-                <H className="logo-large" src="/logo-large.svg" alt="" />
-              </G>
-            </Link>
+            <G>
+              <Link href="/">
+                <H
+                  src="/logo-small.png"
+                  alt=""
+                  className="logo-small"
+                />
+                <H src="/logo-large.svg" alt="" className=" logo-large" />
+              </Link>
+            </G>
 
             <Department />
 

@@ -26,9 +26,7 @@ export default function C({ product }) {
         <div></div>
         <div></div>
         <div></div>
-        <Cart>
-          <b>Add to Cart</b>
-        </Cart>
+        <Cart>Add to Cart</Cart>
       </D>
     </A>
   );

@@ -9,14 +9,14 @@ export default function C() {
   const [x, xs] = useState(false);
 
   return (
-    <div>
+    <div id="departments">
       <G
         style={{ fontSize: "large" }}
         onClick={() => {
           xs(!x);
         }}
       >
-        <HiOutlineSquares2X2 />
+        <HiOutlineSquares2X2 fontSize="x-large" />
         Department
       </G>
       {x && (

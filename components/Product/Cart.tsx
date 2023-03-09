@@ -9,6 +9,10 @@ const C = styled.button`
   font-weight: bold;
   display: block;
   line-height: 2;
+
+  &:hover {
+    background-color: var(--WALMART-BLUE-DARK);
+  }
 `;
 
 export default C;

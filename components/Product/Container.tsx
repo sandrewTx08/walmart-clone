@@ -1,14 +1,12 @@
 import styled from "styled-components";
 
 const C = styled.div`
-  margin: auto;
-  display: flex;
-  flex-wrap: wrap;
+  max-width: 32em;
 
   & > * {
-    display: inline;
-    width: 19%;
-    padding: 3%;
+    display: inline-block;
+    width: 23%;
+    margin: 1%;
   }
 `;
 

@@ -8,49 +8,51 @@ export default function C() {
   const { data, status } = useSession();
   const [x, xs] = useState(false);
 
-  return status === "loading" ? (
-    <>Loading...</>
-  ) : (
-    <div>
-      <G
-        onClick={() => {
-          xs(!x);
-        }}
-      >
-        <HiOutlineUser style={{ fontSize: "large" }} />
+  return (
+    <div id="account">
+      {status === "loading" ? (
+        <>Loading...</>
+      ) : (
+        <G
+          onClick={() => {
+            xs(!x);
+          }}
+        >
+          <HiOutlineUser style={{ fontSize: "large" }} />
 
-        {status === "authenticated" ? (
-          <div>
+          {status === "authenticated" ? (
             <div>
-              <b>Account</b>
-            </div>
-            {data.user?.name?.split(" ")[0]}
+              <div>
+                <b>Account</b>
+              </div>
+              {data.user?.name?.split(" ")[0]}
 
-            {x && (
-              <Ul className="shadow-soft">
-                <Li
-                  onClick={() => {
-                    signOut();
-                  }}
-                >
-                  Logout
-                </Li>
-              </Ul>
-            )}
-          </div>
-        ) : (
-          <div
-            onClick={() => {
-              signIn();
-            }}
-          >
-            <div>
-              <b>Sign in</b>
+              {x && (
+                <Ul className="shadow-soft">
+                  <Li
+                    onClick={() => {
+                      signOut();
+                    }}
+                  >
+                    Logout
+                  </Li>
+                </Ul>
+              )}
             </div>
-            Account
-          </div>
-        )}
-      </G>
+          ) : (
+            <div
+              onClick={() => {
+                signIn();
+              }}
+            >
+              <div>
+                <b>Sign in</b>
+              </div>
+              Account
+            </div>
+          )}
+        </G>
+      )}
     </div>
   );
 }
