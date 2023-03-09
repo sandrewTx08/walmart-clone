@@ -11,7 +11,7 @@ import { RxHamburgerMenu } from "react-icons/rx";
 const H = styled.img`
   display: block;
   width: auto;
-  height: 3em;
+  height: 2em;
 `;
 
 const A = styled.nav`
@@ -46,6 +46,8 @@ const A = styled.nav`
 const E = styled.button`
   font-size: x-large;
   background-color: inherit;
+  display: flex;
+  align-items: center;
 
   @media only screen and (min-width: 1024px) {
     display: none;

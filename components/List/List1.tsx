@@ -1,6 +1,7 @@
 import styled from "styled-components";
 
 export const Ul = styled.ul`
+  z-index: 1000;
   position: absolute;
   background-color: white;
   color: black;

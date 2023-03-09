@@ -3,6 +3,7 @@ import Cart from "@/components/Product/Cart";
 import { useContext } from "react";
 import { CartContext } from "@/contexts/Cart";
 import Link from "next/link";
+import { MdAdd } from "react-icons/md";
 
 const A = styled.div`
   overflow: hidden;
@@ -15,29 +16,35 @@ const B = styled.img`
 `;
 
 export default function C({ product }) {
-  const [_, dispatch] = useContext(CartContext);
+  const [state, dispatch] = useContext(CartContext);
+  const href = "/product/" + product.name.replace(" ", "-") + "/" + product.id;
 
   return (
     <A>
-      <div>
+      <Link href={href}>
         <B
           src={
             (product?.ProductPhotos?.length &&
               product?.ProductPhotos[0].Photos?.path) ||
-            "/logo-small.png"
+            "/comingSoon.png"
           }
         />
-        <Cart
-          onClick={() => {
-            dispatch({ type: "SUM", payload: { product } });
-          }}
-        >
-          <b>Add</b>
-        </Cart>
-      </div>
-      <Link
-        href={"/product/" + product.name.replace(" ", "-") + "/" + product.id}
+      </Link>
+
+      <Cart
+        style={{
+          marginLeft: "auto",
+          display: "flex",
+        }}
+        onClick={() => {
+          dispatch({ type: "SUM", payload: { product } });
+        }}
       >
+        <MdAdd fontSize="x-large" />
+        Add
+      </Cart>
+
+      <Link href={href}>
         <div style={{ fontSize: "large" }}>
           <b>{product.price}</b>
         </div>
