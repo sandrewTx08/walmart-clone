@@ -33,7 +33,6 @@ export default function C({ product }) {
         />
       </Link>
 
-
       <Cart
         style={{
           marginLeft: "auto",

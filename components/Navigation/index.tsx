@@ -19,14 +19,6 @@ const A = styled.nav`
   align-items: center;
   justify-items: center;
 
-  a,
-  img,
-  li {
-    align-items: center;
-    justify-items: center;
-    margin: auto;
-  }
-
   .logo-large {
     display: none;
   }
@@ -71,7 +63,7 @@ const E = styled.button`
   }
 `;
 
-const B = styled.ul`
+const B = styled.div`
   display: flex;
   align-items: center;
   width: 100%;
@@ -89,7 +81,7 @@ const F = styled.header`
   padding: 1em;
 `;
 
-export const G = styled.li`
+export const G = styled.div`
   display: flex;
   justify-items: center;
   align-items: center;
@@ -126,11 +118,7 @@ export default function C({ children }: React.PropsWithChildren) {
 
             <G>
               <Link href="/">
-                <H
-                  src="/logo-small.png"
-                  alt=""
-                  className="logo-small"
-                />
+                <H src="/logo-small.png" alt="" className="logo-small" />
                 <H src="/logo-large.svg" alt="" className=" logo-large" />
               </Link>
             </G>

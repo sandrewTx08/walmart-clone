@@ -9,7 +9,7 @@ const A = styled.div`
   font-size: small;
   background-color: var(--WALMART-YALLOW);
   color: black;
-  border: 0 solid gold;
+  border: 1px solid #874512;
   border-radius: 50%;
   height: 20px;
   line-height: 2;
@@ -24,7 +24,7 @@ export default function C() {
   useEffect(() => {
     setInterval(() => {
       xs(!x);
-    }, 1000);
+    }, 200);
   }, [x]);
 
   return (

@@ -35,7 +35,10 @@ export function CartProvider({
       }
 
       const o = Object.keys(state.product) as unknown as number[];
-      state.quantity = o.length;
+      state.quantity = o.reduce(
+        (p, c) => p + (state.product[c].quantity || p),
+        0
+      );
       state.total = o.reduce(
         (p, c) => p + (state.product[c].quantity || p) * state.product[c].price,
         0
