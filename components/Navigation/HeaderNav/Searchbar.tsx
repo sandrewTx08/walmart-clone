@@ -1,5 +1,9 @@
 import styled from "styled-components";
 import { TfiSearch } from "react-icons/tfi";
+import { Ul, Li } from "@/components/List/List1";
+import { useState } from "react";
+import Link from "next/link";
+import { Departments } from "@/departments";
 
 const A = styled.input`
   width: 100%;
@@ -27,12 +31,36 @@ const D = styled.ul`
 const E = styled.li``;
 
 export default function C() {
+  const [x, xs] = useState("");
+
   return (
-    <B>
-      <A />
-      <CC>
-        <TfiSearch />
-      </CC>
-    </B>
+    <>
+      <B>
+        <A
+          onChange={({ target: { value } }) => {
+            xs(value);
+          }}
+        />
+        <CC>
+          <TfiSearch />
+        </CC>
+
+        {x && (
+          <Ul style={{ position: "absolute", top: 82 }} className="shadow-soft">
+            {Object.entries(Departments)
+              .filter(([name]) => {
+                const n1 = name.toLowerCase();
+                const n2 = x.toLowerCase();
+                return n1 && n2.startsWith(n1[0]) && n1 !== n2;
+              })
+              .map(([name]) => (
+                <Li key={name}>
+                  <Link href={"/department/" + name.toLowerCase()}>{name}</Link>
+                </Li>
+              ))}
+          </Ul>
+        )}
+      </B>
+    </>
   );
 }
