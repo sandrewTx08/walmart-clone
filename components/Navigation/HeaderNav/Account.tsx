@@ -1,4 +1,4 @@
-import { G } from ".";
+import { G } from "..";
 import { HiOutlineUser } from "react-icons/hi";
 import { useSession, signIn, signOut } from "next-auth/react";
 import { useState } from "react";

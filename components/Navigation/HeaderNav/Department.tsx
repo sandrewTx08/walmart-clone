@@ -11,12 +11,15 @@ export default function C() {
   return (
     <div id="departments">
       <G
-        style={{ fontSize: "large" }}
+        style={{ fontSize: "large", fontWeight: "bold" }}
         onClick={() => {
           xs(!x);
         }}
       >
-        <HiOutlineSquares2X2 fontSize="x-large" />
+        <HiOutlineSquares2X2
+          fontSize="x-large"
+          style={{ position: "relative", bottom: 2 }}
+        />
         Department
       </G>
       {x && (

@@ -1,56 +1,8 @@
-import Link from "next/link";
 import styled from "styled-components";
-import Account from "@/components/Navigation/Account";
-import Department from "@/components/Navigation/Department";
-import Searchbar from "@/components/Navigation/Searchbar";
-import Recommend from "@/components/Navigation/Recommend";
-import Cart from "@/components/Navigation/Cart";
 import SideNav from "@/components/Navigation/SideNav";
+import HeaderNav from "@/components/Navigation/HeaderNav";
 import { RxHamburgerMenu } from "react-icons/rx";
-
-const H = styled.img`
-  display: block;
-  width: auto;
-  height: 2em;
-`;
-
-const A = styled.nav`
-  display: flex;
-  align-items: center;
-  justify-items: center;
-
-  .logo-large {
-    display: none;
-  }
-
-  @media only screen and (min-width: 1024px) {
-    .logo-large {
-      display: block;
-    }
-
-    .logo-small {
-      display: none;
-    }
-  }
-
-  @media only screen and (max-width: 1024px) {
-    .logo-large {
-      display: none;
-    }
-
-    .logo-small {
-      display: block;
-    }
-
-    #departments {
-      display: none;
-    }
-
-    #account {
-      display: none;
-    }
-  }
-`;
+import { useState } from "react";
 
 const E = styled.button`
   font-size: x-large;
@@ -63,21 +15,12 @@ const E = styled.button`
   }
 `;
 
-const B = styled.div`
+const D = styled.div`
+  height: 100%;
   display: flex;
-  align-items: center;
-  width: 100%;
 `;
-
-const D = styled.div``;
 
 const M = styled.main`
-  padding: 1em;
-`;
-
-const F = styled.header`
-  color: white;
-  background-color: var(--WALMART-BLUE);
   padding: 1em;
 `;
 
@@ -106,41 +49,38 @@ export const G = styled.div`
   }
 `;
 
+const N = styled.div`
+  width: 100%;
+`;
+
+const P = styled.div`
+  @media only screen and (min-width: 1024px) {
+    display: none;
+  }
+`;
+
 export default function C({ children }: React.PropsWithChildren) {
+  const [x, xs] = useState(false);
+
   return (
-    <>
-      <F>
-        <A>
-          <B>
-            <E>
+    <D>
+      <P>{x && <SideNav />}</P>
+
+      <N>
+        <HeaderNav
+          sideMenuButton={
+            <E
+              onClick={() => {
+                xs(!x);
+              }}
+            >
               <RxHamburgerMenu color="white" />
             </E>
-
-            <G>
-              <Link href="/">
-                <H src="/logo-small.png" alt="" className="logo-small" />
-                <H src="/logo-large.svg" alt="" className=" logo-large" />
-              </Link>
-            </G>
-
-            <Department />
-
-            <Searchbar />
-
-            <Account />
-
-            <Cart />
-          </B>
-
-          <Recommend />
-        </A>
-      </F>
-
-      <D>
-        <SideNav />
+          }
+        />
 
         <M>{children}</M>
-      </D>
-    </>
+      </N>
+    </D>
   );
 }
