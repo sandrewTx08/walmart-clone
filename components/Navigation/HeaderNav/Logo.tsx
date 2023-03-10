@@ -13,7 +13,7 @@ export default function C() {
     <G>
       <Link href="/">
         <H src="/logo-small.png" alt="" className="logo-small" />
-        <H src="/logo-large.svg" alt="" className=" logo-large" />
+        <H src="/logo-large.svg" alt="" className="logo-large" />
       </Link>
     </G>
   );

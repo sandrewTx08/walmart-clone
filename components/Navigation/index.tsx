@@ -24,31 +24,6 @@ const M = styled.main`
   padding: 1em;
 `;
 
-export const G = styled.div`
-  display: flex;
-  justify-items: center;
-  align-items: center;
-  padding: 0 1em;
-  border: 0 solid;
-  border-radius: 2em;
-  border-bottom: 0;
-  border-top: 0;
-  cursor: pointer;
-  height: 50px;
-
-  &.disable-hover:hover {
-    background-color: inherit;
-  }
-
-  &:hover {
-    background-color: var(--WALMART-BLUE-DARK);
-  }
-
-  svg:first-child {
-    padding-right: 6px;
-  }
-`;
-
 const N = styled.div`
   width: 100%;
 `;

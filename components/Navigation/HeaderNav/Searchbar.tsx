@@ -27,13 +27,11 @@ const D = styled.ul`
 const E = styled.li``;
 
 export default function C() {
-
   return (
     <B>
       <A />
       <CC>
         <TfiSearch />
-        {}
       </CC>
     </B>
   );

@@ -1,4 +1,4 @@
-import { G } from ".";
+import { G } from "@/components/Navigation/HeaderNav";
 import { BsCart2 } from "react-icons/bs";
 import { useContext, useEffect, useState } from "react";
 import { CartContext } from "@/contexts/Cart";

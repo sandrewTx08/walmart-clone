@@ -1,4 +1,4 @@
-import { G } from "@/components/Navigation";
+import { G } from "@/components/Navigation/HeaderNav";
 import { HiOutlineSquares2X2 } from "react-icons/hi2";
 import { useState } from "react";
 import { Li, Ul } from "@/components/List/List1";
