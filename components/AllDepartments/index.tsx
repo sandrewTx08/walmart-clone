@@ -22,7 +22,7 @@ export default function C() {
       <A>
         {Object.entries(Departments).map(([name, id]) => (
           <B key={id}>
-            <Link href={"/department/" + name.toLocaleLowerCase()}>{name}</Link>
+            <Link href={"/department/" + name.toLowerCase()}>{name}</Link>
           </B>
         ))}
       </A>
