@@ -76,22 +76,31 @@ export default function C() {
           </div>
         </D>
 
-        {products.length > 0 &&
-          (x ? (
+        {products.length > 0 ? (
+          x ? (
             <B className="shadow-soft">
-              {products.map((product) => (
-                <H key={product.id}>
-                  <Card2 product={product} />
-                </H>
-              ))}
+              {products.map(
+                (product) =>
+                  state.product[product.id].quantity > 0 && (
+                    <H key={product.id}>
+                      <Card2 product={product} />
+                    </H>
+                  )
+              )}
             </B>
           ) : (
             <G className="shadow-soft">
-              {products.map((product) => (
-                <Card3 product={product} key={product.id} />
-              ))}
+              {products.map(
+                (product) =>
+                  state.product[product.id].quantity > 0 && (
+                    <Card3 product={product} key={product.id} />
+                  )
+              )}
             </G>
-          ))}
+          )
+        ) : (
+          <h2>No item saved.</h2>
+        )}
       </A>
 
       <F></F>

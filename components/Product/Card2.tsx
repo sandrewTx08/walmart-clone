@@ -1,7 +1,5 @@
 import styled from "styled-components";
 import Cart from "@/components/Product/Cart";
-import { useState } from "react";
-import { CartContext } from "@/contexts/Cart";
 
 const A = styled.div`
   display: inline-flex;
@@ -28,8 +26,6 @@ const D = styled.div`
 `;
 
 export default function C({ product }) {
-  const [] = useState(CartContext);
-
   return (
     <div>
       <A>
