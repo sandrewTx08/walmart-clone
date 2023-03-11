@@ -31,7 +31,7 @@ export default function C({ product }) {
       </Link>
 
       <Cart product={product}>
-        <MdAdd fontSize="x-large" />
+        <MdAdd />
         Add
       </Cart>
 

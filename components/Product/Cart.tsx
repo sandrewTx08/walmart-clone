@@ -5,12 +5,13 @@ import { MdAdd, MdRemove } from "react-icons/md";
 const E = styled.button`
   background-color: var(--WALMART-BLUE);
   color: white;
-  padding: 5px 12px;
+  padding: 6px 12px;
   border: 0 solid;
   border-radius: 2em;
   font-weight: bold;
-  display: block;
-  line-height: 2;
+  font-size: large;
+  display: flex;
+  align-items: center;
 
   &:hover {
     background-color: var(--WALMART-BLUE-DARK);
@@ -18,12 +19,11 @@ const E = styled.button`
 `;
 
 const A = styled.div`
-  display: flex;
+  display: inline-flex;
   gap: 6px;
   border: 1px solid gray;
   border-radius: 2em;
   padding: 6px;
-  margin-left: auto;
 `;
 
 const B = styled.button`
