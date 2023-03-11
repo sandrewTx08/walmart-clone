@@ -8,8 +8,6 @@ const E = styled.button`
   padding: 6px 12px;
   border: 0 solid;
   border-radius: 2em;
-  font-weight: bold;
-  font-size: large;
   display: flex;
   align-items: center;
 
@@ -24,6 +22,7 @@ const A = styled.div`
   border: 1px solid gray;
   border-radius: 2em;
   padding: 6px;
+  background-color: white;
 `;
 
 const B = styled.button`
@@ -31,7 +30,6 @@ const B = styled.button`
   border-radius: 2em;
   line-height: 0;
   padding: 3px;
-  background-color: white;
 
   &:hover {
     background-color: gray;
@@ -47,12 +45,13 @@ const CC = styled.div`
 export default function C({
   children,
   product,
-}: React.PropsWithChildren<{ product }>) {
+  style,
+}: React.PropsWithChildren<{ product; style?: React.CSSProperties }>) {
   return (
     <CartContext.Consumer>
       {([state, dispatch]) =>
         state.product[product.id]?.quantity === 12 ? (
-          <A>
+          <A style={style}>
             <B
               onClick={() => {
                 dispatch({ type: "SUB", payload: { product } });
@@ -63,7 +62,7 @@ export default function C({
             <CC>Max 12</CC>
           </A>
         ) : state.product[product.id]?.quantity > 0 ? (
-          <A>
+          <A style={style}>
             <B
               onClick={() => {
                 dispatch({ type: "SUB", payload: { product } });
@@ -82,6 +81,7 @@ export default function C({
           </A>
         ) : (
           <E
+            style={style}
             onClick={() => {
               dispatch({ type: "SUM", payload: { product } });
             }}
