@@ -6,10 +6,14 @@ import { GrNext } from "react-icons/gr";
 import { useState } from "react";
 import { Departments } from "@/departments";
 import Link from "next/link";
+import { signIn, signOut, useSession } from "next-auth/react";
 
 const A = styled.div`
   width: 180px;
   padding: 1em;
+  position: absolute;
+  z-index: 1000;
+  background-color: white;
 `;
 
 const B = styled.div`
@@ -26,17 +30,45 @@ const CC = styled.hr`
 
 export default function C() {
   const [x, xs] = useState(false);
+  const [x2, xs2] = useState(false);
+  const { status } = useSession();
 
   return (
     <A className="shadow-soft" style={{ height: "100%" }}>
-      <B>
+      <B
+        onClick={() => {
+          xs2(!x2);
+        }}
+      >
         <HiOutlineUser fontSize="large" />
         Account
+        {x2 &&
+          (status === "loading" ? (
+            <>Loading...</>
+          ) : status === "authenticated" ? (
+            <B
+              onClick={() => {
+                signOut();
+              }}
+            >
+              Logout
+            </B>
+          ) : (
+            <B
+              onClick={() => {
+                signIn();
+              }}
+            >
+              Sign in
+            </B>
+          ))}
       </B>
 
       <B>
-        <HiArrowDownTray fontSize="large" />
-        My items
+        <Link href="/cart">
+          <HiArrowDownTray fontSize="large" />
+          My items
+        </Link>
       </B>
 
       <CC />
