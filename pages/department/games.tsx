@@ -1,4 +1,4 @@
-import ProductCard from "@/components/Product/Card";
+import ProductCard from "@/components/Product/Card1";
 import ProductContainer from "@/components/Product/Container";
 import { Departments } from "@/departments";
 import prisma from "@/utils/prismaClient";

@@ -1,4 +1,4 @@
-import { Cart } from "prisma/prisma-client";
+import { Cart, Products } from "prisma/prisma-client";
 import { createContext, useReducer } from "react";
 
 type Product = { name: string; price: number; id: number };
@@ -6,16 +6,12 @@ type Product = { name: string; price: number; id: number };
 type State = {
   quantity: number;
   total: number;
-  product: {
-    [id: number]: Partial<Product & Cart>;
-  };
+  product: { [id: number]: Partial<Product & Cart> };
 };
 
 type Action = {
   type: "SUM" | "SUB";
-  payload: {
-    product: Product;
-  };
+  payload: { product: Product };
 };
 
 export const CartContext = createContext<[State, React.Dispatch<Action>]>(null);
@@ -51,6 +47,7 @@ export function CartProvider({
         case "SUB": {
           state.product[action.payload.product.id] = {
             ...state.product[action.payload.product.id],
+            ...action.payload.product,
             quantity: state.product[action.payload.product.id].quantity - 1,
           };
           refreshState();
@@ -60,6 +57,7 @@ export function CartProvider({
         case "SUM": {
           state.product[action.payload.product.id] = {
             ...state.product[action.payload.product.id],
+            ...action.payload.product,
             quantity: state.product[action.payload.product.id].quantity + 1,
           };
           refreshState();

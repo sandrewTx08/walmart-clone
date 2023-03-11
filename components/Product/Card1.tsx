@@ -6,14 +6,12 @@ import Cart from "@/components/Product/Cart";
 const A = styled.div`
   overflow: hidden;
   text-overflow: ellipsis;
-  font-size: 3vmin;
 `;
 
 const B = styled.img`
   width: 100%;
   height: auto;
   display: inline-block;
-  margin: auto;
 `;
 
 export default function C({ product }) {
@@ -31,7 +29,7 @@ export default function C({ product }) {
         />
       </Link>
 
-      <div style={{ position: "absolute", fontSize: "2vmin" }}>
+      <div style={{ position: "absolute", fontSize: "small" }}>
         <Cart product={product} style={{ position: "relative", bottom: 43 }}>
           <MdAdd />
           Add
@@ -39,7 +37,7 @@ export default function C({ product }) {
       </div>
 
       <Link href={href}>
-        <div style={{ fontSize: "large" }}>
+        <div>
           <b>{product.price}$</b>
         </div>
         <div>{product.name}</div>

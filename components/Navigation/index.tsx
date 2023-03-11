@@ -2,8 +2,7 @@ import styled from "styled-components";
 import SideNav from "@/components/Navigation/SideNav";
 import HeaderNav from "@/components/Navigation/HeaderNav";
 import { RxHamburgerMenu } from "react-icons/rx";
-import { useEffect, useRef, useState } from "react";
-import useClickOutAlert from "../hooks/clickOutAlert";
+import { useState } from "react";
 
 const E = styled.button`
   font-size: x-large;
@@ -39,16 +38,12 @@ const P = styled.div`
 
 export default function C({ children }: React.PropsWithChildren) {
   const [x, xs] = useState(false);
-  const sideMenuRef = useRef(null);
-  useClickOutAlert(sideMenuRef, () => {
-    xs(false);
-  });
 
   return (
     <D>
       <P>{x && <SideNav />}</P>
 
-      <N ref={sideMenuRef}>
+      <N>
         <HeaderNav
           sideMenuButton={
             <E
@@ -61,7 +56,13 @@ export default function C({ children }: React.PropsWithChildren) {
           }
         />
 
-        <M>{children}</M>
+        <M
+          onClick={() => {
+            xs(false);
+          }}
+        >
+          {children}
+        </M>
       </N>
     </D>
   );

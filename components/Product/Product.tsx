@@ -26,7 +26,7 @@ export default function C({ product }) {
         <div></div>
         <div></div>
         <div></div>
-        <Cart>Add to Cart</Cart>
+        <Cart product={product}>Add to Cart</Cart>
       </D>
     </A>
   );
