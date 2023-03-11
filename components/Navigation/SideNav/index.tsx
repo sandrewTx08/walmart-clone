@@ -28,7 +28,7 @@ export default function C() {
   const [x, xs] = useState(false);
 
   return (
-    <A className="shadow-soft">
+    <A className="shadow-soft" style={{ height: "100%" }}>
       <B>
         <HiOutlineUser fontSize="large" />
         Account

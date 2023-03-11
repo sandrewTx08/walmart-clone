@@ -22,6 +22,8 @@ const D = styled.div`
 
 const M = styled.main`
   padding: 1em;
+  max-width: 1024px;
+  margin: auto;
 `;
 
 const N = styled.div`

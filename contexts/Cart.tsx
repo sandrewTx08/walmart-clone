@@ -34,12 +34,27 @@ export function CartProvider({
         };
       }
 
+      function refreshState() {
+        const o = Object.keys(state.product) as unknown as number[];
+        state.quantity = o.reduce(
+          (p, c) => p + (state.product[c].quantity || 0),
+          0
+        );
+        state.total = o.reduce(
+          (p, c) =>
+            p + (state.product[c].quantity || 0) * state.product[c].price,
+          0
+        );
+      }
+
       switch (action.type) {
         case "SUB": {
           state.product[action.payload.product.id] = {
             ...state.product[action.payload.product.id],
             quantity: state.product[action.payload.product.id].quantity - 1,
           };
+          refreshState();
+          return { ...state };
         }
 
         case "SUM": {
@@ -47,20 +62,8 @@ export function CartProvider({
             ...state.product[action.payload.product.id],
             quantity: state.product[action.payload.product.id].quantity + 1,
           };
-        }
-
-        default: {
-          const o = Object.keys(state.product) as unknown as number[];
-          state.quantity = o.reduce(
-            (p, c) => p + (state.product[c].quantity || p),
-            0
-          );
-          state.total = o.reduce(
-            (p, c) =>
-              p + (state.product[c].quantity || p) * state.product[c].price,
-            0
-          );
-          return state;
+          refreshState();
+          return { ...state };
         }
       }
     },
