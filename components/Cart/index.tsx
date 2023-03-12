@@ -51,7 +51,7 @@ const H = styled.div`
 
 export default function C() {
   const [x, xs] = useState(false);
-  const [state, dispath] = useContext(CartContext);
+  const [state] = useContext(CartContext);
   const products = Object.keys(state.product).map(
     (key) => state.product[key as unknown as number]
   );
@@ -70,10 +70,10 @@ export default function C() {
       >
         <h3>{state.quantity} items</h3>
 
-        <E>{products.length > 0 && (x ? <SlArrowDown /> : <SlArrowRight />)}</E>
+        <E>{state.quantity > 0 && (x ? <SlArrowDown /> : <SlArrowRight />)}</E>
       </D>
 
-      {products.length > 0 ? (
+      {state.quantity > 0 ? (
         x ? (
           <B className="shadow-soft">
             {products.map(
