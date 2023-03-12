@@ -33,7 +33,17 @@ const D = styled.div`
 
 const E = styled.div``;
 
-const F = styled.div``;
+const U = styled.button`
+  background-color: var(--WALMART-BLUE);
+  color: white;
+  padding: 1em;
+  display: block;
+  width: 80%;
+  margin: auto;
+  border: 0 solid;
+  border-radius: 2em;
+  font-weight: bold;
+`;
 
 const G = styled(B)`
   display: flex;
@@ -57,47 +67,63 @@ export default function C() {
   );
 
   return (
-    <A>
-      <h1>
-        Cart <CC>({state.quantity} items)</CC>
-      </h1>
+    <>
+      <A>
+        <h1>
+          Cart <CC>({state.quantity} items)</CC>
+        </h1>
 
-      <D
-        className="shadow-soft"
-        onClick={() => {
-          xs(!x);
-        }}
-      >
-        <h3>{state.quantity} items</h3>
+        <D
+          className="shadow-soft"
+          onClick={() => {
+            xs(!x);
+          }}
+        >
+          <h3>{state.quantity} items</h3>
 
-        <E>{state.quantity > 0 && (x ? <SlArrowDown /> : <SlArrowRight />)}</E>
-      </D>
+          <E>
+            {state.quantity > 0 && (x ? <SlArrowDown /> : <SlArrowRight />)}
+          </E>
+        </D>
 
-      {state.quantity > 0 ? (
-        x ? (
-          <B className="shadow-soft">
-            {products.map(
-              (product) =>
-                state.product[product.id].quantity > 0 && (
-                  <H key={product.id}>
-                    <Card2 product={product} />
-                  </H>
-                )
-            )}
-          </B>
+        {state.quantity > 0 ? (
+          x ? (
+            <B className="shadow-soft">
+              {products.map(
+                (product) =>
+                  state.product[product.id].quantity > 0 && (
+                    <H key={product.id}>
+                      <Card2 product={product} />
+                    </H>
+                  )
+              )}
+            </B>
+          ) : (
+            <G className="shadow-soft">
+              {products.map(
+                (product) =>
+                  state.product[product.id].quantity > 0 && (
+                    <Card3 product={product} key={product.id} />
+                  )
+              )}
+            </G>
+          )
         ) : (
-          <G className="shadow-soft">
-            {products.map(
-              (product) =>
-                state.product[product.id].quantity > 0 && (
-                  <Card3 product={product} key={product.id} />
-                )
-            )}
-          </G>
-        )
-      ) : (
-        <h2>No item saved.</h2>
-      )}
-    </A>
+          <h2>No item saved.</h2>
+        )}
+      </A>
+
+      <div style={{ position: "absolute", bottom: 60, left: 0 }}>
+        <div
+          style={{
+            position: "fixed",
+            display: "flex",
+            width: "100vw",
+          }}
+        >
+          <U>Continue to checkout</U>
+        </div>
+      </div>
+    </>
   );
 }
