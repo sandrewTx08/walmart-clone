@@ -15,6 +15,7 @@ const B = styled.div`
   border: 0 solid gray;
   padding: 1em;
   border-radius: 1em;
+  padding: 1em;
 `;
 
 const CC = styled.span`
@@ -56,54 +57,47 @@ export default function C() {
   );
 
   return (
-    <div>
-      <A>
-        <h1>
-          Cart <CC>({state.quantity} items)</CC>
-        </h1>
+    <A>
+      <h1>
+        Cart <CC>({state.quantity} items)</CC>
+      </h1>
 
-        <D className="shadow-soft">
-          <h3>{state.quantity} items</h3>
+      <D
+        className="shadow-soft"
+        onClick={() => {
+          xs(!x);
+        }}
+      >
+        <h3>{state.quantity} items</h3>
 
-          <div
-            onClick={() => {
-              xs(!x);
-            }}
-          >
-            <E>
-              {products.length > 0 && (x ? <SlArrowDown /> : <SlArrowRight />)}
-            </E>
-          </div>
-        </D>
+        <E>{products.length > 0 && (x ? <SlArrowDown /> : <SlArrowRight />)}</E>
+      </D>
 
-        {products.length > 0 ? (
-          x ? (
-            <B className="shadow-soft">
-              {products.map(
-                (product) =>
-                  state.product[product.id].quantity > 0 && (
-                    <H key={product.id}>
-                      <Card2 product={product} />
-                    </H>
-                  )
-              )}
-            </B>
-          ) : (
-            <G className="shadow-soft">
-              {products.map(
-                (product) =>
-                  state.product[product.id].quantity > 0 && (
-                    <Card3 product={product} key={product.id} />
-                  )
-              )}
-            </G>
-          )
+      {products.length > 0 ? (
+        x ? (
+          <B className="shadow-soft">
+            {products.map(
+              (product) =>
+                state.product[product.id].quantity > 0 && (
+                  <H key={product.id}>
+                    <Card2 product={product} />
+                  </H>
+                )
+            )}
+          </B>
         ) : (
-          <h2>No item saved.</h2>
-        )}
-      </A>
-
-      <F></F>
-    </div>
+          <G className="shadow-soft">
+            {products.map(
+              (product) =>
+                state.product[product.id].quantity > 0 && (
+                  <Card3 product={product} key={product.id} />
+                )
+            )}
+          </G>
+        )
+      ) : (
+        <h2>No item saved.</h2>
+      )}
+    </A>
   );
 }
