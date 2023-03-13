@@ -1,5 +1,5 @@
 export const Departments = {
-  Food: 1,
-  Clothes: 2,
-  Games: 3,
+  food: { id: 1, name: "Food" },
+  clothes: { id: 2, name: "Clothes" },
+  games: { id: 3, name: "Games" },
 } as const;

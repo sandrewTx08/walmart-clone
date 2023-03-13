@@ -20,9 +20,9 @@ export default function C() {
 
       <hr />
       <A>
-        {Object.entries(Departments).map(([name, id]) => (
+        {Object.entries(Departments).map(([alias, { name, id }]) => (
           <B key={id}>
-            <Link href={"/department/" + name.toLowerCase()}>{name}</Link>
+            <Link href={"/department/" + alias}>{name}</Link>
           </B>
         ))}
       </A>

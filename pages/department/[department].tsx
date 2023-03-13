@@ -3,19 +3,30 @@ import { Departments } from "@/departments";
 import prisma from "@/utils/prismaClient";
 import { GetServerSidePropsContext } from "next";
 
-export async function getServerSideProps({ query }: GetServerSidePropsContext) {
+export async function getServerSideProps({
+  query,
+  params,
+}: GetServerSidePropsContext) {
   const brandsId =
     query.brands instanceof Array
       ? query.brands.map((brand) => Number(brand))
       : Number(query.brands) || undefined;
 
+  const department = Departments[params.department as string];
+
   const [productsCount, products, brandsCount, brands] =
     await prisma.$transaction([
       prisma.products.count({
-        where: { departmentId: Departments.Clothes, brandId: { in: brandsId } },
+        where: {
+          brandId: { in: brandsId },
+          departmentId: department.id,
+        },
       }),
       prisma.products.findMany({
-        where: { departmentId: Departments.Clothes, brandId: { in: brandsId } },
+        where: {
+          departmentId: department.id,
+          brandId: { in: brandsId },
+        },
         include: { ProductPhotos: { include: { Photos: true } } },
         orderBy: { price: query.sortByPrice as unknown as any },
       }),
@@ -24,7 +35,7 @@ export async function getServerSideProps({ query }: GetServerSidePropsContext) {
         where: {
           Products: {
             some: {
-              departmentId: Departments.Clothes,
+              departmentId: department.id,
             },
           },
         },
@@ -33,7 +44,7 @@ export async function getServerSideProps({ query }: GetServerSidePropsContext) {
         where: {
           Products: {
             some: {
-              departmentId: Departments.Clothes,
+              departmentId: department.id,
               brandId: {
                 in: brandsId,
               },
@@ -52,10 +63,11 @@ export async function getServerSideProps({ query }: GetServerSidePropsContext) {
       brands,
       brandsCount,
       productsCount,
+      department,
     },
   };
 }
 
 export default function Page(props) {
-  return <Product {...props} department="Clothes" />;
+  return <Product {...props} department={props.department.name} />;
 }

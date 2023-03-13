@@ -20,7 +20,13 @@ export default function Page({
     <A>
       <h2>
         {department}{" "}
-        <span style={{ color: "lightgray", fontSize: "medium" }}>
+        <span
+          style={{
+            color: "lightgray",
+            fontSize: "large",
+            fontWeight: "lighter",
+          }}
+        >
           ({productsCount})
         </span>
       </h2>

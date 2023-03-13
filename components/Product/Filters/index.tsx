@@ -2,7 +2,6 @@ import styled from "styled-components";
 import { SlArrowRight, SlArrowDown } from "react-icons/sl";
 import { useState, useReducer } from "react";
 import { Li, Ul } from "@/components/List/List1";
-import Link from "next/link";
 import { useRouter } from "next/router";
 
 const F = styled.button`
@@ -105,6 +104,7 @@ export default function C({ brands, brandsCount }) {
         <F
           onClick={() => {
             xs(!x);
+            xs1(false);
           }}
         >
           Brand
@@ -149,10 +149,14 @@ export default function C({ brands, brandsCount }) {
       <div
         onClick={() => {
           xs1(!x1);
+          xs(false);
         }}
       >
         <b>Sort by</b>
-        {x1 ? <SlArrowDown /> : <SlArrowRight />}
+        <span style={{ position: "relative", top: 4, marginLeft: 12 }}>
+          {x1 ? <SlArrowDown /> : <SlArrowRight />}
+        </span>
+
         {x1 && (
           <Ul className="shadow-soft">
             <Li

@@ -29,9 +29,9 @@ export default function C() {
               <b>All departmets</b>
             </Link>
           </Li>
-          {Object.entries(Departments).map(([name]) => (
-            <Li key={name}>
-              <Link href={"/department/" + name.toLowerCase()}>{name}</Link>
+          {Object.entries(Departments).map(([alias, { name, id }]) => (
+            <Li key={id}>
+              <Link href={"/department/" + alias}>{name}</Link>
             </Li>
           ))}
         </Ul>

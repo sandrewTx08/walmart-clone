@@ -53,9 +53,9 @@ export default function C() {
                 const n2 = x.toLowerCase();
                 return n1 && n2.startsWith(n1[0]) && n1 !== n2;
               })
-              .map(([name]) => (
-                <Li key={name}>
-                  <Link href={"/department/" + name.toLowerCase()}>{name}</Link>
+              .map(([alias, { id, name }]) => (
+                <Li key={id}>
+                  <Link href={"/department/" + alias}>{name}</Link>
                 </Li>
               ))}
           </Ul>
