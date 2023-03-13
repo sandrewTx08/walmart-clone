@@ -10,18 +10,24 @@ import { signIn, signOut, useSession } from "next-auth/react";
 
 const A = styled.div`
   width: 180px;
-  padding: 1em;
+  padding: 2em;
   position: absolute;
   z-index: 1000;
   background-color: white;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
 `;
 
 const B = styled.div`
-  padding: 6px;
-
   svg {
     margin-right: 6px;
   }
+`;
+
+const E = styled.div`
+  margin-top: 12px;
+  margin-left: 24px;
 `;
 
 const CC = styled.hr`
@@ -46,21 +52,21 @@ export default function C() {
           (status === "loading" ? (
             <>Loading...</>
           ) : status === "authenticated" ? (
-            <B
+            <E
               onClick={() => {
                 signOut();
               }}
             >
               Logout
-            </B>
+            </E>
           ) : (
-            <B
+            <E
               onClick={() => {
                 signIn();
               }}
             >
               Sign in
-            </B>
+            </E>
           ))}
       </B>
 
@@ -92,10 +98,15 @@ export default function C() {
 
         {x && (
           <>
-            {Object.entries(Departments).map(([name]) => (
-              <B key={name}>
-                <Link href={"/department/" + name.toLowerCase()}>{name}</Link>
-              </B>
+            <E>
+              <Link href="/all-departments">
+                <b>All departmets</b>
+              </Link>
+            </E>
+            {Object.entries(Departments).map(([alias, { id, name }]) => (
+              <E key={id}>
+                <Link href={"/department/" + alias}>{name}</Link>
+              </E>
             ))}
           </>
         )}
