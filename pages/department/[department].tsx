@@ -17,38 +17,21 @@ export async function getServerSideProps({
   const [productsCount, products, brandsCount, brands] =
     await prisma.$transaction([
       prisma.products.count({
-        where: {
-          brandId: { in: brandsId },
-          departmentId: department.id,
-        },
+        where: { brandId: { in: brandsId }, departmentId: department.id },
       }),
       prisma.products.findMany({
-        where: {
-          departmentId: department.id,
-          brandId: { in: brandsId },
-        },
-        include: { ProductPhotos: { include: { Photos: true } } },
+        where: { departmentId: department.id, brandId: { in: brandsId } },
+        include: { ProductPhotos: { include: { Photos: true }, take: 1 } },
         orderBy: { price: query.sortByPrice as unknown as any },
       }),
       prisma.brands.findMany({
         include: { _count: true },
-        where: {
-          Products: {
-            some: {
-              departmentId: department.id,
-            },
-          },
-        },
+        where: { Products: { some: { departmentId: department.id } } },
       }),
       prisma.brands.findMany({
         where: {
           Products: {
-            some: {
-              departmentId: department.id,
-              brandId: {
-                in: brandsId,
-              },
-            },
+            some: { departmentId: department.id, brandId: { in: brandsId } },
           },
         },
       }),

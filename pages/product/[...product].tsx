@@ -8,7 +8,10 @@ export async function getServerSideProps({
   const [name, id] = params.product as string[];
   const data = await prisma.products.findFirst({
     where: { name: name.replace("-", " "), id: Number(id) },
-    include: { ProductPhotos: { include: { Photos: true } } },
+    include: {
+      Brands: true,
+      ProductPhotos: { include: { Photos: true }, take: 5 },
+    },
   });
 
   return {
