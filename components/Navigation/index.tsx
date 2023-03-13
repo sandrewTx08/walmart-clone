@@ -23,6 +23,7 @@ const D = styled.div`
 const M = styled.main`
   padding: 1em;
   max-width: 1024px;
+  min-height: 1024px;
   margin: auto;
 `;
 

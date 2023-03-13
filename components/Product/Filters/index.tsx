@@ -47,7 +47,7 @@ const G = styled.div`
   background-color: white;
   border: 0 solid;
   border-radius: 1em;
-  z-index: 1000;
+  z-index: 900;
   width: 300px;
 `;
 
@@ -158,7 +158,7 @@ export default function C({ brands, brandsCount }) {
         </span>
 
         {x1 && (
-          <Ul className="shadow-soft">
+          <Ul className="shadow-soft" style={{ zIndex: 900 }}>
             <Li
               onClick={() => {
                 router.query.sortByPrice = "desc";
