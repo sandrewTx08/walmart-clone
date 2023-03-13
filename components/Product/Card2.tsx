@@ -32,7 +32,7 @@ export default function C({ product }) {
         <B
           src={
             (product?.ProductPhotos?.length &&
-              product?.ProductPhotos[0].Photos?.path) ||
+              product?.ProductPhotos[0]?.Photos?.path) ||
             "/comingSoon.png"
           }
         />

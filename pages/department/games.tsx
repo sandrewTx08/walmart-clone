@@ -5,7 +5,7 @@ import prisma from "@/utils/prismaClient";
 
 export async function getServerSideProps() {
   const data = await prisma.products.findMany({
-    where: { departmentId: Departments.Cloth },
+    where: { departmentId: Departments.Clothes },
     include: { ProductPhotos: { include: { Photos: true } } },
   });
 

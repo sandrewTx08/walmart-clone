@@ -1,4 +1,4 @@
-import { Cart, Products } from "prisma/prisma-client";
+import { Cart } from "prisma/prisma-client";
 import { createContext, useReducer } from "react";
 
 type Product = { name: string; price: number; id: number };
