@@ -6,7 +6,7 @@ import { GetServerSidePropsContext } from "next";
 export async function getServerSideProps({ query }: GetServerSidePropsContext) {
   const brandsId =
     query.brands instanceof Array
-      ? [...query.brands.map((brand) => Number(brand))]
+      ? query.brands.map((brand) => Number(brand))
       : Number(query.brands) || undefined;
 
   const [productsCount, products, brandsCount, brands] =
@@ -17,6 +17,7 @@ export async function getServerSideProps({ query }: GetServerSidePropsContext) {
       prisma.products.findMany({
         where: { departmentId: Departments.Clothes, brandId: { in: brandsId } },
         include: { ProductPhotos: { include: { Photos: true } } },
+        orderBy: { price: query.sortByPrice as unknown as any },
       }),
       prisma.brands.findMany({
         include: { _count: true },

@@ -155,11 +155,21 @@ export default function C({ brands, brandsCount }) {
         {x1 ? <SlArrowDown /> : <SlArrowRight />}
         {x1 && (
           <Ul className="shadow-soft">
-            <Li>
-              <Link href={{ query: { softPrice: "desc" } }}>Price high</Link>
+            <Li
+              onClick={() => {
+                router.query.sortByPrice = "desc";
+                router.push(router);
+              }}
+            >
+              Price high
             </Li>
-            <Li>
-              <Link href={{ query: { softPrice: "asc" } }}>Price low</Link>
+            <Li
+              onClick={() => {
+                router.query.sortByPrice = "asc";
+                router.push(router);
+              }}
+            >
+              Price low
             </Li>
           </Ul>
         )}
