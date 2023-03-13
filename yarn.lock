@@ -2022,13 +2022,10 @@ pretty-format@^3.8.0:
   resolved "https://registry.yarnpkg.com/pretty-format/-/pretty-format-3.8.0.tgz#bfbed56d5e9a776645f4b1ff7aa1a3ac4fa3c385"
   integrity sha512-WuxUnVtlWL1OfZFQFuqvnvs6MiAGk9UNsBostyBOB0Is9wb5uRESevA6rnl/rkksXaGX3GzZhPup5d6Vp1nFew==
 
-prisma-paginate@^4.2.3:
-  version "4.2.3"
-  resolved "https://registry.yarnpkg.com/prisma-paginate/-/prisma-paginate-4.2.3.tgz#72b1deb5bb4c38d84f74b075af3b8928a51e2ca7"
-  integrity sha512-SS2GuGl58HMipUa4ZIcKt/1xuOqnDAzXpTqCNaaynTVYvedpe263aNC4fgylG8jhkkkG72TFJ5qSv0/W1VJGBQ==
-  dependencies:
-    "@prisma/client" "^4.11.0"
-    prisma "^4.11.0"
+prisma-paginate@^4.3.1:
+  version "4.3.1"
+  resolved "https://registry.yarnpkg.com/prisma-paginate/-/prisma-paginate-4.3.1.tgz#b3fb14d3e0f4ac654f57e1d17377c8ee039aec9e"
+  integrity sha512-LRqU2l6SCK+af8LJDwISiJjlhPDCe8jtQbp7Zmm7MsHYDB0ZJ6rPnAZdSEZmWjMImHaGsAEj5QThQz5lM42V4Q==
 
 prisma@^4.11.0:
   version "4.11.0"

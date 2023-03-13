@@ -1,6 +1,7 @@
 import ProductCard from "@/components/Product/Card1";
 import ProductContainer from "@/components/Product/Container";
 import ProductFilters from "@/components/Product/Filters";
+import ProductPagination from "@/components/Product/Pagination";
 import styled from "styled-components";
 
 const A = styled.div`
@@ -15,6 +16,7 @@ export default function Page({
   department,
   productsCount,
   brandsCount,
+  pagination,
 }) {
   return (
     <A>
@@ -38,6 +40,8 @@ export default function Page({
           <ProductCard key={product.id} product={product} />
         ))}
       </ProductContainer>
+
+      <ProductPagination pagination={pagination} />
     </A>
   );
 }
