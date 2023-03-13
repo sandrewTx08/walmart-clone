@@ -23,7 +23,12 @@ export default function C() {
         <G style={{ fontSize: "small" }}>
           <Link href="/cart" style={{ textAlign: "center" }}>
             <div
-              style={{ position: "relative", display: "flex", marginBottom: 3 }}
+              style={{
+                position: "relative",
+                display: "flex",
+                marginBottom: 3,
+                justifyContent: "center",
+              }}
             >
               <BsCart2 style={{ fontSize: "x-large" }} />
               <A style={{ position: "absolute", left: 20, bottom: 10 }}>
