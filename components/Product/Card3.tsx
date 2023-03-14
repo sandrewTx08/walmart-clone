@@ -1,19 +1,19 @@
 import { CartContext } from "@/contexts/Cart";
 import styled from "styled-components";
 
-const B = styled.img`
+const Img = styled.img`
   width: 50px;
   height: auto;
   display: block;
 `;
 
-const CC = styled.div`
+const Wrapper = styled.div`
   font-size: x-small;
   position: relative;
   display: flex;
 `;
 
-const E = styled.div`
+const QuantityCount = styled.div`
   position: absolute;
   background-color: white;
   border: 1px solid black;
@@ -30,17 +30,17 @@ export default function C({ product }) {
   return (
     <CartContext.Consumer>
       {([state]) => (
-        <CC>
-          <E>{state.product[product.id].quantity}</E>
+        <Wrapper>
+          <QuantityCount>{state.product[product.id].quantity}</QuantityCount>
 
-          <B
+          <Img
             src={
               (product?.ProductPhotos?.length &&
                 product?.ProductPhotos[0].Photos?.path) ||
               "/comingSoon.png"
             }
           />
-        </CC>
+        </Wrapper>
       )}
     </CartContext.Consumer>
   );

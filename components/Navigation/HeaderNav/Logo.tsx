@@ -1,8 +1,8 @@
-import { G } from "@/components/Navigation/HeaderNav";
+import { NavItem } from "@/components/Navigation/HeaderNav";
 import Link from "next/link";
 import styled from "styled-components";
 
-const H = styled.img`
+const Img = styled.img`
   display: block;
   width: auto;
   height: 2em;
@@ -10,11 +10,11 @@ const H = styled.img`
 
 export default function C() {
   return (
-    <G>
+    <NavItem>
       <Link href="/">
-        <H src="/logo-small.png" alt="" className="logo-small" />
-        <H src="/logo-large.svg" alt="" className="logo-large" />
+        <Img src="/logo-small.png" alt="" className="logo-small" />
+        <Img src="/logo-large.svg" alt="" className="logo-large" />
       </Link>
-    </G>
+    </NavItem>
   );
 }

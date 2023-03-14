@@ -1,4 +1,4 @@
-import { G } from "@/components/Navigation/HeaderNav";
+import { NavItem } from "@/components/Navigation/HeaderNav";
 import { HiOutlineUser } from "react-icons/hi";
 import { useSession, signIn, signOut } from "next-auth/react";
 import { useState } from "react";
@@ -6,16 +6,16 @@ import { Li, Ul } from "@/components/List/List1";
 
 export default function C() {
   const { data, status } = useSession();
-  const [x, xs] = useState(false);
+  const [accountMenu, accountMenuSet] = useState(false);
 
   return (
     <div id="account">
       {status === "loading" ? (
         <>Loading...</>
       ) : (
-        <G
+        <NavItem
           onClick={() => {
-            xs(!x);
+            accountMenuSet(!accountMenu);
           }}
         >
           <HiOutlineUser style={{ fontSize: "large" }} />
@@ -27,7 +27,7 @@ export default function C() {
               </div>
               {data.user?.name?.split(" ")[0]}
 
-              {x && (
+              {accountMenu && (
                 <Ul className="shadow-soft">
                   <Li
                     onClick={() => {
@@ -51,7 +51,7 @@ export default function C() {
               Account
             </div>
           )}
-        </G>
+        </NavItem>
       )}
     </div>
   );

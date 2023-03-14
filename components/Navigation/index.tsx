@@ -4,7 +4,7 @@ import HeaderNav from "@/components/Navigation/HeaderNav";
 import { RxHamburgerMenu } from "react-icons/rx";
 import { useState } from "react";
 
-const E = styled.button`
+const SideMenuButton = styled.button`
   font-size: x-large;
   background-color: inherit;
   display: flex;
@@ -15,57 +15,51 @@ const E = styled.button`
   }
 `;
 
-const D = styled.div`
+const Container = styled.div`
   height: 100%;
   display: flex;
 `;
 
-const M = styled.main`
+const ContentWrapper = styled.main`
   padding: 1em;
   max-width: 1024px;
   min-height: 1024px;
   margin: auto;
 `;
 
-const N = styled.div`
+const Wrapper = styled.div`
   width: 100%;
   position: relative;
 `;
 
-const P = styled.div`
-  @media only screen and (min-width: 1024px) {
-    display: none;
-  }
-`;
-
 export default function C({ children }: React.PropsWithChildren) {
-  const [x, xs] = useState(false);
+  const [sideMenu, sideMenuSet] = useState(false);
 
   return (
-    <D>
-      <P>{x && <SideNav />}</P>
+    <Container>
+      {sideMenu && <SideNav />}
 
-      <N>
+      <Wrapper>
         <HeaderNav
           sideMenuButton={
-            <E
+            <SideMenuButton
               onClick={() => {
-                xs(!x);
+                sideMenuSet(!sideMenu);
               }}
             >
               <RxHamburgerMenu color="white" />
-            </E>
+            </SideMenuButton>
           }
         />
 
-        <M
+        <ContentWrapper
           onClick={() => {
-            xs(false);
+            sideMenuSet(false);
           }}
         >
           {children}
-        </M>
-      </N>
-    </D>
+        </ContentWrapper>
+      </Wrapper>
+    </Container>
   );
 }

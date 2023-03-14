@@ -2,7 +2,7 @@ import { useRouter } from "next/router";
 import styled from "styled-components";
 import { SlArrowLeft, SlArrowRight } from "react-icons/sl";
 
-const A = styled.div`
+const Wrapper = styled.div`
   display: flex;
   gap: 2em;
   border-top: 1px solid lightgray;
@@ -11,7 +11,7 @@ const A = styled.div`
   padding-top: 1em;
 `;
 
-const B = styled.div`
+const Button1 = styled.div`
   border-radius: 50%;
   width: 40px;
   height: 40px;
@@ -25,13 +25,13 @@ const B = styled.div`
   }
 `;
 
-const CC = styled(B)`
+const CurrentPage = styled(Button1)`
   border: 3px solid var(--WALMART-BLUE);
   text-align: center;
   font-weight: bolder;
 `;
 
-const G = styled(B)`
+const Button2 = styled(Button1)`
   color: var(--WALMART-BLUE);
   border: 1px solid lightgray;
 
@@ -45,55 +45,55 @@ export default function C({ pagination }) {
   const router = useRouter();
 
   return (
-    <A>
+    <Wrapper>
       {pagination.hasPrevPage && (
-        <G
+        <Button2
           onClick={() => {
             router.query.page = String(pagination.page - 1);
             router.push(router);
           }}
         >
           <SlArrowLeft />
-        </G>
+        </Button2>
       )}
-      <CC
+      <CurrentPage
         onClick={() => {
           router.query.page = String(pagination.page);
           router.push(router);
         }}
       >
         {pagination.page}
-      </CC>
+      </CurrentPage>
       {pagination.page + 1 < pagination.totalPages && (
-        <B
+        <Button1
           onClick={() => {
             router.query.page = String(pagination.page + 1);
             router.push(router);
           }}
         >
           {pagination.page + 1}
-        </B>
+        </Button1>
       )}
       {pagination.page + 2 < pagination.totalPages && (
-        <B
+        <Button1
           onClick={() => {
             router.query.page = String(pagination.page + 2);
             router.push(router);
           }}
         >
           {pagination.page + 2}
-        </B>
+        </Button1>
       )}
       {pagination.hasNextPage && (
-        <G
+        <Button2
           onClick={() => {
             router.query.page = String(pagination.page + 1);
             router.push(router);
           }}
         >
           <SlArrowRight />
-        </G>
+        </Button2>
       )}
-    </A>
+    </Wrapper>
   );
 }

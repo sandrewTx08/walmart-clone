@@ -1,4 +1,4 @@
-import { G } from "@/components/Navigation/HeaderNav";
+import { NavItem } from "@/components/Navigation/HeaderNav";
 import { HiOutlineSquares2X2 } from "react-icons/hi2";
 import { useState } from "react";
 import { Li, Ul } from "@/components/List/List1";
@@ -6,14 +6,14 @@ import { Departments } from "@/departments";
 import Link from "next/link";
 
 export default function C() {
-  const [x, xs] = useState(false);
+  const [departmentMenu, departmentMenuSet] = useState(false);
 
   return (
     <div id="departments">
-      <G
+      <NavItem
         style={{ fontSize: "large", fontWeight: "bold" }}
         onClick={() => {
-          xs(!x);
+          departmentMenuSet(!departmentMenu);
         }}
       >
         <HiOutlineSquares2X2
@@ -21,8 +21,8 @@ export default function C() {
           style={{ position: "relative", bottom: 2 }}
         />
         Department
-      </G>
-      {x && (
+      </NavItem>
+      {departmentMenu && (
         <Ul className="shadow-soft">
           <Li>
             <Link href="/all-departments">

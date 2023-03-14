@@ -6,7 +6,7 @@ import Recommend from "@/components/Navigation/HeaderNav/Recommend";
 import Logo from "@/components/Navigation/HeaderNav/Logo";
 import Cart from "@/components/Navigation/HeaderNav/Cart";
 
-const A = styled.nav`
+const Nav = styled.nav`
   display: flex;
   align-items: center;
   justify-items: center;
@@ -44,13 +44,10 @@ const A = styled.nav`
   }
 `;
 
-const B = styled.div`
+const Wrapper = styled.div`
   display: flex;
   align-items: center;
   width: 100%;
-`;
-
-const F = styled.header`
   color: white;
   background-color: var(--WALMART-BLUE);
   padding: 1em;
@@ -59,12 +56,11 @@ const F = styled.header`
   z-index: 900;
 `;
 
-export const G = styled.div`
+export const NavItem = styled.div`
   display: flex;
   justify-items: center;
   align-items: center;
   padding: 0 1em;
-  border: 0 solid;
   border-radius: 2em;
   border-bottom: 0;
   border-top: 0;
@@ -82,19 +78,17 @@ export const G = styled.div`
 
 export default function C({ sideMenuButton }) {
   return (
-    <F>
-      <A>
-        <B>
-          {sideMenuButton}
-          <Logo />
-          <Department />
-          <Searchbar />
-          <Account />
-          <Cart />
-        </B>
+    <Nav>
+      <Wrapper>
+        {sideMenuButton}
+        <Logo />
+        <Department />
+        <Searchbar />
+        <Account />
+        <Cart />
+      </Wrapper>
 
-        <Recommend />
-      </A>
-    </F>
+      <Recommend />
+    </Nav>
   );
 }

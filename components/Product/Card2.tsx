@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import Cart from "@/components/Product/Cart";
 
-const A = styled.div`
+const Wrapper = styled.div`
   display: inline-flex;
   height: 100px;
   width: 100%;
@@ -10,17 +10,17 @@ const A = styled.div`
   gap: 1em;
 `;
 
-const B = styled.img`
+const Img = styled.img`
   width: auto;
   height: 100%;
 `;
 
-const CC = styled.div`
+const Price = styled.div`
   margin-left: auto;
   font-weight: bold;
 `;
 
-const D = styled.div`
+const Title = styled.div`
   font-weight: lighter;
   color: gray;
 `;
@@ -28,8 +28,8 @@ const D = styled.div`
 export default function C({ product }) {
   return (
     <div>
-      <A>
-        <B
+      <Wrapper>
+        <Img
           src={
             (product?.ProductPhotos?.length &&
               product?.ProductPhotos[0]?.Photos?.path) ||
@@ -37,10 +37,10 @@ export default function C({ product }) {
           }
         />
 
-        <D>{product.name}</D>
+        <Title>{product.name}</Title>
 
-        <CC>{product.price}$</CC>
-      </A>
+        <Price>{product.price}$</Price>
+      </Wrapper>
 
       <div style={{ display: "flex", justifyContent: "end" }}>
         <Cart product={product} />

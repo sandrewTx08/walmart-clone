@@ -1,10 +1,10 @@
-import { G } from "@/components/Navigation/HeaderNav";
+import { NavItem } from "@/components/Navigation/HeaderNav";
 import { BsCart2 } from "react-icons/bs";
 import { CartContext } from "@/contexts/Cart";
 import Link from "next/link";
 import styled from "styled-components";
 
-const A = styled.div`
+const QuantityCount = styled.div`
   font-size: small;
   background-color: var(--WALMART-YALLOW);
   color: black;
@@ -20,7 +20,7 @@ export default function C() {
   return (
     <CartContext.Consumer>
       {([state]) => (
-        <G style={{ fontSize: "small" }}>
+        <NavItem style={{ fontSize: "small" }}>
           <Link href="/cart" style={{ textAlign: "center" }}>
             <div
               style={{
@@ -31,13 +31,15 @@ export default function C() {
               }}
             >
               <BsCart2 style={{ fontSize: "x-large" }} />
-              <A style={{ position: "absolute", left: 20, bottom: 10 }}>
+              <QuantityCount
+                style={{ position: "absolute", left: 20, bottom: 10 }}
+              >
                 {state.quantity}
-              </A>
+              </QuantityCount>
             </div>
             <div>{state.total}$</div>
           </Link>
-        </G>
+        </NavItem>
       )}
     </CartContext.Consumer>
   );

@@ -5,7 +5,7 @@ import Head from "next/head";
 import Link from "next/link";
 import { findDepartmentById } from "@/departments";
 
-const A = styled.div`
+const Wrapper = styled.div`
   display: grid;
   grid-template-columns: 1fr 10fr 1fr;
   grid-auto-rows: minmax(auto, auto);
@@ -14,24 +14,23 @@ const A = styled.div`
   overflow: hidden;
 `;
 
-const B = styled.div`
+const Photos = styled.div`
   display: flex;
   flex-direction: column;
   gap: 6px;
   width: 100px;
 `;
 
-const CC = styled.div`
+const Photo = styled.div`
   width: 400px;
   margin: auto;
 `;
 
-const D = styled.div`
+const Details = styled.div`
   padding: 12px;
   gap: 1em;
   display: flex;
   flex-direction: column;
-  border: 0 solid;
   border-radius: 1em;
   min-width: 200px;
   min-height: 400px;
@@ -40,13 +39,13 @@ const D = styled.div`
   right: 1em;
 `;
 
-const E = styled.img`
+const Img = styled.img`
   width: 100%;
   height: auto;
   display: inline-block;
 `;
 
-const F = styled.div`
+const Brand = styled.div`
   text-decoration: underline;
   margin-top: 1em;
 `;
@@ -54,7 +53,7 @@ const F = styled.div`
 export default function C({ product }) {
   const [x, xs] = useState(0);
   const photos = product.ProductPhotos.map(({ Photos }, index) => (
-    <E
+    <Img
       onClick={() => {
         xs(index);
       }}
@@ -69,13 +68,13 @@ export default function C({ product }) {
         <title>{`Walmart.com - ${product.name}`}</title>
       </Head>
 
-      <A>
-        <B>{photos}</B>
+      <Wrapper>
+        <Photos>{photos}</Photos>
 
-        <CC>{photos[x]}</CC>
+        <Photo>{photos[x]}</Photo>
 
-        <D className="shadow-soft">
-          <F>
+        <Details className="shadow-soft">
+          <Brand>
             <Link
               href={{
                 pathname:
@@ -86,7 +85,7 @@ export default function C({ product }) {
             >
               {product.Brands.name}
             </Link>
-          </F>
+          </Brand>
           <div>{product.name}</div>
           <div style={{ fontSize: "x-large" }}>
             <b>{product.price}$</b>
@@ -96,8 +95,8 @@ export default function C({ product }) {
               <b>Add to Cart</b>
             </Cart>
           </span>
-        </D>
-      </A>
+        </Details>
+      </Wrapper>
     </>
   );
 }

@@ -8,7 +8,7 @@ import { Departments } from "@/departments";
 import Link from "next/link";
 import { signIn, signOut, useSession } from "next-auth/react";
 
-const A = styled.div`
+const Nav = styled.div`
   width: 180px;
   padding: 2em;
   position: fixed;
@@ -17,31 +17,36 @@ const A = styled.div`
   display: flex;
   flex-direction: column;
   gap: 18px;
+  height: 100%;
+
+  @media only screen and (min-width: 1024px) {
+    display: none;
+  }
 `;
 
-const B = styled.div`
+const NavItem = styled.div`
   svg {
     margin-right: 6px;
   }
 `;
 
-const E = styled.div`
+const NavSubItem = styled.div`
   margin-top: 12px;
   margin-left: 24px;
 `;
 
-const CC = styled.hr`
+const Hr = styled.hr`
   color: white;
 `;
 
 export default function C() {
-  const [x, xs] = useState(false);
+  const [departmentMenu, departmentMenuSet] = useState(false);
   const [x2, xs2] = useState(false);
   const { status } = useSession();
 
   return (
-    <A className="shadow-soft" style={{ height: "100%" }}>
-      <B
+    <Nav className="shadow-soft">
+      <NavItem
         onClick={() => {
           xs2(!x2);
         }}
@@ -52,38 +57,38 @@ export default function C() {
           (status === "loading" ? (
             <>Loading...</>
           ) : status === "authenticated" ? (
-            <E
+            <NavSubItem
               onClick={() => {
                 signOut();
               }}
             >
               Logout
-            </E>
+            </NavSubItem>
           ) : (
-            <E
+            <NavSubItem
               onClick={() => {
                 signIn();
               }}
             >
               Sign in
-            </E>
+            </NavSubItem>
           ))}
-      </B>
+      </NavItem>
 
-      <B>
+      <NavItem>
         <Link href="/cart">
           <HiArrowDownTray fontSize="large" />
           My items
         </Link>
-      </B>
+      </NavItem>
 
-      <CC />
+      <Hr />
 
-      <B>
+      <NavItem>
         <div
           style={{ display: "flex" }}
           onClick={() => {
-            xs(!x);
+            departmentMenuSet(!departmentMenu);
           }}
         >
           <div>
@@ -96,21 +101,21 @@ export default function C() {
           </div>
         </div>
 
-        {x && (
+        {departmentMenu && (
           <>
-            <E>
+            <NavSubItem>
               <Link href="/all-departments">
                 <b>All departmets</b>
               </Link>
-            </E>
+            </NavSubItem>
             {Object.entries(Departments).map(([alias, { id, name }]) => (
-              <E key={id}>
+              <NavSubItem key={id}>
                 <Link href={"/department/" + alias}>{name}</Link>
-              </E>
+              </NavSubItem>
             ))}
           </>
         )}
-      </B>
-    </A>
+      </NavItem>
+    </Nav>
   );
 }

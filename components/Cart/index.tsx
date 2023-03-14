@@ -5,52 +5,50 @@ import styled from "styled-components";
 import { SlArrowRight, SlArrowDown } from "react-icons/sl";
 import { useContext, useState } from "react";
 
-const A = styled.div`
+const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   gap: 1em;
 `;
 
-const B = styled.div`
+const CartItemLargeContainer = styled.div`
   border: 0 solid gray;
   padding: 1em;
   border-radius: 1em;
   padding: 1em;
 `;
 
-const CC = styled.span`
+const HeaderItemCount = styled.span`
   color: gray;
   font-size: large;
 `;
 
-const D = styled.div`
-  border: 0 solid;
+const Header = styled.div`
   border-radius: 1em;
   display: flex;
   justify-content: space-between;
   padding: 1em;
 `;
 
-const E = styled.div``;
+const CartItemMenuLargeButton = styled.div``;
 
-const U = styled.button`
+const CheckoutButton = styled.button`
   background-color: var(--WALMART-BLUE);
   color: white;
   padding: 1em;
   display: block;
   width: 80%;
   margin: auto;
-  border: 0 solid;
   border-radius: 2em;
   font-weight: bold;
 `;
 
-const G = styled(B)`
+const CartItemSmallContainer = styled(CartItemLargeContainer)`
   display: flex;
   gap: 6px;
 `;
 
-const H = styled.div`
+const CartItemLarge = styled.div`
   border-top: 1px solid lightgray;
   padding: 1em;
 
@@ -59,8 +57,20 @@ const H = styled.div`
   }
 `;
 
+const MobileCheckout = styled.div`
+  bottom: 20px;
+  left: 0;
+  position: fixed;
+  display: inline-flex;
+  width: 100vw;
+
+  @media only screen and(max-width: 1024px) {
+    display: none;
+  }
+`;
+
 export default function C() {
-  const [x, xs] = useState(false);
+  const [dropdownCartItem, dropdownCartItemSet] = useState(false);
   const [state] = useContext(CartContext);
   const products = Object.keys(state.product).map(
     (key) => state.product[key as unknown as number]
@@ -68,62 +78,55 @@ export default function C() {
 
   return (
     <>
-      <A>
+      <Wrapper>
         <h1>
-          Cart <CC>({state.quantity} items)</CC>
+          Cart <HeaderItemCount>({state.quantity} items)</HeaderItemCount>
         </h1>
 
-        <D
+        <Header
           className="shadow-soft"
           onClick={() => {
-            xs(!x);
+            dropdownCartItemSet(!dropdownCartItem);
           }}
         >
           <h3>{state.quantity} items</h3>
 
-          <E>
-            {state.quantity > 0 && (x ? <SlArrowDown /> : <SlArrowRight />)}
-          </E>
-        </D>
+          <CartItemMenuLargeButton>
+            {state.quantity > 0 &&
+              (dropdownCartItem ? <SlArrowDown /> : <SlArrowRight />)}
+          </CartItemMenuLargeButton>
+        </Header>
 
         {state.quantity > 0 ? (
-          x ? (
-            <B className="shadow-soft">
+          dropdownCartItem ? (
+            <CartItemLargeContainer className="shadow-soft">
               {products.map(
                 (product) =>
                   state.product[product.id].quantity > 0 && (
-                    <H key={product.id}>
+                    <CartItemLarge key={product.id}>
                       <Card2 product={product} />
-                    </H>
+                    </CartItemLarge>
                   )
               )}
-            </B>
+            </CartItemLargeContainer>
           ) : (
-            <G className="shadow-soft">
+            <CartItemSmallContainer className="shadow-soft">
               {products.map(
                 (product) =>
                   state.product[product.id].quantity > 0 && (
                     <Card3 product={product} key={product.id} />
                   )
               )}
-            </G>
+            </CartItemSmallContainer>
           )
         ) : (
           <h2>No item saved.</h2>
         )}
-      </A>
+      </Wrapper>
 
-      <div style={{ position: "absolute", bottom: 60, left: 0 }}>
-        <div
-          style={{
-            position: "fixed",
-            display: "flex",
-            width: "100vw",
-          }}
-        >
-          <U>Continue to checkout</U>
-        </div>
-      </div>
+      <MobileCheckout>
+        <CheckoutButton>Continue to checkout</CheckoutButton>
+      </MobileCheckout>
     </>
   );
 }

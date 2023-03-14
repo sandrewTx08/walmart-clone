@@ -1,63 +1,77 @@
 import styled from "styled-components";
 
-const A = styled.div`
+const Container = styled.div`
+  justify-content: center;
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-auto-rows: auto;
+  grid-template-columns: repeat(auto-fit, minmax(300px, auto));
 `;
 
-const CC = styled.img`
+const Img = styled.img`
   display: block;
   height: auto;
   width: 100%;
   margin-bottom: 1em;
+  border-radius: 1em;
 `;
 
-const B = styled.div`
+const Wrapper = styled.div`
   padding: 2em;
   margin: 1em;
+  border-radius: 1em;
 `;
 
 export default function C() {
   return (
-    <A>
-      <B className="shadow-soft">
-        <CC src="https://picsum.photos/seed/465/300" />
+    <Container>
+      <Wrapper className="shadow-soft">
+        <Img src="https://picsum.photos/seed/465/300" />
         <h2>Lorem ipsum dolor sit amet.</h2>
         Lorem ipsum dolor sit, amet consectetur adipisicing elit. Beatae magni
-        delectus, dolores excepturi repudiandae soluta tempora in deleniti porro
-        quis aperiam, praesentium nihil ad dignissimos consequuntur
-        reprehenderit expedita atque incidunt!
-      </B>
+      </Wrapper>
 
-      <B className="shadow-soft">
-        <CC src="https://picsum.photos/seed/556/300" />
+      <Wrapper className="shadow-soft">
+        <Img src="https://picsum.photos/seed/556/300" />
         <h2>Lorem ipsum dolor sit amet.</h2>
         Lorem ipsum dolor sit, amet consectetur adipisicing elit. Beatae magni
-        delectus, dolores excepturi repudiandae soluta tempora in deleniti porro
-        quis aperiam, praesentium nihil ad dignissimos consequuntur
-        reprehenderit expedita atque incidunt!
-      </B>
+        delectus, dolore
+      </Wrapper>
 
-      <A>
-        <B className="shadow-soft">
-          <CC src="https://picsum.photos/seed/654/300" />
+      <Container>
+        <Wrapper className="shadow-soft">
+          <Img src="https://picsum.photos/seed/654/300" />
           <h2>Lorem ipsum dolor sit amet.</h2>
           Lorem ipsum dolor sit, amet consectetur adipisicing elit. Beatae magni
-        </B>
+          delectus, dolore
+        </Wrapper>
 
-        <B className="shadow-soft">
-          <CC src="https://picsum.photos/seed/5642/300" />
+        <Wrapper className="shadow-soft">
+          <Img src="https://picsum.photos/seed/5642/300" />
           <h2>Lorem ipsum dolor sit amet.</h2>
           Lorem ipsum dolor sit, amet consectetur adipisicing elit. Beatae magni
-        </B>
-      </A>
+          delectus, dolore
+        </Wrapper>
+      </Container>
 
-      <B className="shadow-soft">
-        <CC src="https://picsum.photos/seed/769/300" />
+      <Wrapper className="shadow-soft">
+        <Img src="https://picsum.photos/seed/769/300" />
         <h2>Lorem ipsum dolor sit amet.</h2>
         Lorem ipsum dolor sit, amet consectetur adipisicing elit. Beatae magni
-      </B>
-    </A>
+        delectus, dolore
+      </Wrapper>
+
+      <Wrapper className="shadow-soft">
+        <Img src="https://picsum.photos/seed/854/300" />
+        <h2>Lorem ipsum dolor sit amet.</h2>
+        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Beatae magni
+        delectus, dolore
+      </Wrapper>
+
+      <Wrapper className="shadow-soft">
+        <Img src="https://picsum.photos/seed/7809/300" />
+        <h2>Lorem ipsum dolor sit amet.</h2>
+        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Beatae magni
+        delectus, dolore
+      </Wrapper>
+    </Container>
   );
 }

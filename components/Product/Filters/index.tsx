@@ -4,33 +4,31 @@ import { useState, useReducer } from "react";
 import { Li, Ul } from "@/components/List/List1";
 import { useRouter } from "next/router";
 
-const F = styled.button`
+const BrandNotSelectedButton = styled.button`
   background-color: gray;
   color: white;
   padding: 6px 12px;
-  border: 0 solid;
   border-radius: 2em;
   font-weight: bold;
 `;
 
-const Z = styled(F)`
+const BrandSelectedButton = styled(BrandNotSelectedButton)`
   background-color: black;
 `;
 
-const A = styled.div`
+const Wrapper = styled.div`
   display: flex;
   justify-content: space-between;
   padding-bottom: 1em;
   border-bottom: 1px solid lightgray;
 `;
 
-const B = styled.div`
+const BrandButton = styled.div`
   background-color: white;
-  border: 0 solid;
   border-radius: 2em;
 `;
 
-const CC = styled.ul`
+const BrandMenuList = styled.ul`
   padding: 1em;
 
   li:last-child {
@@ -38,25 +36,24 @@ const CC = styled.ul`
   }
 `;
 
-const D = styled.li`
+const BrandMenuItem = styled.li`
   display: flex;
   padding: 3px;
 `;
 
-const E = styled.input`
+const BrandItemCheckbox = styled.input`
   margin-right: 12px;
 `;
 
-const G = styled.div`
+const BrandMenuWrapper = styled.div`
   position: absolute;
   background-color: white;
-  border: 0 solid;
   border-radius: 1em;
   z-index: 900;
   width: 300px;
 `;
 
-const H = styled.div`
+const BrandMenuClear = styled.div`
   text-decoration: underline;
   text-align: center;
   padding-bottom: 1em;
@@ -67,16 +64,16 @@ const H = styled.div`
   }
 `;
 
-const I = styled.span`
+const BrandProductCount = styled.span`
   color: gray;
   margin-left: auto;
 `;
 
 export default function C({ brands, brandsCount }) {
   const router = useRouter();
-  const [x, xs] = useState(false);
-  const [x1, xs1] = useState(false);
-  const [x2, xs2] = useReducer(
+  const [brandMenu, brandMenuSet] = useState(false);
+  const [sortMenu, sortMenuSet] = useState(false);
+  const [brandSelects, xs2] = useReducer(
     (state, action: { type: "CHECK" | "UNCHECK" | "CLEAR"; payload }) => {
       switch (action.type) {
         case "CHECK": {
@@ -105,63 +102,67 @@ export default function C({ brands, brandsCount }) {
   );
 
   return (
-    <A>
-      <B
+    <Wrapper>
+      <BrandButton
         onClick={() => {
-          xs(!x);
-          xs1(false);
+          brandMenuSet(!brandMenu);
+          sortMenuSet(false);
         }}
       >
-        {x2.length > 0 ? <Z>Brand ({x2.length})</Z> : <F>Brand</F>}
-
-        {x && (
-          <G className="shadow-soft">
-            <div>
-              <CC>
-                {brandsCount.map((brand) => (
-                  <D key={brand.id}>
-                    <E
-                      type="checkbox"
-                      defaultChecked={x2.find((id) => brand.id == id)}
-                      onChange={(event) => {
-                        if (event.target.checked === true) {
-                          xs2({ type: "CHECK", payload: brand });
-                        } else if (event.target.checked === false) {
-                          xs2({ type: "UNCHECK", payload: brand });
-                        }
-                      }}
-                    />
-                    {brand.name}
-
-                    <I>{brand._count.Products}</I>
-                  </D>
-                ))}
-              </CC>
-
-              <H
-                onClick={() => {
-                  xs2({ type: "CLEAR", payload: {} });
-                }}
-              >
-                Clear
-              </H>
-            </div>
-          </G>
+        {brandSelects.length > 0 ? (
+          <BrandSelectedButton>
+            Brand ({brandSelects.length})
+          </BrandSelectedButton>
+        ) : (
+          <BrandNotSelectedButton>Brand</BrandNotSelectedButton>
         )}
-      </B>
+
+        {brandMenu && (
+          <BrandMenuWrapper className="shadow-soft">
+            <BrandMenuList>
+              {brandsCount.map((brand) => (
+                <BrandMenuItem key={brand.id}>
+                  <BrandItemCheckbox
+                    type="checkbox"
+                    defaultChecked={brandSelects.find((id) => brand.id == id)}
+                    onChange={(event) => {
+                      if (event.target.checked === true) {
+                        xs2({ type: "CHECK", payload: brand });
+                      } else if (event.target.checked === false) {
+                        xs2({ type: "UNCHECK", payload: brand });
+                      }
+                    }}
+                  />
+                  {brand.name}
+
+                  <BrandProductCount>{brand._count.Products}</BrandProductCount>
+                </BrandMenuItem>
+              ))}
+            </BrandMenuList>
+
+            <BrandMenuClear
+              onClick={() => {
+                xs2({ type: "CLEAR", payload: {} });
+              }}
+            >
+              Clear
+            </BrandMenuClear>
+          </BrandMenuWrapper>
+        )}
+      </BrandButton>
 
       <div
         onClick={() => {
-          xs1(!x1);
-          xs(false);
+          sortMenuSet(!sortMenu);
+          brandMenuSet(false);
         }}
       >
         <b>Sort by</b>
         <span style={{ position: "relative", top: 4, marginLeft: 12 }}>
-          {x1 ? <SlArrowDown /> : <SlArrowRight />}
+          {sortMenu ? <SlArrowDown /> : <SlArrowRight />}
         </span>
 
-        {x1 && (
+        {sortMenu && (
           <Ul className="shadow-soft" style={{ zIndex: 900 }}>
             <Li
               onClick={() => {
@@ -182,6 +183,6 @@ export default function C({ brands, brandsCount }) {
           </Ul>
         )}
       </div>
-    </A>
+    </Wrapper>
   );
 }

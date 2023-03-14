@@ -5,7 +5,7 @@ import ProductPagination from "@/components/Product/Pagination";
 import Head from "next/head";
 import styled from "styled-components";
 
-const A = styled.div`
+const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   gap: 1em;
@@ -24,7 +24,7 @@ export default function Page({
       <Head>
         <title>{`Walmart.com - ${department}`}</title>
       </Head>
-      <A>
+      <Wrapper>
         <h2>
           {department}{" "}
           <span
@@ -47,7 +47,7 @@ export default function Page({
         </ProductContainer>
 
         <ProductPagination pagination={pagination} />
-      </A>
+      </Wrapper>
     </>
   );
 }

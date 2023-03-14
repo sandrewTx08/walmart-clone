@@ -8,6 +8,8 @@ export const Ul = styled.ul`
   display: flex;
   flex-direction: column;
   gap: 6px;
+  border-radius: 1em;
+  padding: 12px;
 `;
 
 export const Li = styled.li`

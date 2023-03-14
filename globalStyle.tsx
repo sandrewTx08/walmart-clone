@@ -51,6 +51,10 @@ const GlobalStyle = createGlobalStyle`
     list-style: none;
   }
 
+  input {
+    border: 0 solid;
+  }
+
   a,
   a:visited,
   a:hover,

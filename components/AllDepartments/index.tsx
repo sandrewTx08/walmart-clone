@@ -2,9 +2,9 @@ import { Departments } from "@/departments";
 import Link from "next/link";
 import styled from "styled-components";
 
-const A = styled.ul``;
+const Ul = styled.ul``;
 
-const B = styled.li`
+const Li = styled.li`
   padding: 1em;
   text-align: center;
 
@@ -19,13 +19,13 @@ export default function C() {
       <h1>Browse Departments</h1>
 
       <hr />
-      <A>
+      <Ul>
         {Object.entries(Departments).map(([alias, { name, id }]) => (
-          <B key={id}>
+          <Li key={id}>
             <Link href={"/department/" + alias}>{name}</Link>
-          </B>
+          </Li>
         ))}
-      </A>
+      </Ul>
     </>
   );
 }
