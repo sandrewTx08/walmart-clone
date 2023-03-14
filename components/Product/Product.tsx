@@ -8,6 +8,7 @@ const A = styled.div`
   grid-template-columns: 2fr 6fr 4fr;
   grid-auto-rows: minmax(auto, 500px);
   grid-gap: 1em;
+  position: relative;
 `;
 
 const B = styled.div`
@@ -29,10 +30,12 @@ const D = styled.div`
   flex-direction: column;
   border: 0 solid;
   border-radius: 1em;
-  min-width: 200px;
+  min-width: 300px;
   background-color: white;
 
   @media only screen and (max-width: 1024px) {
+    position: fixed;
+    right: 1em;
   }
 `;
 
