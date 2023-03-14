@@ -2,13 +2,16 @@ import styled from "styled-components";
 import Cart from "@/components/Product/Cart";
 import { useState } from "react";
 import Head from "next/head";
+import Link from "next/link";
+import { findDepartmentById } from "@/departments";
 
 const A = styled.div`
   display: grid;
-  grid-template-columns: 2fr 6fr 4fr;
-  grid-auto-rows: minmax(auto, 500px);
+  grid-template-columns: 1fr 10fr 1fr;
+  grid-auto-rows: minmax(auto, auto);
   grid-gap: 1em;
   position: relative;
+  overflow: hidden;
 `;
 
 const B = styled.div`
@@ -30,13 +33,11 @@ const D = styled.div`
   flex-direction: column;
   border: 0 solid;
   border-radius: 1em;
-  min-width: 300px;
+  min-width: 200px;
+  min-height: 400px;
   background-color: white;
-
-  @media only screen and (max-width: 1024px) {
-    position: fixed;
-    right: 1em;
-  }
+  position: fixed;
+  right: 1em;
 `;
 
 const E = styled.img`
@@ -74,13 +75,26 @@ export default function C({ product }) {
         <CC>{photos[x]}</CC>
 
         <D className="shadow-soft">
-          <F>{product.Brands.name}</F>
+          <F>
+            <Link
+              href={{
+                pathname:
+                  "/department/" +
+                  findDepartmentById(product.departmentId).alias,
+                query: { brands: product.Brands.id },
+              }}
+            >
+              {product.Brands.name}
+            </Link>
+          </F>
           <div>{product.name}</div>
           <div style={{ fontSize: "x-large" }}>
             <b>{product.price}$</b>
           </div>
           <span>
-            <Cart product={product}>Add to Cart</Cart>
+            <Cart product={product}>
+              <b>Add to Cart</b>
+            </Cart>
           </span>
         </D>
       </A>
