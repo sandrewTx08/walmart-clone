@@ -29,6 +29,7 @@ const M = styled.main`
 
 const N = styled.div`
   width: 100%;
+  position: relative;
 `;
 
 const P = styled.div`

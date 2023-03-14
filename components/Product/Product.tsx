@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import Cart from "@/components/Product/Cart";
 import { useState } from "react";
+import Head from "next/head";
 
 const A = styled.div`
   display: grid;
@@ -59,21 +60,27 @@ export default function C({ product }) {
   ));
 
   return (
-    <A>
-      <B>{photos}</B>
+    <>
+      <Head>
+        <title>{`Walmart.com - ${product.name}`}</title>
+      </Head>
 
-      <CC>{photos[x]}</CC>
+      <A>
+        <B>{photos}</B>
 
-      <D className="shadow-soft">
-        <F>{product.Brands.name}</F>
-        <div>{product.name}</div>
-        <div style={{ fontSize: "x-large" }}>
-          <b>{product.price}$</b>
-        </div>
-        <span>
-          <Cart product={product}>Add to Cart</Cart>
-        </span>
-      </D>
-    </A>
+        <CC>{photos[x]}</CC>
+
+        <D className="shadow-soft">
+          <F>{product.Brands.name}</F>
+          <div>{product.name}</div>
+          <div style={{ fontSize: "x-large" }}>
+            <b>{product.price}$</b>
+          </div>
+          <span>
+            <Cart product={product}>Add to Cart</Cart>
+          </span>
+        </D>
+      </A>
+    </>
   );
 }

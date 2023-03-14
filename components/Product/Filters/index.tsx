@@ -10,6 +10,11 @@ const F = styled.button`
   padding: 6px 12px;
   border: 0 solid;
   border-radius: 2em;
+  font-weight: bold;
+`;
+
+const Z = styled(F)`
+  background-color: black;
 `;
 
 const A = styled.div`
@@ -81,7 +86,8 @@ export default function C({ brands, brandsCount }) {
         }
 
         case "UNCHECK": {
-          state = state.filter((id) => action.payload.id === id);
+          state = state.filter((id) => action.payload.id !== id);
+          if (state.length <= 0) state = [];
           break;
         }
 
@@ -95,20 +101,18 @@ export default function C({ brands, brandsCount }) {
       router.push(router);
       return state;
     },
-    brands.map(({ id }) => id)
+    router.query.brands ? brands.map(({ id }) => id) : []
   );
 
   return (
     <A>
-      <B>
-        <F
-          onClick={() => {
-            xs(!x);
-            xs1(false);
-          }}
-        >
-          Brand
-        </F>
+      <B
+        onClick={() => {
+          xs(!x);
+          xs1(false);
+        }}
+      >
+        {x2.length > 0 ? <Z>Brand ({x2.length})</Z> : <F>Brand</F>}
 
         {x && (
           <G className="shadow-soft">
@@ -118,11 +122,11 @@ export default function C({ brands, brandsCount }) {
                   <D key={brand.id}>
                     <E
                       type="checkbox"
-                      defaultChecked={!x2.find((id) => brand.id === id)}
+                      defaultChecked={x2.find((id) => brand.id == id)}
                       onChange={(event) => {
-                        if (event.target.checked) {
+                        if (event.target.checked === true) {
                           xs2({ type: "CHECK", payload: brand });
-                        } else {
+                        } else if (event.target.checked === false) {
                           xs2({ type: "UNCHECK", payload: brand });
                         }
                       }}

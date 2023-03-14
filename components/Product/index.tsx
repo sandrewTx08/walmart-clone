@@ -2,6 +2,7 @@ import ProductCard from "@/components/Product/Card1";
 import ProductContainer from "@/components/Product/Container";
 import ProductFilters from "@/components/Product/Filters";
 import ProductPagination from "@/components/Product/Pagination";
+import Head from "next/head";
 import styled from "styled-components";
 
 const A = styled.div`
@@ -19,29 +20,34 @@ export default function Page({
   pagination,
 }) {
   return (
-    <A>
-      <h2>
-        {department}{" "}
-        <span
-          style={{
-            color: "lightgray",
-            fontSize: "large",
-            fontWeight: "lighter",
-          }}
-        >
-          ({productsCount})
-        </span>
-      </h2>
+    <>
+      <Head>
+        <title>{`Walmart.com - ${department}`}</title>
+      </Head>
+      <A>
+        <h2>
+          {department}{" "}
+          <span
+            style={{
+              color: "lightgray",
+              fontSize: "large",
+              fontWeight: "lighter",
+            }}
+          >
+            ({productsCount})
+          </span>
+        </h2>
 
-      <ProductFilters brands={brands} brandsCount={brandsCount} />
+        <ProductFilters brands={brands} brandsCount={brandsCount} />
 
-      <ProductContainer>
-        {products.map((product) => (
-          <ProductCard key={product.id} product={product} />
-        ))}
-      </ProductContainer>
+        <ProductContainer>
+          {products.map((product) => (
+            <ProductCard key={product.id} product={product} />
+          ))}
+        </ProductContainer>
 
-      <ProductPagination pagination={pagination} />
-    </A>
+        <ProductPagination pagination={pagination} />
+      </A>
+    </>
   );
 }

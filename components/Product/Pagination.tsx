@@ -3,9 +3,12 @@ import styled from "styled-components";
 import { SlArrowLeft, SlArrowRight } from "react-icons/sl";
 
 const A = styled.div`
-  display: inline-flex;
+  display: flex;
   gap: 2em;
-  margin: auto;
+  border-top: 1px solid lightgray;
+  width: 100%;
+  justify-content: center;
+  padding-top: 1em;
 `;
 
 const B = styled.div`
@@ -31,6 +34,11 @@ const CC = styled(B)`
 const G = styled(B)`
   color: var(--WALMART-BLUE);
   border: 1px solid lightgray;
+
+  &:hover {
+    border: 1px solid black;
+    background-color: white;
+  }
 `;
 
 export default function C({ pagination }) {

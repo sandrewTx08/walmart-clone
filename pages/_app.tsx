@@ -5,6 +5,7 @@ import GlobalStyle from "@/globalStyle";
 import { SessionProvider } from "next-auth/react";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
+import Head from "next/head";
 
 export default function App({
   Component,
@@ -26,13 +27,24 @@ export default function App({
   }, [router]);
 
   return (
-    <SessionProvider session={session}>
-      <CartProvider>
-        <GlobalStyle />
-        <Navigation>
-          {pageLoading ? <Loading /> : <Component {...pageProps} />}
-        </Navigation>
-      </CartProvider>
-    </SessionProvider>
+    <>
+      <Head>
+        <link
+          rel="shortcut icon"
+          type="image/png"
+          sizes="32x32"
+          href="/logo-small.png"
+        />
+        <title>Walmart.com</title>
+      </Head>
+      <SessionProvider session={session}>
+        <CartProvider>
+          <GlobalStyle />
+          <Navigation>
+            {pageLoading ? <Loading /> : <Component {...pageProps} />}
+          </Navigation>
+        </CartProvider>
+      </SessionProvider>
+    </>
   );
 }

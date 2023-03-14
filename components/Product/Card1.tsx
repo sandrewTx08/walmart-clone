@@ -6,6 +6,9 @@ import Cart from "@/components/Product/Cart";
 const A = styled.div`
   overflow: hidden;
   text-overflow: ellipsis;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
 `;
 
 const B = styled.img`
@@ -29,18 +32,18 @@ export default function C({ product }) {
         />
       </Link>
 
-      <div style={{ position: "absolute", fontSize: "small" }}>
-        <Cart product={product} style={{ position: "relative", bottom: 43 }}>
+      <div>
+        <Cart product={product}>
           <MdAdd />
-          Add
+          <b>Add</b>
         </Cart>
       </div>
 
       <Link href={href}>
-        <div>
+        <div style={{ fontSize: "x-large" }}>
           <b>{product.price}$</b>
         </div>
-        <div>{product.name}</div>
+        <div style={{ fontSize: "large" }}>{product.name}</div>
       </Link>
     </A>
   );

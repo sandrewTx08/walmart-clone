@@ -8,8 +8,9 @@ import { Departments } from "@/departments";
 const A = styled.input`
   width: 100%;
   padding: 10px;
+  padding-right: 40px;
   border: 0 solid;
-  border-radius: 20px 0 0 20px;
+  border-radius: 20px;
 `;
 
 const B = styled.div`
@@ -20,13 +21,16 @@ const B = styled.div`
 const CC = styled.button`
   background-color: var(--WALMART-YALLOW);
   border: 0 solid;
-  border-radius: 0 20px 20px 0;
-  padding: 10px;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  font-weight: bolder;
+  position: absolute;
+  right: 5px;
+  top: 4px;
 `;
 
-const D = styled.ul`
-  position: absolute;
-`;
+const D = styled.ul``;
 
 const E = styled.li``;
 
@@ -34,33 +38,33 @@ export default function C() {
   const [x, xs] = useState("");
 
   return (
-    <>
-      <B>
-        <A
-          onChange={({ target: { value } }) => {
-            xs(value);
-          }}
-        />
+    <B>
+      <A
+        onChange={({ target: { value } }) => {
+          xs(value);
+        }}
+      />
+      <div style={{ position: "relative" }}>
         <CC>
           <TfiSearch />
         </CC>
+      </div>
 
-        {x && (
-          <Ul style={{ position: "absolute", top: 82 }} className="shadow-soft">
-            {Object.entries(Departments)
-              .filter(([name]) => {
-                const n1 = name.toLowerCase();
-                const n2 = x.toLowerCase();
-                return n1 && n2.startsWith(n1[0]) && n1 !== n2;
-              })
-              .map(([alias, { id, name }]) => (
-                <Li key={id}>
-                  <Link href={"/department/" + alias}>{name}</Link>
-                </Li>
-              ))}
-          </Ul>
-        )}
-      </B>
-    </>
+      {x && (
+        <Ul style={{ position: "absolute", top: 82 }} className="shadow-soft">
+          {Object.entries(Departments)
+            .filter(([name]) => {
+              const n1 = name.toLowerCase();
+              const n2 = x.toLowerCase();
+              return n1 && n2.startsWith(n1[0]) && n1 !== n2;
+            })
+            .map(([alias, { id, name }]) => (
+              <Li key={id}>
+                <Link href={"/department/" + alias}>{name}</Link>
+              </Li>
+            ))}
+        </Ul>
+      )}
+    </B>
   );
 }

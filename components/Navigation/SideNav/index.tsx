@@ -11,7 +11,7 @@ import { signIn, signOut, useSession } from "next-auth/react";
 const A = styled.div`
   width: 180px;
   padding: 2em;
-  position: absolute;
+  position: fixed;
   z-index: 1000;
   background-color: white;
   display: flex;

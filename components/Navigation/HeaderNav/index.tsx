@@ -54,6 +54,9 @@ const F = styled.header`
   color: white;
   background-color: var(--WALMART-BLUE);
   padding: 1em;
+  position: sticky;
+  top: 0px;
+  z-index: 900;
 `;
 
 export const G = styled.div`
@@ -67,10 +70,6 @@ export const G = styled.div`
   border-top: 0;
   cursor: pointer;
   height: 50px;
-
-  &.disable-hover:hover {
-    background-color: inherit;
-  }
 
   &:hover {
     background-color: var(--WALMART-BLUE-DARK);
