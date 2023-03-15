@@ -8,7 +8,7 @@ import { allDepartments } from "@/departments";
 const SearchInput = styled.input`
   width: 100%;
   padding: 10px;
-  padding-right: 40px;
+  padding-right: 62px;
   border-radius: 20px;
 
   &:focus {
