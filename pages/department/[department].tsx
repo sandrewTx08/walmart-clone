@@ -1,5 +1,5 @@
 import Product from "@/components/Product";
-import { Departments } from "@/departments";
+import { findDepartment } from "@/departments";
 import prisma from "@/utils/prismaClient";
 import { GetServerSidePropsContext } from "next";
 
@@ -12,7 +12,7 @@ export async function getServerSideProps({
       ? query.brands.map((brand) => Number(brand))
       : Number(query.brands) || undefined;
 
-  const department = Departments[params.department as string];
+  const [_, department] = findDepartment(params.department as string);
 
   const [productsCount, products, brandsCount, brands] = await Promise.all([
     prisma.products.count({

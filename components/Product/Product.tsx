@@ -3,7 +3,7 @@ import Cart from "@/components/Product/Cart";
 import { useState } from "react";
 import Head from "next/head";
 import Link from "next/link";
-import { findDepartmentById } from "@/departments";
+import { findDepartment } from "@/departments";
 
 const Wrapper = styled.div`
   display: grid;
@@ -78,8 +78,7 @@ export default function C({ product }) {
             <Link
               href={{
                 pathname:
-                  "/department/" +
-                  findDepartmentById(product.departmentId).alias,
+                  "/department/" + findDepartment(product.departmentId)[0],
                 query: { brands: product.Brands.id },
               }}
             >

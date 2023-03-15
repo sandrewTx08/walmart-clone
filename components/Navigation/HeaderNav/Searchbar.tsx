@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { TfiSearch } from "react-icons/tfi";
 import { useState } from "react";
 import Link from "next/link";
-import { Departments } from "@/departments";
+import { allDepartments, Departments } from "@/departments";
 
 const SearchInput = styled.input`
   width: 100%;
@@ -59,8 +59,8 @@ export default function C() {
     <Wrapper>
       {searchInput && searchMenu && (
         <Ul className="shadow-soft">
-          {Object.entries(Departments)
-            .filter(([name]) => {
+          {allDepartments()
+            .filter(([_, { name }]) => {
               const departmentLow = name.toLowerCase();
               const input = searchInput.toLowerCase();
 

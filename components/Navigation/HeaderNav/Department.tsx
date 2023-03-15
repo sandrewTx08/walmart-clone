@@ -100,21 +100,27 @@ export default function C() {
                   backgroundColor: "#e6f1fc",
                   padding: "1em",
                   overflowY: "scroll",
-                  width: "100%",
+                  width: "64em",
                 }}
               >
                 {departmentMenuSelect?.subDepartments?.length > 0 && (
                   <SubDepartmentMenu>
-                    <Link href={"/department/" + departmentMenuSelect.alias}>
-                      <b>{departmentMenuSelect.name}</b>
-                    </Link>
-
                     {departmentMenuSelect.subDepartments.map((subDepartment) =>
                       Object.entries<IDepartment[string]>(subDepartment).map(
-                        ([alias, { id, name }]) => (
-                          <Link key={id} href={"/department/" + alias}>
-                            {name}
-                          </Link>
+                        ([_, { name, subDepartments }]) => (
+                          <>
+                            <b>{name}</b>
+
+                            {subDepartments.map((subDepartment) =>
+                              Object.entries<IDepartment[string]>(
+                                subDepartment
+                              ).map(([alias, { id, name }]) => (
+                                <Link key={id} href={"/department/" + alias}>
+                                  {name}
+                                </Link>
+                              ))
+                            )}
+                          </>
                         )
                       )
                     )}
