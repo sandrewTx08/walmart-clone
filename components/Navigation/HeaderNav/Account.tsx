@@ -9,49 +9,48 @@ export default function C() {
   const [accountMenu, accountMenuSet] = useState(false);
 
   return (
-    <div id="account">
-      {status === "loading" ? (
-        <>Loading...</>
-      ) : (
-        <NavItem
-          onClick={() => {
-            accountMenuSet(!accountMenu);
-          }}
-        >
-          <HiOutlineUser style={{ fontSize: "large" }} />
+    <div id="account" style={{ position: "relative" }}>
+      <NavItem
+        onClick={() => {
+          accountMenuSet(!accountMenu);
+        }}
+      >
+        <HiOutlineUser style={{ fontSize: "large" }} />
 
-          {status === "authenticated" ? (
+        {status === "authenticated" ? (
+          <div>
+            <div style={{ fontSize: "small" }}>
+              Hi {data.user?.name?.split(" ")[0]}
+            </div>
             <div>
-              <div>
-                <b>Account</b>
-              </div>
-              {data.user?.name?.split(" ")[0]}
+              <b>Account</b>
+            </div>
+          </div>
+        ) : (
+          <div
+            onClick={() => {
+              signIn();
+            }}
+          >
+            <div>
+              <b>Sign in</b>
+            </div>
+            Account
+          </div>
+        )}
+      </NavItem>
 
-              {accountMenu && (
-                <Ul className="shadow-soft">
-                  <Li
-                    onClick={() => {
-                      signOut();
-                    }}
-                  >
-                    Logout
-                  </Li>
-                </Ul>
-              )}
-            </div>
-          ) : (
-            <div
-              onClick={() => {
-                signIn();
-              }}
-            >
-              <div>
-                <b>Sign in</b>
-              </div>
-              Account
-            </div>
-          )}
-        </NavItem>
+      {status === "authenticated" && accountMenu && (
+        <Ul className="shadow-soft">
+          <Li>Account</Li>
+          <Li
+            onClick={() => {
+              signOut();
+            }}
+          >
+            Sign Out
+          </Li>
+        </Ul>
       )}
     </div>
   );
