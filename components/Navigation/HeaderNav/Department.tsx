@@ -1,7 +1,7 @@
 import { NavItem } from "@/components/Navigation/HeaderNav";
 import { HiOutlineSquares2X2 } from "react-icons/hi2";
 import { useState } from "react";
-import { Departments } from "@/departments";
+import { Departments, IDepartment } from "@/departments";
 import Link from "next/link";
 import styled from "styled-components";
 
@@ -110,7 +110,7 @@ export default function C() {
                     </Link>
 
                     {departmentMenuSelect.subDepartments.map((subDepartment) =>
-                      Object.entries(subDepartment).map(
+                      Object.entries<IDepartment[string]>(subDepartment).map(
                         ([alias, { id, name }]) => (
                           <Link key={id} href={"/department/" + alias}>
                             {name}
