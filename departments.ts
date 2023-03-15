@@ -1,10 +1,18 @@
-export interface IDepartment {
-  [alias: string]: { id: number; name: string; subDepartments?: IDepartment[] };
+export interface Department {
+  [alias: string]:
+    | {
+        id: number;
+        name: string;
+        subDepartments?: Department[];
+      }
+    | {
+        name: string;
+        subDepartments: Department[];
+      };
 }
 
-export const Departments: IDepartment = {
+export const Departments: Department = {
   food: {
-    id: 100,
     name: "Food",
     subDepartments: [
       {
@@ -15,13 +23,13 @@ export const Departments: IDepartment = {
             {
               "drinks-hot": {
                 id: 102,
-                name: "Hot drink",
+                name: "Hot",
               },
             },
             {
               "drinks-cold": {
                 id: 103,
-                name: "Cold drink",
+                name: "Cold",
               },
             },
           ],
@@ -30,41 +38,42 @@ export const Departments: IDepartment = {
     ],
   },
   clothes: {
-    id: 300,
     name: "Clothes",
     subDepartments: [
       {
         "men-clothes": {
           id: 301,
-          name: "Men",
+          name: "Men Shoes",
           subDepartments: [{ "men-shoes": { id: 303, name: "Shoes" } }],
         },
       },
       {
         "female-clothes": {
           id: 302,
-          name: "Female",
+          name: "Female Shoes",
           subDepartments: [{ "female-shoes": { id: 304, name: "Shoes" } }],
         },
       },
     ],
   },
   games: {
-    id: 200,
-    name: "Games",
+    name: "Videos Games",
     subDepartments: [
       {
         "console-games": {
           id: 201,
           name: "Console",
-          subDepartments: [{ "console-dvd": { id: 203, name: "DVD" } }],
+          subDepartments: [
+            { "console-xbox": { id: 203, name: "Xbox" } },
+            { "console-playstation": { id: 203, name: "Playstation" } },
+          ],
         },
       },
       {
         "pc-games": {
           id: 202,
-          name: "PC",
-          subDepartments: [{ "console-cd": { id: 203, name: "CD" } }],
+          name: "PC Gamer",
+          subDepartments: [{ "game-desktop": { id: 203, name: "Desktop" } }],
         },
       },
     ],
@@ -72,7 +81,7 @@ export const Departments: IDepartment = {
 };
 
 function findSubDepartment(
-  subDepartment: IDepartment[string],
+  subDepartment: Department[string],
   callback: (object) => void
 ) {
   subDepartment?.subDepartments?.length > 0 &&

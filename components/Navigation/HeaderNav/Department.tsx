@@ -1,7 +1,7 @@
 import { NavItem } from "@/components/Navigation/HeaderNav";
 import { HiOutlineSquares2X2 } from "react-icons/hi2";
 import { useState } from "react";
-import { Departments, IDepartment } from "@/departments";
+import { Departments, Department } from "@/departments";
 import Link from "next/link";
 import styled from "styled-components";
 
@@ -15,7 +15,13 @@ const DepartmentMenuContainer = styled.div`
   width: 32em;
 `;
 
-const DepartmentMenuItem = styled.div`
+const DepartmentMenuItem1 = styled.div`
+  padding: 12px;
+  white-space: nowrap;
+  padding-right: 32em;
+`;
+
+const DepartmentMenuItem = styled(DepartmentMenuItem1)`
   padding: 12px;
   white-space: nowrap;
   padding-right: 32em;
@@ -51,7 +57,12 @@ export default function C() {
   const [departmentMenuSelect, departmentMenuSelectSet] = useState(Object());
 
   return (
-    <div id="departments">
+    <div
+      id="departments"
+      onMouseLeave={() => {
+        departmentMenuSet(false);
+      }}
+    >
       <NavItem
         style={{ fontSize: "large", fontWeight: "bold" }}
         onClick={() => {
@@ -70,21 +81,24 @@ export default function C() {
           <DepartmentMenuContainer className="shadow-soft">
             <DepartmentMenuWrapper>
               <div style={{ overflowY: "scroll", overflowX: "hidden" }}>
-                <DepartmentMenuItem>
-                  <Link href="/all-departments">
+                <Link href="/all-departments">
+                  <DepartmentMenuItem1
+                    onMouseOver={() => {
+                      departmentMenuSelectSet(null);
+                    }}
+                  >
                     <b>All departmets</b>
-                  </Link>
-                </DepartmentMenuItem>
+                  </DepartmentMenuItem1>
+                </Link>
 
                 {Object.entries(Departments).map(
-                  ([alias, { name, id, subDepartments }]) => (
+                  ([alias, { name, subDepartments }]) => (
                     <DepartmentMenuItem
-                      key={id}
+                      key={alias}
                       onMouseOver={() => {
                         departmentMenuSelectSet({
                           subDepartments,
                           name,
-                          id,
                           alias,
                         });
                       }}
@@ -95,27 +109,27 @@ export default function C() {
                 )}
               </div>
 
-              <div
-                style={{
-                  backgroundColor: "#e6f1fc",
-                  padding: "1em",
-                  overflowY: "scroll",
-                  width: "64em",
-                }}
-              >
-                {departmentMenuSelect?.subDepartments?.length > 0 && (
+              {departmentMenuSelect?.subDepartments?.length > 0 && (
+                <div
+                  style={{
+                    backgroundColor: "#e6f1fc",
+                    padding: "1em",
+                    overflowY: "scroll",
+                    width: "64em",
+                  }}
+                >
                   <SubDepartmentMenu>
                     {departmentMenuSelect.subDepartments.map((subDepartment) =>
-                      Object.entries<IDepartment[string]>(subDepartment).map(
+                      Object.entries<Department[string]>(subDepartment).map(
                         ([_, { name, subDepartments }]) => (
                           <>
                             <b>{name}</b>
 
                             {subDepartments.map((subDepartment) =>
-                              Object.entries<IDepartment[string]>(
+                              Object.entries<Department[string]>(
                                 subDepartment
-                              ).map(([alias, { id, name }]) => (
-                                <Link key={id} href={"/department/" + alias}>
+                              ).map(([alias, { name }]) => (
+                                <Link key={alias} href={"/department/" + alias}>
                                   {name}
                                 </Link>
                               ))
@@ -125,8 +139,8 @@ export default function C() {
                       )
                     )}
                   </SubDepartmentMenu>
-                )}
-              </div>
+                </div>
+              )}
             </DepartmentMenuWrapper>
           </DepartmentMenuContainer>
         )}

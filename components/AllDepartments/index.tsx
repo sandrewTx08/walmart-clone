@@ -20,12 +20,12 @@ export default function C() {
 
       <hr />
       <Ul>
-        {Object.entries(Departments).map(([alias, { name, id }]) => (
-          <Li key={id}>
+        {Object.entries(Departments).map(([alias, { name }]) => (
+          <Li key={alias}>
             <Link href={"/department/" + alias}>{name}</Link>
           </Li>
         ))}
       </Ul>
-    </>
+    </> 
   );
 }

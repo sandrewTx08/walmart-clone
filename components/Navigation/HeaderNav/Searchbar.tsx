@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { TfiSearch } from "react-icons/tfi";
 import { useState } from "react";
 import Link from "next/link";
-import { allDepartments, Departments } from "@/departments";
+import { allDepartments } from "@/departments";
 
 const SearchInput = styled.input`
   width: 100%;
@@ -60,18 +60,19 @@ export default function C() {
       {searchInput && searchMenu && (
         <Ul className="shadow-soft">
           {allDepartments()
-            .filter(([_, { name }]) => {
-              const departmentLow = name.toLowerCase();
+            .filter(([_, o]) => {
+              const departmentLow = o.name.toLowerCase();
               const input = searchInput.toLowerCase();
 
               return (
+                o.id &&
                 departmentLow &&
                 input.startsWith(departmentLow[0]) &&
                 departmentLow !== input
               );
             })
-            .map(([alias, { id, name }]) => (
-              <Link key={id} href={"/department/" + alias}>
+            .map(([alias, { name }]) => (
+              <Link key={alias} href={"/department/" + alias}>
                 <Li>
                   {searchInput} <SideText>in {name}</SideText>
                 </Li>
@@ -85,7 +86,10 @@ export default function C() {
           searchMenuSet(true);
         }}
         onBlur={() => {
-          searchMenuSet(false);
+          // Fix menu hiding
+          setTimeout(() => {
+            searchMenuSet(false);
+          }, 80);
         }}
         onChange={({ target: { value } }) => {
           searchInputSet(value);
