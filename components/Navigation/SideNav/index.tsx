@@ -108,8 +108,8 @@ export default function C() {
                 <b>All departmets</b>
               </Link>
             </NavSubItem>
-            {Object.entries(Departments).map(([alias, { id, name }]) => (
-              <NavSubItem key={id}>
+            {Object.entries(Departments).map(([alias, { name }]) => (
+              <NavSubItem key={alias}>
                 <Link href={"/department/" + alias}>{name}</Link>
               </NavSubItem>
             ))}
