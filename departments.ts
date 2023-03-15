@@ -65,7 +65,7 @@ export const Departments: Department = {
           name: "Console",
           subDepartments: [
             { "console-xbox": { id: 203, name: "Xbox" } },
-            { "console-playstation": { id: 203, name: "Playstation" } },
+            { "console-playstation": { id: 204, name: "Playstation" } },
           ],
         },
       },
@@ -73,7 +73,7 @@ export const Departments: Department = {
         "pc-games": {
           id: 202,
           name: "PC Gamer",
-          subDepartments: [{ "game-desktop": { id: 203, name: "Desktop" } }],
+          subDepartments: [{ "game-desktop": { id: 205, name: "Desktop" } }],
         },
       },
     ],
@@ -82,7 +82,7 @@ export const Departments: Department = {
 
 function findSubDepartment(
   subDepartment: Department[string],
-  callback: (object) => void
+  callback: (object: [string, Department[string]]) => void
 ) {
   subDepartment?.subDepartments?.length > 0 &&
     subDepartment.subDepartments.forEach((subDepartment) => {
@@ -93,8 +93,9 @@ function findSubDepartment(
 export function findDepartment(IdOrAlias: string | number) {
   let department;
 
-  function filterCallback([alias, object]) {
-    const filter = object.id === IdOrAlias || alias === IdOrAlias;
+  function filterCallback([alias, object]: [string, Department[string]]) {
+    const filter =
+      ("id" in object && object.id === IdOrAlias) || alias === IdOrAlias;
 
     if (filter === false) {
       findSubDepartment(object, filterCallback);
@@ -111,9 +112,9 @@ export function findDepartment(IdOrAlias: string | number) {
 export function allDepartments() {
   const department = [];
 
-  function filterCallback(object) {
+  function filterCallback([_, object]: [string, Department[string]]) {
     department.push(object);
-    findSubDepartment(object[1], filterCallback);
+    findSubDepartment(object, filterCallback);
   }
 
   Object.entries(Departments).forEach(filterCallback);
