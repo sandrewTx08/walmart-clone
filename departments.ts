@@ -112,9 +112,9 @@ export function findDepartment(IdOrAlias: string | number) {
 export function allDepartments() {
   const department = [];
 
-  function filterCallback([_, object]: [string, Department[string]]) {
+  function filterCallback(object: [string, Department[string]]) {
     department.push(object);
-    findSubDepartment(object, filterCallback);
+    findSubDepartment(object[1], filterCallback);
   }
 
   Object.entries(Departments).forEach(filterCallback);

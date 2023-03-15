@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { TfiSearch } from "react-icons/tfi";
+import { TfiClose } from "react-icons/tfi";
 import { useState } from "react";
 import Link from "next/link";
 import { allDepartments } from "@/departments";
@@ -33,6 +34,17 @@ const SearchButton = styled.button`
   z-index: 1000;
 `;
 
+const ClearButton = styled.button`
+  position: absolute;
+  background-color: inherit;
+  width: 30px;
+  height: 30px;
+  color: black;
+  right: 36px;
+  top: 5px;
+  z-index: 1000;
+`;
+
 const Ul = styled.div`
   position: absolute;
   background-color: white;
@@ -44,6 +56,14 @@ const Ul = styled.div`
 
 const Li = styled.div`
   padding: 1em;
+
+  &:nth-child(1) {
+    border-top: 1px solid lightgrey;
+  }
+
+  &:hover {
+    background-color: lightgray;
+  }
 `;
 
 const SideText = styled.span`
@@ -82,6 +102,7 @@ export default function C() {
       )}
 
       <SearchInput
+        value={searchInput}
         onFocus={() => {
           searchMenuSet(true);
         }}
@@ -97,6 +118,15 @@ export default function C() {
       />
 
       <div style={{ position: "relative" }}>
+        {searchInput && (
+          <ClearButton
+            onClick={() => {
+              searchInputSet("");
+            }}
+          >
+            <TfiClose />
+          </ClearButton>
+        )}
         <SearchButton>
           <TfiSearch />
         </SearchButton>
