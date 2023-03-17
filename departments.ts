@@ -106,19 +106,19 @@ export const Departments: Department = {
   },
 };
 
-type DeparmtentMap = [string, Department[string]];
+type DepartmentMap = [string, Department[string]];
 
 function findSubDepartment(
-  department: DeparmtentMap,
+  initialDepartment: DepartmentMap,
   callback: (
-    subDepartment: DeparmtentMap,
-    parentDeparment: DeparmtentMap
+    subDepartment: DepartmentMap,
+    parentDeparment: DepartmentMap
   ) => void
 ) {
-  department[1]?.subDepartments?.length > 0 &&
-    department[1].subDepartments.forEach((eachSubDepartment) => {
-      Object.entries(eachSubDepartment).forEach((eachSubDepartmentObject) => {
-        callback(eachSubDepartmentObject, department);
+  initialDepartment[1]?.subDepartments?.length > 0 &&
+    initialDepartment[1].subDepartments.forEach((eachSubDepartment) => {
+      Object.entries(eachSubDepartment).forEach((eachSubDepartmentMap) => {
+        callback(eachSubDepartmentMap, initialDepartment);
       });
     });
 }
@@ -127,7 +127,7 @@ export function findDepartment(IdOrAlias: string | number) {
   let _department;
   let _parentDeparment;
 
-  function filterCallback(departmentObject: DeparmtentMap, parentDeparment) {
+  function callback(departmentObject: DepartmentMap, parentDeparment) {
     const hasFound =
       ("id" in departmentObject[1] && departmentObject[1].id === IdOrAlias) ||
       departmentObject[0] === IdOrAlias;
@@ -136,24 +136,24 @@ export function findDepartment(IdOrAlias: string | number) {
       _department = departmentObject;
       _parentDeparment = parentDeparment;
     } else {
-      findSubDepartment(departmentObject, filterCallback);
+      findSubDepartment(departmentObject, callback);
     }
   }
 
-  Object.entries(Departments).forEach(filterCallback);
+  Object.entries(Departments).forEach(callback);
 
   return [_department, _parentDeparment];
 }
 
 export function allDepartments() {
-  const departments = [];
+  const departments: DepartmentMap[] = [];
 
-  function filterCallback(department: DeparmtentMap) {
+  function callback(department: DepartmentMap) {
     departments.push(department);
-    findSubDepartment(department, filterCallback);
+    findSubDepartment(department, callback);
   }
 
-  Object.entries(Departments).forEach(filterCallback);
+  Object.entries(Departments).forEach(callback);
 
   return departments;
 }

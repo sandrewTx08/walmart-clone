@@ -1,5 +1,5 @@
 import { SlArrowLeft } from "react-icons/sl";
-import { allDepartments, Departments } from "@/departments";
+import { allDepartments } from "@/departments";
 import { Nav, NavHeader, NavItem } from "@/components/Navigation/SideNav";
 import Link from "next/link";
 
