@@ -24,7 +24,7 @@ export default function C() {
       <Ul>
         {allDepartments().map(
           ([alias, o]) =>
-            o.id && (
+            "id" in o && (
               <Li key={alias}>
                 <Link href={"/department/" + alias}>{o.name}</Link>
               </Li>

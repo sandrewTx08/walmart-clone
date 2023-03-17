@@ -85,7 +85,7 @@ export default function C() {
               const input = searchInput.toLowerCase();
 
               return (
-                o.id &&
+                "id" in o &&
                 departmentLow &&
                 input.startsWith(departmentLow[0]) &&
                 departmentLow !== input

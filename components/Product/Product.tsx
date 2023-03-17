@@ -78,7 +78,7 @@ export default function C({ product }) {
             <Link
               href={{
                 pathname:
-                  "/department/" + findDepartment(product.departmentId)[0],
+                  "/department/" + findDepartment(product.departmentId)[0][0],
                 query: { brands: product.Brands.id },
               }}
             >
