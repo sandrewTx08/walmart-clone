@@ -1,5 +1,5 @@
 import { SlArrowLeft } from "react-icons/sl";
-import { Departments } from "@/departments";
+import { allDepartments, Departments } from "@/departments";
 import { Nav, NavHeader, NavItem } from "@/components/Navigation/SideNav";
 import Link from "next/link";
 
@@ -34,13 +34,16 @@ export default function C({ state: [departmentMenu, departmentMenuSet] }) {
         </Link>
       </NavItem>
 
-      {Object.entries(Departments).map(([alias, { name }]) => (
-        <Link href={"/department/" + alias} key={alias}>
-          <NavItem style={{ color: "gray" }} className="border-top-gray">
-            {name}
-          </NavItem>
-        </Link>
-      ))}
+      {allDepartments().map(
+        ([alias, o]) =>
+          "id" in o && (
+            <Link href={"/department/" + alias} key={alias}>
+              <NavItem style={{ color: "gray" }} className="border-top-gray">
+                {o.name}
+              </NavItem>
+            </Link>
+          )
+      )}
     </Nav>
   );
 }

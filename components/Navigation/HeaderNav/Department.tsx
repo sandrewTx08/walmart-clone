@@ -73,7 +73,7 @@ export default function C() {
           fontSize="x-large"
           style={{ position: "relative", bottom: 3 }}
         />
-        Department
+        Departments
       </NavItem>
 
       <div style={{ position: "relative" }}>

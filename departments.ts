@@ -1,14 +1,14 @@
 export interface Department {
-  [alias: string]:
-    | {
-        id: number;
-        name: string;
-        subDepartments?: Department[];
-      }
-    | {
-        name: string;
-        subDepartments: Department[];
-      };
+  readonly [alias: string]:
+    | { name: string } & (
+        | {
+            id: number;
+            subDepartments?: Department[];
+          }
+        | {
+            subDepartments: Department[];
+          }
+      );
 }
 
 export const Departments: Department = {
@@ -17,19 +17,18 @@ export const Departments: Department = {
     subDepartments: [
       {
         "food-drinks": {
-          id: 101,
           name: "Drink",
           subDepartments: [
             {
-              "drinks-hot": {
+              "drinks-tea": {
                 id: 102,
-                name: "Hot",
+                name: "Tea",
               },
             },
             {
-              "drinks-cold": {
+              "drinks-soda": {
                 id: 103,
-                name: "Cold",
+                name: "Soda",
               },
             },
           ],
@@ -42,16 +41,28 @@ export const Departments: Department = {
     subDepartments: [
       {
         "men-clothes": {
-          id: 301,
           name: "Men Shoes",
-          subDepartments: [{ "men-shoes": { id: 303, name: "Shoes" } }],
+          subDepartments: [
+            {
+              "men-shoes": {
+                id: 303,
+                name: "Shoes",
+              },
+            },
+          ],
         },
       },
       {
         "female-clothes": {
-          id: 302,
           name: "Female Shoes",
-          subDepartments: [{ "female-shoes": { id: 304, name: "Shoes" } }],
+          subDepartments: [
+            {
+              "female-shoes": {
+                id: 304,
+                name: "Shoes",
+              },
+            },
+          ],
         },
       },
     ],
@@ -61,63 +72,88 @@ export const Departments: Department = {
     subDepartments: [
       {
         "console-games": {
-          id: 201,
           name: "Console",
           subDepartments: [
-            { "console-xbox": { id: 203, name: "Xbox" } },
-            { "console-playstation": { id: 204, name: "Playstation" } },
+            {
+              "console-xbox": {
+                id: 203,
+                name: "Xbox",
+              },
+            },
+            {
+              "console-playstation": {
+                id: 204,
+                name: "Playstation",
+              },
+            },
           ],
         },
       },
       {
         "pc-games": {
-          id: 202,
           name: "PC Gamer",
-          subDepartments: [{ "game-desktop": { id: 205, name: "Desktop" } }],
+          subDepartments: [
+            {
+              "game-desktop": {
+                id: 205,
+                name: "Desktop",
+              },
+            },
+          ],
         },
       },
     ],
   },
 };
 
+type DeparmtentMap = [string, Department[string]];
+
 function findSubDepartment(
-  subDepartment: Department[string],
-  callback: (object: [string, Department[string]]) => void
+  department: DeparmtentMap,
+  callback: (
+    subDepartment: DeparmtentMap,
+    parentDeparment: DeparmtentMap
+  ) => void
 ) {
-  subDepartment?.subDepartments?.length > 0 &&
-    subDepartment.subDepartments.forEach((subDepartment) => {
-      Object.entries(subDepartment).forEach(callback);
+  department[1]?.subDepartments?.length > 0 &&
+    department[1].subDepartments.forEach((eachSubDepartment) => {
+      Object.entries(eachSubDepartment).forEach((eachSubDepartmentObject) => {
+        callback(eachSubDepartmentObject, department);
+      });
     });
 }
 
 export function findDepartment(IdOrAlias: string | number) {
-  let department;
+  let _department;
+  let _parentDeparment;
 
-  function filterCallback([alias, object]: [string, Department[string]]) {
-    const filter =
-      ("id" in object && object.id === IdOrAlias) || alias === IdOrAlias;
+  function filterCallback(departmentObject: DeparmtentMap, parentDeparment) {
+    const hasFound =
+      ("id" in departmentObject[1] && departmentObject[1].id === IdOrAlias) ||
+      departmentObject[0] === IdOrAlias;
 
-    if (filter === false) {
-      findSubDepartment(object, filterCallback);
-    } else if (filter === true) {
-      department = [alias, object];
+    if (hasFound === true) {
+      _department = departmentObject;
+      _parentDeparment = parentDeparment;
+    } else {
+      findSubDepartment(departmentObject, filterCallback);
     }
   }
 
   Object.entries(Departments).forEach(filterCallback);
 
-  return department;
+  return [_department, _parentDeparment];
 }
 
 export function allDepartments() {
-  const department = [];
+  const departments = [];
 
-  function filterCallback(object: [string, Department[string]]) {
-    department.push(object);
-    findSubDepartment(object[1], filterCallback);
+  function filterCallback(department: DeparmtentMap) {
+    departments.push(department);
+    findSubDepartment(department, filterCallback);
   }
 
   Object.entries(Departments).forEach(filterCallback);
 
-  return department;
+  return departments;
 }

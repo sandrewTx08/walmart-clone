@@ -3,7 +3,7 @@ import { TfiSearch } from "react-icons/tfi";
 import { TfiClose } from "react-icons/tfi";
 import { useState } from "react";
 import Link from "next/link";
-import { allDepartments } from "@/departments";
+import { allDepartments, findDepartment } from "@/departments";
 
 const SearchInput = styled.input`
   width: 100%;
@@ -94,7 +94,10 @@ export default function C() {
             .map(([alias, { name }]) => (
               <Link key={alias} href={"/department/" + alias}>
                 <Li>
-                  {searchInput} <SideText>in {name}</SideText>
+                  {searchInput}{" "}
+                  <SideText>
+                    {name} in {findDepartment(alias)[1][1].name}
+                  </SideText>
                 </Li>
               </Link>
             ))}

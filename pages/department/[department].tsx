@@ -12,7 +12,7 @@ export async function getServerSideProps({
       ? query.brands.map((brand) => Number(brand))
       : Number(query.brands) || undefined;
 
-  const [_, department] = findDepartment(params.department as string);
+  const [[_, department]] = findDepartment(params.department as string);
 
   const [productsCount, products, brandsCount, brands] = await Promise.all([
     prisma.products.count({
