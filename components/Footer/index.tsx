@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-const A = styled.footer`
+const Footer = styled.footer`
   font-size: small;
   display: flex;
   color: black;
@@ -21,7 +21,7 @@ const A = styled.footer`
   }
 `;
 
-const CC = styled.a`
+const FooterText = styled.a`
   white-space: nowrap;
   display: inline;
   margin: 1em;
@@ -29,23 +29,23 @@ const CC = styled.a`
 
 export default function C() {
   return (
-    <A>
-      <CC>All Departments</CC>
-      <CC>Store Directory</CC>
-      <CC>Careers</CC>
-      <CC>Our Company</CC>
-      <CC>Sell on Walmart.com</CC>
-      <CC>Help</CC>
-      <CC>COVID-19 Vaccine Scheduler</CC>
-      <CC>Product Recalls</CC>
-      <CC>Accessibility</CC>
-      <CC>Tax Exempt Program</CC>
-      <CC>Get the Walmart App</CC>
-      <CC>Sign-up for Email</CC>
-      <CC>Safety Data Sheet</CC>
-      <CC>Terms of Use</CC>
-      <CC>Privacy & Security</CC>
-      <CC>CA Privacy Rights</CC>
-    </A>
+    <Footer>
+      <FooterText>All Departments</FooterText>
+      <FooterText>Store Directory</FooterText>
+      <FooterText>Careers</FooterText>
+      <FooterText>Our Company</FooterText>
+      <FooterText>Sell on Walmart.com</FooterText>
+      <FooterText>Help</FooterText>
+      <FooterText>COVID-19 Vaccine Scheduler</FooterText>
+      <FooterText>Product Recalls</FooterText>
+      <FooterText>Accessibility</FooterText>
+      <FooterText>Tax Exempt Program</FooterText>
+      <FooterText>Get the Walmart App</FooterText>
+      <FooterText>Sign-up for Email</FooterText>
+      <FooterText>Safety Data Sheet</FooterText>
+      <FooterText>Terms of Use</FooterText>
+      <FooterText>Privacy & Security</FooterText>
+      <FooterText>CA Privacy Rights</FooterText>
+    </Footer>
   );
 }
