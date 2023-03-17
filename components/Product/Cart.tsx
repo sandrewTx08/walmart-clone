@@ -9,6 +9,7 @@ const AddButton = styled.button`
   border-radius: 2em;
   display: flex;
   align-items: center;
+  font-size: large;
 
   &:hover {
     background-color: var(--WALMART-BLUE-DARK);
