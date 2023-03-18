@@ -6,7 +6,7 @@ const Container = styled.div`
   justify-content: center;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: 340px 1fr;
+  grid-template-rows: minmax(340px, auto) 1fr;
   gap: 1em;
 
   @media only screen and (max-width: 1024px) {
@@ -38,20 +38,21 @@ export default function C({ product }) {
         style={{
           gridColumnStart: 1,
           gridColumnEnd: 3,
-          backgroundImage: 'url("https://picsum.photos/seed/700/400")',
+          backgroundImage: 'url("https://picsum.photos/seed/1254/1050")',
           backgroundPosition: "center",
           fontWeight: "bolder",
           fontSize: "xx-large",
           color: "white",
-          opacity: ".8",
+          justifyContent: "center",
+          textAlign: "center",
         }}
       >
         Buy online now the best products
       </Wrapper>
 
-      <div style={{ margin: "auto" }}>
+      <Wrapper className="shadow-soft">
         <Card product={product} />
-      </div>
+      </Wrapper>
 
       <Wrapper className="shadow-soft">
         <div>
@@ -106,7 +107,7 @@ export default function C({ product }) {
 
         <div>
           <Img src="https://picsum.photos/seed/213/300" />
-          Digit the cupom for discount
+          Coupon on next buy
         </div>
       </Wrapper>
 
@@ -137,7 +138,7 @@ export default function C({ product }) {
 
         <div>
           <Img src="https://picsum.photos/seed/566/300" />
-          Digit the cupom for discount
+          Digit the coupon for discount
         </div>
       </Wrapper>
     </Container>

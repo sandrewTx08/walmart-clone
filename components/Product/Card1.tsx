@@ -9,12 +9,14 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   gap: 12px;
+  width: auto;
+  height: 100%;
 `;
 
 const Img = styled.img`
   width: 100%;
   height: auto;
-  display: inline-block;
+  display: block;
 `;
 
 export default function C({ product }) {
