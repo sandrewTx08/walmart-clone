@@ -16,6 +16,8 @@ Website: https://aquamarine-tanuki-a21570.netlify.app
 |   ❌   | Cart        | Save local cart on database after login       |
 |   ✔️   | Login       | Sign in with Google account                   |
 |   🚧   | Database    | Insert products, brands, departments & photos |
+|   ✔️   | Filters     | Filter products by brands                     |
+|   ✔️   | Filters     | Filter products by price high & low           |
 
 - ✔️ Done
 - ❌ Not done
