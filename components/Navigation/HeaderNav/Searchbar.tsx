@@ -52,6 +52,7 @@ const Ul = styled.div`
   width: 100%;
   top: 41px;
   z-index: 1000;
+  overflow-wrap: break-word;
 `;
 
 const Li = styled.div`
@@ -106,6 +107,7 @@ export default function C() {
 
       <SearchInput
         value={searchInput}
+        placeholder="Type a department Ex: Shoes"
         onFocus={() => {
           searchMenuSet(true);
         }}
