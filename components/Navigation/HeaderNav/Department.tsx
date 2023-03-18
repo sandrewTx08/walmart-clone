@@ -13,6 +13,7 @@ const DepartmentMenuContainer = styled.div`
   border-radius: 6px;
   padding: 12px 0;
   width: 32em;
+  z-index: 900;
 `;
 
 const DepartmentMenuItem1 = styled.div`

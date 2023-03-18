@@ -49,7 +49,7 @@ const BrandMenuWrapper = styled.div`
   position: absolute;
   background-color: white;
   border-radius: 1em;
-  z-index: 900;
+  z-index: 800;
   width: 300px;
 `;
 

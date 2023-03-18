@@ -16,8 +16,8 @@ const SideMenuButton = styled.button`
 `;
 
 const Container = styled.div`
-  height: 100%;
   display: flex;
+  flex-direction: column;
 `;
 
 const ContentWrapper = styled.main`
@@ -27,11 +27,6 @@ const ContentWrapper = styled.main`
   margin: auto;
 `;
 
-const Wrapper = styled.div`
-  width: 100%;
-  position: relative;
-`;
-
 export default function C({ children }: React.PropsWithChildren) {
   const [sideMenu, sideMenuSet] = useState(false);
 
@@ -39,27 +34,25 @@ export default function C({ children }: React.PropsWithChildren) {
     <Container>
       {sideMenu && <SideNav />}
 
-      <Wrapper>
-        <HeaderNav
-          sideMenuButton={
-            <SideMenuButton
-              onClick={() => {
-                sideMenuSet(!sideMenu);
-              }}
-            >
-              <RxHamburgerMenu color="white" />
-            </SideMenuButton>
-          }
-        />
+      <HeaderNav
+        sideMenuButton={
+          <SideMenuButton
+            onClick={() => {
+              sideMenuSet(!sideMenu);
+            }}
+          >
+            <RxHamburgerMenu color="white" />
+          </SideMenuButton>
+        }
+      />
 
-        <ContentWrapper
-          onClick={() => {
-            sideMenuSet(false);
-          }}
-        >
-          {children}
-        </ContentWrapper>
-      </Wrapper>
+      <ContentWrapper
+        onClick={() => {
+          sideMenuSet(false);
+        }}
+      >
+        {children}
+      </ContentWrapper>
     </Container>
   );
 }

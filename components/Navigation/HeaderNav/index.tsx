@@ -10,6 +10,9 @@ const Nav = styled.nav`
   display: flex;
   align-items: center;
   justify-items: center;
+  position: sticky;
+  top: 0px;
+  z-index: 900;
 
   .logo-large {
     display: none;
@@ -51,9 +54,6 @@ const Wrapper = styled.div`
   color: white;
   background-color: var(--WALMART-BLUE);
   padding: 1em;
-  position: sticky;
-  top: 0px;
-  z-index: 900;
 `;
 
 export const NavItem = styled.div`

@@ -6,24 +6,18 @@ import Link from "next/link";
 import { findDepartment } from "@/departments";
 
 const Wrapper = styled.div`
-  display: grid;
-  grid-template-columns: 1fr 10fr 1fr;
-  grid-auto-rows: minmax(auto, auto);
-  grid-gap: 1em;
-  position: relative;
-  overflow: hidden;
+  display: flex;
+  gap: 1em;
+  height: 100vh;
+  overflow-x: visible;
 `;
 
 const Photos = styled.div`
   display: flex;
   flex-direction: column;
   gap: 6px;
-  width: 100px;
-`;
-
-const Photo = styled.div`
-  width: 400px;
-  margin: auto;
+  width: 120px;
+  height: 120px;
 `;
 
 const Details = styled.div`
@@ -32,17 +26,18 @@ const Details = styled.div`
   display: flex;
   flex-direction: column;
   border-radius: 1em;
-  min-width: 200px;
-  min-height: 400px;
   background-color: white;
-  position: fixed;
+  position: sticky;
+  width: 300px;
+  top: 0;
   right: 1em;
+  height: 400px;
 `;
 
 const Img = styled.img`
   width: 100%;
-  height: auto;
-  display: inline-block;
+  display: block;
+  margin: 0 auto auto;
 `;
 
 const Brand = styled.div`
@@ -51,11 +46,11 @@ const Brand = styled.div`
 `;
 
 export default function C({ product }) {
-  const [x, xs] = useState(0);
+  const [photo, photoSet] = useState(0);
   const photos = product.ProductPhotos.map(({ Photos }, index) => (
     <Img
       onClick={() => {
-        xs(index);
+        photoSet(index);
       }}
       src={Photos.path}
       key={Photos.id}
@@ -63,39 +58,37 @@ export default function C({ product }) {
   ));
 
   return (
-    <>
+    <Wrapper>
       <Head>
         <title>{`Walmart.com - ${product.name}`}</title>
       </Head>
 
-      <Wrapper>
-        <Photos>{photos}</Photos>
+      <Photos>{photos}</Photos>
 
-        <Photo>{photos[x]}</Photo>
+      {photos[photo] || <Img src="/comingSoon.png" />}
 
-        <Details className="shadow-soft">
-          <Brand>
-            <Link
-              href={{
-                pathname:
-                  "/department/" + findDepartment(product.departmentId)[0][0],
-                query: { brands: product.Brands.id },
-              }}
-            >
-              {product.Brands.name}
-            </Link>
-          </Brand>
-          <div>{product.name}</div>
-          <div style={{ fontSize: "x-large" }}>
-            <b>{product.price}$</b>
-          </div>
-          <span>
-            <Cart product={product}>
-              <b>Add to Cart</b>
-            </Cart>
-          </span>
-        </Details>
-      </Wrapper>
-    </>
+      <Details className="shadow-soft">
+        <Brand>
+          <Link
+            href={{
+              pathname:
+                "/department/" + findDepartment(product.departmentId)[0][0],
+              query: { brands: product.Brands.id },
+            }}
+          >
+            {product.Brands.name}
+          </Link>
+        </Brand>
+        <div>{product.name}</div>
+        <div style={{ fontSize: "x-large" }}>
+          <b>{product.price}$</b>
+        </div>
+        <span>
+          <Cart product={product}>
+            <b>Add to Cart</b>
+          </Cart>
+        </span>
+      </Details>
+    </Wrapper>
   );
 }
