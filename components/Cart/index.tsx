@@ -58,11 +58,9 @@ const CartItemLarge = styled.div`
 `;
 
 const MobileCheckout = styled.div`
-  bottom: 20px;
-  left: 0;
-  position: fixed;
-  display: inline-flex;
-  width: 100vw;
+  display: flex;
+  width: 100%;
+  justify-content: center;
 
   @media only screen and(max-width: 1024px) {
     display: none;
@@ -77,56 +75,56 @@ export default function C() {
   );
 
   return (
-    <>
-      <Wrapper>
-        <h1>
-          Cart <HeaderItemCount>({state.quantity} items)</HeaderItemCount>
-        </h1>
+    <Wrapper>
+      <h1>
+        Cart <HeaderItemCount>({state.quantity} items)</HeaderItemCount>
+      </h1>
 
-        <Header
-          className="shadow-soft"
-          onClick={() => {
-            dropdownCartItemSet(!dropdownCartItem);
-          }}
-        >
-          <h3>{state.quantity} items</h3>
+      <Header
+        className="shadow-soft"
+        onClick={() => {
+          dropdownCartItemSet(!dropdownCartItem);
+        }}
+      >
+        <h3>{state.quantity} items</h3>
 
-          <CartItemMenuLargeButton>
-            {state.quantity > 0 &&
-              (dropdownCartItem ? <SlArrowDown /> : <SlArrowRight />)}
-          </CartItemMenuLargeButton>
-        </Header>
+        <CartItemMenuLargeButton>
+          {state.quantity > 0 &&
+            (dropdownCartItem ? <SlArrowDown /> : <SlArrowRight />)}
+        </CartItemMenuLargeButton>
+      </Header>
 
-        {state.quantity > 0 ? (
-          dropdownCartItem ? (
-            <CartItemLargeContainer className="shadow-soft">
-              {products.map(
-                (product) =>
-                  state.product[product.id].quantity > 0 && (
-                    <CartItemLarge key={product.id}>
-                      <Card2 product={product} />
-                    </CartItemLarge>
-                  )
-              )}
-            </CartItemLargeContainer>
-          ) : (
-            <CartItemSmallContainer className="shadow-soft">
-              {products.map(
-                (product) =>
-                  state.product[product.id].quantity > 0 && (
-                    <Card3 product={product} key={product.id} />
-                  )
-              )}
-            </CartItemSmallContainer>
-          )
+      {state.quantity > 0 ? (
+        dropdownCartItem ? (
+          <CartItemLargeContainer className="shadow-soft">
+            {products.map(
+              (product) =>
+                state.product[product.id].quantity > 0 && (
+                  <CartItemLarge key={product.id}>
+                    <Card2 product={product} />
+                  </CartItemLarge>
+                )
+            )}
+          </CartItemLargeContainer>
         ) : (
-          <h2>No item saved.</h2>
-        )}
-      </Wrapper>
+          <CartItemSmallContainer className="shadow-soft">
+            {products.map(
+              (product) =>
+                state.product[product.id].quantity > 0 && (
+                  <Card3 product={product} key={product.id} />
+                )
+            )}
+          </CartItemSmallContainer>
+        )
+      ) : (
+        <h2>No item saved.</h2>
+      )}
 
-      <MobileCheckout>
-        <CheckoutButton>Continue to checkout</CheckoutButton>
-      </MobileCheckout>
-    </>
+      {state.quantity > 0 && (
+        <MobileCheckout>
+          <CheckoutButton>Continue to checkout</CheckoutButton>
+        </MobileCheckout>
+      )}
+    </Wrapper>
   );
 }
