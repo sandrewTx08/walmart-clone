@@ -102,7 +102,7 @@ export default function C({ product }) {
 
         <div>
           <Img src="https://picsum.photos/seed/7638/300" />
-          Save 1$ for each item
+          Save 1$ for each unit
         </div>
 
         <div>
@@ -133,12 +133,12 @@ export default function C({ product }) {
 
         <div>
           <Img src="https://picsum.photos/seed/9885/300" />
-          Special discount on card
+          Special discount on associate card
         </div>
 
         <div>
           <Img src="https://picsum.photos/seed/566/300" />
-          Digit the coupon for discount
+          Redeem codes
         </div>
       </Wrapper>
     </Container>
