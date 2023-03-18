@@ -4,7 +4,29 @@
 
 Website: https://aquamarine-tanuki-a21570.netlify.app
 
+# Features
+
+| Status | Categrory   | Description                                   |
+| :----: | ----------- | --------------------------------------------- |
+|   ✔️   | Searchbar   | Search departments                            |
+|   ❌   | Searchbar   | Search products                               |
+|   ❌   | Checkout    | **Strapi** payment screen                     |
+|   🚧   | Departments | Nested departments (sub departments)          |
+|   ✔️   | Products    | Paginate the results                          |
+|   ❌   | Cart        | Save local cart on database after login       |
+|   ✔️   | Login       | Sign in with Google account                   |
+|   🚧   | Database    | Insert products, brands, departments & photos |
+
+- ✔️ Done
+- ❌ Not done
+- 🚧 In progress
+
 # Tech stack
+
+# Infra
+
+- Supabase
+- Netlify
 
 ## Front-end
 
