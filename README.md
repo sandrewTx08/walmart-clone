@@ -6,7 +6,7 @@ Website: https://aquamarine-tanuki-a21570.netlify.app
 
 # Features
 
-| Status | Categrory   | Description                                   |
+| Status | Category    | Description                                   |
 | :----: | ----------- | --------------------------------------------- |
 |   ✔️   | Searchbar   | Search departments                            |
 |   ❌   | Searchbar   | Search products                               |
@@ -22,6 +22,20 @@ Website: https://aquamarine-tanuki-a21570.netlify.app
 - ✔️ Done
 - ❌ Not done
 - 🚧 In progress
+
+# How to use
+
+## Finding products
+
+Click on the department menu or type on searchbar to find products
+
+![image](https://user-images.githubusercontent.com/89039740/226144217-34e684c2-8619-48fc-a8df-2658cf039f77.png)
+
+## Searchbar
+
+Type on Searchbar the department you want example: **Shoes**
+
+![image](https://user-images.githubusercontent.com/89039740/226144506-52d350e6-300b-4f53-8cca-15a660ed607a.png)
 
 # Tech stack
 
