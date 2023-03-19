@@ -1,6 +1,5 @@
 import { CartProvider } from "@/contexts/Cart";
 import Navigation from "@/components/Navigation";
-import Footer from "@/components/Footer";
 import Loading from "@/components/Loading";
 import GlobalStyle from "@/globalStyle";
 import { SessionProvider } from "next-auth/react";
@@ -14,6 +13,7 @@ export default function App({
 }) {
   const router = useRouter();
   const [pageLoading, setPageLoading] = useState(false);
+
   useEffect(() => {
     const handleStart = () => {
       setPageLoading(true);
@@ -44,7 +44,6 @@ export default function App({
           <Navigation>
             {pageLoading ? <Loading /> : <Component {...pageProps} />}
           </Navigation>
-          <Footer />
         </CartProvider>
       </SessionProvider>
     </>

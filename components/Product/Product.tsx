@@ -8,16 +8,17 @@ import { findDepartment } from "@/departments";
 const Wrapper = styled.div`
   display: flex;
   gap: 1em;
-  height: 100vh;
-  overflow-x: visible;
 `;
 
 const Photos = styled.div`
   display: flex;
   flex-direction: column;
   gap: 6px;
-  width: 120px;
-  height: 120px;
+
+  img {
+    width: 120px;
+    height: 120px;
+  }
 `;
 
 const Details = styled.div`
@@ -28,16 +29,18 @@ const Details = styled.div`
   border-radius: 1em;
   background-color: white;
   position: sticky;
-  width: 300px;
-  top: 0;
+  min-width: 200px;
+  min-height: 400px;
   right: 1em;
-  height: 400px;
+  top: 0;
 `;
 
 const Img = styled.img`
   width: 100%;
   display: block;
-  margin: 0 auto auto;
+  margin: 0 auto;
+  height: 100%;
+  width: 400px;
 `;
 
 const Brand = styled.div`

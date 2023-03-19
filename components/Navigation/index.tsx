@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import SideNav from "@/components/Navigation/SideNav";
+import Footer from "@/components/Footer";
 import HeaderNav from "@/components/Navigation/HeaderNav";
 import { RxHamburgerMenu } from "react-icons/rx";
 import { useState } from "react";
@@ -15,12 +16,7 @@ const SideMenuButton = styled.button`
   }
 `;
 
-const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-`;
-
-const ContentWrapper = styled.main`
+const Wrapper = styled.main`
   padding: 1em;
   max-width: 1024px;
   min-height: 1024px;
@@ -31,7 +27,7 @@ export default function C({ children }: React.PropsWithChildren) {
   const [sideMenu, sideMenuSet] = useState(false);
 
   return (
-    <Container>
+    <>
       {sideMenu && <SideNav />}
 
       <HeaderNav
@@ -46,13 +42,15 @@ export default function C({ children }: React.PropsWithChildren) {
         }
       />
 
-      <ContentWrapper
+      <Wrapper
         onClick={() => {
           sideMenuSet(false);
         }}
       >
         {children}
-      </ContentWrapper>
-    </Container>
+      </Wrapper>
+
+      <Footer />
+    </>
   );
 }
