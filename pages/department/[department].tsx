@@ -38,21 +38,22 @@ export async function getServerSideProps({
     }),
   ]);
 
-  products.result = products.result.map((data) => ({
-    ...data,
-    price: data.price.toNumber(),
-  })) as unknown as any;
-
-  products.nextPage = null as unknown as any;
-
   return {
     props: {
-      products: products.result,
+      products: products.result.map((data) => ({
+        ...data,
+        price: data.price.toNumber(),
+      })) as unknown as any,
       brands,
       brandsCount,
       productsCount,
       department,
-      pagination: products,
+      pagination: {
+        page: products.page,
+        totalPages: products.totalPages,
+        hasPrevPage: products.hasPrevPage,
+        hasNextPage: products.hasNextPage,
+      },
     },
   };
 }

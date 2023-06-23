@@ -1,6 +1,6 @@
-import paginator from "prisma-paginate";
+import extension from "prisma-paginate";
 import { PrismaClient } from "prisma/prisma-client";
 
-const prisma = paginator(new PrismaClient());
+const prisma = new PrismaClient().$extends(extension);
 
 export default prisma;
