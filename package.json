@@ -15,7 +15,7 @@
     "@types/react-dom": "18.2.7",
     "@types/styled-components": "^5.1.32",
     "babel-plugin-styled-components": "^2.1.4",
-    "eslint": "8.56.0",
+    "eslint": "8.57.1",
     "eslint-config-next": "13.5.7",
     "next": "13.5.7",
     "next-auth": "^4.24.10",
