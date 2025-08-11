@@ -2320,10 +2320,10 @@ pretty-format@^3.8.0:
   resolved "https://registry.yarnpkg.com/pretty-format/-/pretty-format-3.8.0.tgz#bfbed56d5e9a776645f4b1ff7aa1a3ac4fa3c385"
   integrity sha512-WuxUnVtlWL1OfZFQFuqvnvs6MiAGk9UNsBostyBOB0Is9wb5uRESevA6rnl/rkksXaGX3GzZhPup5d6Vp1nFew==
 
-prisma-paginate@^5.2.1:
-  version "5.2.1"
-  resolved "https://registry.yarnpkg.com/prisma-paginate/-/prisma-paginate-5.2.1.tgz#00e3761091229d3aea80ea9d21852089891e43f4"
-  integrity sha512-GwR39iSOGUqTkfpEl75hA/LyMUkhAwc2DqyhDkO6ug+u3zBUZlIfEWolqHOCrHOAKQlaNpgnP2nxFLH0LjBMtA==
+prisma-paginate@^5.2.2:
+  version "5.2.2"
+  resolved "https://registry.yarnpkg.com/prisma-paginate/-/prisma-paginate-5.2.2.tgz#184d8d20ceef40c5886743e7aebe056f858184bf"
+  integrity sha512-Lq7wZ8DPtvNF8r8WTmMlBYDk3La2g+3/Pm09tctbkmLdgDijQifG62HRUy72a/ZnXciUjtAOaHIEvmeESLWkoQ==
 
 prisma@^4.16.2:
   version "4.16.2"
