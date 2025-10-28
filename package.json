@@ -9,7 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@prisma/client": "^4.16.2",
+    "@prisma/client": "^6.18.0",
     "@types/node": "18.19.130",
     "@types/react": "18.2.21",
     "@types/react-dom": "18.2.7",
@@ -19,7 +19,7 @@
     "eslint-config-next": "13.5.11",
     "next": "13.5.11",
     "next-auth": "^4.24.12",
-    "prisma": "^4.16.2",
+    "prisma": "^6.18.0",
     "prisma-paginate": "^5.2.2",
     "react": "^18.2.0",
     "react-dom": "18.2.0",
