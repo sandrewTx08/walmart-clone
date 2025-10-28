@@ -13,7 +13,7 @@
     "@types/node": "18.19.130",
     "@types/react": "18.2.21",
     "@types/react-dom": "18.2.7",
-    "@types/styled-components": "^5.1.32",
+    "@types/styled-components": "^5.1.35",
     "babel-plugin-styled-components": "^2.1.4",
     "eslint": "8.57.1",
     "eslint-config-next": "13.5.11",
