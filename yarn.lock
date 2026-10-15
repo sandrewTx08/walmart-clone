@@ -455,17 +455,17 @@
     tiny-glob "^0.2.9"
     tslib "^2.4.0"
 
-"@prisma/client@^4.16.2":
-  version "4.16.2"
-  resolved "https://registry.yarnpkg.com/@prisma/client/-/client-4.16.2.tgz#3bb9ebd49b35c8236b3d468d0215192267016e2b"
-  integrity sha512-qCoEyxv1ZrQ4bKy39GnylE8Zq31IRmm8bNhNbZx7bF2cU5aiCCnSa93J2imF88MBjn7J9eUQneNxUQVJdl/rPQ==
-  dependencies:
-    "@prisma/engines-version" "4.16.1-1.4bc8b6e1b66cb932731fb1bdbbc550d1e010de81"
+"@prisma/client-runtime-utils@7.10.1":
+  version "7.10.1"
+  resolved "https://registry.yarnpkg.com/@prisma/client-runtime-utils/-/client-runtime-utils-7.10.1.tgz#af603fe5cbcd44e381772a97fedbb1ee1d363a58"
+  integrity sha512-AzoATVIgmO3lcZfM443+9SI7+cyLMW2+Psw4op8WQHpHvHCX//CKxv8fwhiL0yGWF8DjdQrFewxrZo5McBdB8g==
 
-"@prisma/engines-version@4.16.1-1.4bc8b6e1b66cb932731fb1bdbbc550d1e010de81":
-  version "4.16.1-1.4bc8b6e1b66cb932731fb1bdbbc550d1e010de81"
-  resolved "https://registry.yarnpkg.com/@prisma/engines-version/-/engines-version-4.16.1-1.4bc8b6e1b66cb932731fb1bdbbc550d1e010de81.tgz#d3b5dcf95b6d220e258cbf6ae19b06d30a7e9f14"
-  integrity sha512-q617EUWfRIDTriWADZ4YiWRZXCa/WuhNgLTVd+HqWLffjMSPzyM5uOWoauX91wvQClSKZU4pzI4JJLQ9Kl62Qg==
+"@prisma/client@^7.10.1":
+  version "7.10.1"
+  resolved "https://registry.yarnpkg.com/@prisma/client/-/client-7.10.1.tgz#c3a6acd14b79ccd788fc93e150df26bae4be5c83"
+  integrity sha512-5tgAbFGh//zVOC6WPNVgziOErJHYkUE+wmqCwbIyq6IrTXUYtv9y2iBFGh/Owo99Mx0+cr0j1FOrxkYBMuyhaQ==
+  dependencies:
+    "@prisma/client-runtime-utils" "7.10.1"
 
 "@prisma/engines@4.16.2":
   version "4.16.2"
